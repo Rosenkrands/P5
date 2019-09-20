@@ -1,0 +1,56 @@
+\chapter{Statistical theory}\label{ch:theory}
+
+\section{The Multiple Linear Regression Model}
+
+This project will use multiple linear regression to create a model for pricing apartments. The multiple linear model will therefor be introduced. Below is the multiple linear regression model with k parameters 
+
+\begin{align}
+  y = \beta_0 + \beta_1 x_1 + \ldots + \beta_k x_k + \varepsilon
+\end{align}
+
+Here $\beta_0$ is the intercept and $\beta_1, \ldots, \beta_k$ are the coefficients for the observation $X_1 = (x_1, \ldots, x_k)$, and $\varepsilon$ is the unobservable error term.
+
+This notation can be expanded to include a dataset 
+
+\begin{align}
+  \begin{bmatrix}
+    y_1 \\ y_2 \\ \vdots \\ y_n \\
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+    x_{11} & x_{12} & \cdots & x_{1k} \\
+    x_{21} & x_{22} & \cdots & x_{2k} \\ \vdots & \vdots & & \vdots \\ x_{n1} & x_{n2} & \cdots & x_{nk} \\
+  \end{bmatrix}
+  \begin{bmatrix}
+    \beta_0 \\ \beta_1 \\ \vdots \\ \beta_k \\
+  \end{bmatrix} +
+  \begin{bmatrix}
+    \varepsilon_1 \\ \varepsilon_2 \\ \vdots \\ \varepsilon_n \\
+  \end{bmatrix}
+\end{align}
+
+\section{Ordinary Least Squares}
+This section will introduce the method of ordinary least squares for estimating parameters in a linear regression model.
+The case 
+
+\section{Likelihood ratio tests}
+
+\begin{theorem}[theorem title]
+The likelihood ratio test statistic for testing the hypothesis
+\begin{align}
+\mathcal{H}_0:\boldsymbol{\mu} \in \Omega_0
+\end{align}
+aganist the alternative hypothesis
+\begin{align}
+\mathcal{H}_1:\boldsymbol{\mu} \in \Omega_1 \backslash \Omega_0
+\end{align}
+is a monotone function of 
+\begin{align}
+F(\boldsymbol{y})=\frac{D(p_1(\boldsymbol{y});p_0(\boldsymbol{y}))/(m_1-m_0)}{D(\boldsymbol{y};p_1(\boldsymbol{y}))/(n-m_1)}
+\end{align}
+where $p_1(\boldsymbol{y})$ and $p_0(\boldsymbol{y})$ are projections of $\boldsymbol{y}$ on $\Omega_1$ and its subset $\Omega_0$, respectively.
+Under the assumption of $\mathcal{H}_0$ 
+\begin{align}
+F = F(m_1-m_0,n-m_1)
+\end{align}
+\end{theorem}
