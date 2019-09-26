@@ -1,0 +1,188 @@
+\newpage
+\section*{Mini-project}
+We have $Y_1,...,Y_n$ as underlying random variables for observations/data/responses $y_1,...,y_n$.
+Specifically, we let $Y_1,...,Y_n$ be independent normally distributed random with variance $1$, and let $\mu_i= E[Y_i]$ be the mean of $Y_i, i= 1,...,n$.
+Furthermore, we let $x_1,...,x_n$ be given numbers; when the distribution of $(Y_1,...,Y_n)$ depends on $(x_1,...,x_n)$ we also call $(Y_1,...,Y_n)$ the dependent variables and $(x_1,...,x_n)$ the explanatory variables (or the independent variables, though this may be misleading terminology).
+
+\subsection*{Exercise 2.1 The First Model}
+
+Assume that
+\begin{align*}
+    \mu_i = \alpha, \quad i = 1, \ldots,n
+\end{align*}
+where $\alpha$ is an unknown real parameter. 
+
+\begin{enumerate}
+    \item Specify the log likelihood function, the score function, the observed information matrix and the Fisher information matrix
+\end{enumerate}
+
+\subsubsection{Log likelihood function}
+First we find the likehood function, which here is the product of standard normal distribution. The pdf is 
+
+\begin{align*}
+   L(Y;\mu) &= \prod_{i=1}^n \frac{1}{\sigma \sqrt{2 \pi}}exp\left[-\frac{(y_i -\mu)^2}{2 \sigma^2}\right]\\
+\end{align*}
+
+Now we take log to the above equation to obtain the log likelihood function
+
+\begin{align*}
+   l(Y;\alpha) &= log \left( \prod_{i=1}^n \frac{1}{\sigma \sqrt{2 \pi}}exp\left[-\frac{(y_i -\mu)^2}{2 \sigma^2}\right] \right)\\
+   &= \sum_{i = 1}^n log\left( \frac{1}{\sigma \sqrt{2 \pi}}exp\left[-\frac{(y_i - \mu)^2}{2 \sigma^2}\right] \right)\\
+   &= \sum_{i = 1}^n log(1) - log(\sqrt{2 \pi}) - \frac{(y_i - \alpha)^2}{2}\\
+   &= \sum_{i = 1}^n - log\left( \sqrt{2 \pi}\right) - \left(\frac{y_i^2 + \alpha^2 - 2y_i\alpha}{2}\right)\\
+   &= \sum_{i = 1}^n y_i \alpha - log\left( \sqrt{2 \pi}\right) - \left( \frac{y_i^2 + \alpha^2}{2} \right)
+\end{align*}
+
+This is the log likelihood function. 
+
+\subsubsection{Score function}
+
+The score function is the log likelihood function differentiated, thus
+
+\begin{align*}
+    S\left( Y; \alpha \right) &= l'(Y; \alpha)\\
+    &= \sum_{i=1}^n y_i + 0 - \alpha\\
+    &= \sum_{i=1}^n y_i - \alpha.
+\end{align*}
+
+This is the score function. 
+
+\subsubsection{Observed information}
+
+We now find the observed information, which is the score function differentiated and taken minus to
+
+\begin{align*}
+    j\left( Y; \alpha \right) &= - S\left(Y; \alpha \right)\\
+    &=  - \left( \sum_{i = 1}^n -1\right) = n
+\end{align*}
+
+\subsubsection{Fisher informatin matrix}
+
+The Fisher information matrix is the expected value of observed information
+
+\begin{align*}
+    i\left(\alpha \right) &= E\left[j(Y;\alpha)\right]\\
+    &= n
+\end{align*}
+
+\begin{enumerate}[resume]
+    \item  Find the MLE $\hat{\alpha}$.
+\end{enumerate}
+
+The MLE is defined as
+
+\begin{align*}
+    L(\hat{Y}; \alpha) &= sup L(Y; \alpha)
+\end{align*}
+
+and it is found by setting the score function equal $0$
+
+\begin{align*}
+    S\left(Y; \alpha \right) &= 0\\
+    0 &= \sum_{i=1}^n y_i - \alpha\\
+    n\alpha &= \sum_{i=1}^n y_i\\
+    \hat{\alpha} &= \frac{1}{n} \sum_{i=1}^n y_i \\
+    \hat{\alpha} &= \bar{y},
+\end{align*}
+where $\bar{y}$ is the mean of the observed values $y_i$ for $i = 1, \ldots n$
+
+\begin{enumerate}[resume]
+    \item  Specify the asymptotic distribution of $\hat{\alpha}\xrightarrow{\infty}$. Use this to obtain an approximate $95\%$-confidence interval for $\alpha$.
+\end{enumerate}
+
+\begin{theorem}[Distribution of the ML estimator]\label{th:distribution_ml_estimator}
+Let $E = \{\mathbf{y} \ : \ \text{the MLE } \hat{\theta}(\mathbf{y}) \text{ exists}\}$. 
+If $A$ is a $k \times k$ matrix, $A^{1/2}$ denotes the $k \times k$ matrix such that $A = A^{1/2}\left( A^{1/2} \right)^T$.
+Let $\rightarrow^\mathcal{D}$ denote convergence in distribution, $\mathbf{1}[\cdot]$ the indicator function and $I_k$ the $k \times k$ identity matrix.
+Then under regularity conditions, if $\mathbf{Y} \sim f(\cdot;\theta)$ then as $n \rightarrow \infty$ we have that
+\begin{enumerate}
+    \item $P_\theta(Y \in E) \rightarrow 1$
+    \item for any $\varepsilon > 0: \ P_\theta(Y \in E, \ \|\hat{\theta} - \theta\| \leq 1) \rightarrow 1$
+    \item $1[\mathbf{y} \in E] i(\hat{\theta})^{1/2}(\hat{\theta} - \theta) \rightarrow^\mathcal{D} N_k(0, I_k)$ and $1[\mathbf{y} \in E] j(\hat{\theta})^{1/2}(\hat{\theta} - \theta) \rightarrow^\mathcal{D} N_k(0, I_k)$
+    \item $1[\mathbf{y} \in E] i(\theta)^{1/2}(\hat{\theta} - \theta) \rightarrow^\mathcal{D} N_k(0, I_k)$
+\end{enumerate}
+\end{theorem}
+
+\begin{center}
+-----
+\textbf{Udledning mangler}
+-----
+\end{center}
+
+By theorem \ref{th:distribution_ml_estimator} the asymptotic distribution of the ML estimator is given by
+\begin{align*}
+    \hat{\theta} \rightarrow^\mathcal{D} N\left( \theta, \boldsymbol{i}(\theta)^{-1} \right)
+\end{align*}
+
+Since $\alpha$ is one-dimensional $k=1$ and for $0\leq a \leq 0.5$ we have the approximate $(1-a)$-confidence interval
+\begin{align*}
+\left[ \hat{\alpha}(\mathbf{y}) + \Phi_{a/2} \sqrt{D\left( \hat{\alpha}\left(\mathbf{y}\right)\right)}, \hat{\alpha}(\mathbf{y}) + \Phi_{1 - a/2} \sqrt{D\left( \hat{\alpha}\left(\mathbf{y}\right)\right)} \right]
+\end{align*}
+where $D\left(\hat{\alpha}(\mathbf{y})\right) = j\left(\hat{\alpha}(\mathbf{y})\right)^{-1}$
+For $a=0.05$ we have the approximate $95\%$-confidence interval for $\alpha$:
+\begin{align*}
+\left[ \bar{y} - \frac{1.96}{\sqrt{n}}, \bar{y} + \frac{1.96}{\sqrt{n}} \right]    
+\end{align*}
+
+\subsection*{Exercise 2.2 The second model}
+
+Assume that
+\begin{align*}
+    \mu_i=\alpha \beta^{x_i}, \quad i=1,\ldots, n
+\end{align*}
+where $\alpha$ and $\beta$ are unknown real parameters. Then $x_1, \ldots,x_n$ are called explanatory variables. 
+
+\begin{enumerate}
+    \item Specify the log likelihood function, the score function, the observed information matrix and the Fisher information matrix
+\end{enumerate}
+
+\textbf{Log likelihood function}
+In order to find the log likelihood function, we first find the likelihood function
+
+\begin{align*}
+   L(Y;\mu) &= \prod_{i=1}^n \frac{1}{\sigma \sqrt{2 \pi}}exp\left[-\frac{(y_i -\mu)^2}{2 \sigma^2}\right]\\
+\end{align*}
+
+Now we take log the above equation
+
+\begin{align*}
+   l(Y;\alpha \beta^{x_i}) &= log \left( \prod_{i=1}^n \frac{1}{\sigma \sqrt{2 \pi}}exp\left[-\frac{(y_i -\mu)^2}{2 \sigma^2}\right] \right)\\
+   &= \sum_{i = 1}^n y_i \alpha \beta^{x_i} - log\left( \sqrt{2 \pi}\right) - \left( \frac{y_i^2 + (\alpha \beta^{x_i})^2}{2} \right)\\
+   &=\sum_{i = 1}^n y_i \alpha \beta^{x_i} - log\left( \sqrt{2 \pi}\right) - \left( \frac{y_i^2 + (\alpha^2 \beta^{2x_i})}{2} \right)\\
+\end{align*}
+
+\textbf{Score function}
+
+\begin{align*}
+    S\left( Y; \alpha \beta^{x_i} \right) &= l'(Y; \alpha\beta^{x_i})\\
+    &= \sum_{i=1}^n y_i - \alpha \beta^{x_i}\\
+\end{align*}
+
+This is the score function. 
+
+\subsubsection{Observed information}
+
+We now find the observed information, which is the score function differentiated and taken minus to
+
+\begin{align*}
+    j\left( Y; \alpha\beta^{x_i} \right) &= - S\left(Y; \alpha\beta^{x_i} \right)\\
+    &=  - \sum_{i=1}^n -1 = n
+\end{align*}
+
+\subsubsection{Fisher information matrix}
+
+The Fisher information matrix is the expected value of observed information
+
+\begin{align*}
+    i\left(\alpha \beta^{x_i} \right) &= E\left[j(Y;\alpha \beta^{x_i})\right]\\
+    &= n
+\end{align*}
+
+\begin{enumerate}[resume]
+    \item Discuss how you will find the MLE in the following cases: 
+    \begin{enumerate}[label = (\alph*)]
+        \item By using the optim command in R
+        \item First fix $\beta$ and find the MLE of $\alpha$ in term of $\beta$, deknoted $\hat{\alpha}(\beta)$, next find the MLE of $\beta$ and hence that of $\alpha$-the likelihood function with $\alpha$ replaced by $\hat{\alpha(\beta)}$ is called the profile likelihood of $\beta$ (or the partially maximized likelihood function) and is denoted $\hat{L}(\beta)$. Specify the Newton-Raphson procedure for finding the MLE of $\beta$ by maximizing $\hat{L}(\beta)$. Will the procedure converge and return that MLE?
+    \end{enumerate}
+\end{enumerate}
+
