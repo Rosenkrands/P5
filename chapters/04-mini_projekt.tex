@@ -33,11 +33,9 @@ Now we take log to the above equation to obtain the log likelihood function
    &= \sum_{i = 1}^n y_i \alpha - log\left( \sqrt{2 \pi}\right) - \left( \frac{y_i^2 + \alpha^2}{2} \right)
 \end{align*}
 
-This is the log likelihood function. 
-
 \subsubsection{Score function}
 
-The score function is the log likelihood function differentiated, thus
+The score function is the log likelihood function differentiated with respect to its parameter, thus
 
 \begin{align*}
     S\left( Y; \alpha \right) &= l'(Y; \alpha)\\
@@ -53,16 +51,16 @@ We now find the observed information, which is the score function differentiated
 
 \begin{align*}
     j\left( Y; \alpha \right) &= - S\left(Y; \alpha \right)\\
-    &=  - \left( \sum_{i = 1}^n -1\right) = n
+    &=  - \left( \sum_{i = 1}^n -1\right) = n.
 \end{align*}
 
-\subsubsection{Fisher informatin matrix}
+\subsubsection{Fisher information matrix}
 
 The Fisher information matrix is the expected value of observed information
 
 \begin{align*}
     i\left(\alpha \right) &= E\left[j(Y;\alpha)\right]\\
-    &= n
+    &= n.
 \end{align*}
 
 \begin{enumerate}[resume]
@@ -75,16 +73,16 @@ The MLE is defined as
     L(\hat{Y}; \alpha) &= sup L(Y; \alpha)
 \end{align*}
 
-and it is found by setting the score function equal $0$
+and it is found by setting the score function equal to $0$
 
 \begin{align*}
     S\left(Y; \alpha \right) &= 0\\
-    0 &= \sum_{i=1}^n y_i - \alpha\\
+    \sum_{i=1}^n y_i - \alpha &= 0\\
     n\alpha &= \sum_{i=1}^n y_i\\
     \hat{\alpha} &= \frac{1}{n} \sum_{i=1}^n y_i \\
     \hat{\alpha} &= \bar{y},
 \end{align*}
-where $\bar{y}$ is the mean of the observed values $y_i$ for $i = 1, \ldots n$
+where $\bar{y}$ is the mean of the observed values $y_i$ for $i = 1, \ldots n$.
 
 \begin{enumerate}[resume]
     \item  Specify the asymptotic distribution of $\hat{\alpha}\xrightarrow{\infty}$. Use this to obtain an approximate $95\%$-confidence interval for $\alpha$.
@@ -103,22 +101,22 @@ Then under regularity conditions, if $\mathbf{Y} \sim f(\cdot;\theta)$ then as $
 \end{enumerate}
 \end{theorem}
 
-\begin{center}
------
-\textbf{Udledning mangler}
------
-\end{center}
+% \begin{center}
+% -----
+% \textbf{Udledning mangler}
+% -----
+% \end{center}
 
 By theorem \ref{th:distribution_ml_estimator} the asymptotic distribution of the ML estimator is given by
 \begin{align*}
     \hat{\theta} \rightarrow^\mathcal{D} N\left( \theta, \boldsymbol{i}(\theta)^{-1} \right)
 \end{align*}
 
-Since $\alpha$ is one-dimensional $k=1$ and for $0\leq a \leq 0.5$ we have the approximate $(1-a)$-confidence interval
+Since $\alpha$ is one-dimensional, $k=1$, and for $0\leq a \leq 0.5$ we have the approximate $(1-a)$-confidence interval
 \begin{align*}
-\left[ \hat{\alpha}(\mathbf{y}) + \Phi_{a/2} \sqrt{D\left( \hat{\alpha}\left(\mathbf{y}\right)\right)}, \hat{\alpha}(\mathbf{y}) + \Phi_{1 - a/2} \sqrt{D\left( \hat{\alpha}\left(\mathbf{y}\right)\right)} \right]
+\left[ \hat{\alpha}(\mathbf{y}) + \Phi_{a/2} \sqrt{D\left( \hat{\alpha}\left(\mathbf{y}\right)\right)}, \hat{\alpha}(\mathbf{y}) + \Phi_{1 - a/2} \sqrt{D\left( \hat{\alpha}\left(\mathbf{y}\right)\right)} \right],
 \end{align*}
-where $D\left(\hat{\alpha}(\mathbf{y})\right) = j\left(\hat{\alpha}(\mathbf{y})\right)^{-1}$
+where $D\left(\hat{\alpha}(\mathbf{y})\right) = j\left(\hat{\alpha}(\mathbf{y})\right)^{-1}$.
 For $a=0.05$ we have the approximate $95\%$-confidence interval for $\alpha$:
 \begin{align*}
 \left[ \bar{y} - \frac{1.96}{\sqrt{n}}, \bar{y} + \frac{1.96}{\sqrt{n}} \right]    
@@ -140,33 +138,39 @@ where $\alpha$ and $\beta$ are unknown real parameters. Then $x_1, \ldots,x_n$ a
 In order to find the log likelihood function, we first find the likelihood function
 
 \begin{align*}
-   L(Y;\mu) &= \prod_{i=1}^n \frac{1}{\sigma \sqrt{2 \pi}}exp\left[-\frac{(y_i -\mu)^2}{2 \sigma^2}\right]\\
+   L(Y;\mu) &= \prod_{i=1}^n \frac{1}{\sigma \sqrt{2 \pi}}exp\left[-\frac{(y_i -\mu)^2}{2 \sigma^2}\right].\\
 \end{align*}
 
-Now we take log the above equation
+Now we take log of the above equation, to obtain the loglikelihood
 
 \begin{align*}
    l(Y;\alpha \beta^{x_i}) &= log \left( \prod_{i=1}^n \frac{1}{\sigma \sqrt{2 \pi}}exp\left[-\frac{(y_i -\mu)^2}{2 \sigma^2}\right] \right)\\
    &= \sum_{i = 1}^n y_i \alpha \beta^{x_i} - log\left( \sqrt{2 \pi}\right) - \left( \frac{y_i^2 + (\alpha \beta^{x_i})^2}{2} \right)\\
-   &=\sum_{i = 1}^n y_i \alpha \beta^{x_i} - log\left( \sqrt{2 \pi}\right) - \left( \frac{y_i^2 + (\alpha^2 \beta^{2x_i})}{2} \right)\\
+   &=\sum_{i = 1}^n y_i \alpha \beta^{x_i} - log\left( \sqrt{2 \pi}\right) - \left( \frac{y_i^2 + (\alpha^2 \beta^{2x_i})}{2} \right).\\
 \end{align*}
 
 \textbf{Score function}
 
 \begin{align*}
-    S\left( Y; \alpha \beta^{x_i} \right) &= l'(Y; \alpha\beta^{x_i})\\
-    &= \sum_{i=1}^n y_i - \alpha \beta^{x_i}\\
+    S\left( Y; \alpha, \beta \right) = \begin{bmatrix} S(Y;\alpha) \\ S(Y; \beta) \end{bmatrix} = \begin{bmatrix} \sum_{i=1}^n y_i \beta^{x_i} - \alpha\beta^{2x_i} \\ \sum_{i = 1}^n y_i\alpha x_i \beta^{x_i - 1} - \alpha^2 x_i \beta^{2x_i - 1} \end{bmatrix}.
 \end{align*}
 
-This is the score function. 
+Here the Score function is a vector, because it has more than one variable. 
 
 \subsubsection{Observed information}
 
-We now find the observed information, which is the score function differentiated and taken minus to
+We now find the observed information as before, but because of the parameters, it is now a matrix
 
 \begin{align*}
-    j\left( Y; \alpha\beta^{x_i} \right) &= - S\left(Y; \alpha\beta^{x_i} \right)\\
-    &=  - \sum_{i=1}^n -1 = n
+    j\left( Y; \alpha ,\beta \right) = \begin{bmatrix} 
+    \sum_{i = 1}^n \beta^{2x_i} 
+    &
+    \sum_{i = 1}^n 2\alpha x_i \beta^{2x_i - 1} - y_ix_i\beta^{x_i - 1}
+    \\
+    \sum_{i = 1}^n 2\alpha x_i \beta^{2x_i - 1} - y_ix_i\beta^{x_i - 1} 
+    &
+    \sum_{i = 1}^n \alpha^2(2x_i - 1)x_i\beta^{2x_i - 2} - y_i \alpha x_i(x_i - 1) \beta^{x_i - 2}
+    \end{bmatrix}.
 \end{align*}
 
 \subsubsection{Fisher information matrix}
@@ -174,15 +178,85 @@ We now find the observed information, which is the score function differentiated
 The Fisher information matrix is the expected value of observed information
 
 \begin{align*}
-    i\left(\alpha \beta^{x_i} \right) &= E\left[j(Y;\alpha \beta^{x_i})\right]\\
-    &= n
+    i\left(\alpha \beta^{x_i} \right) &= E\left[j(Y;\alpha ,\beta)\right]\\
+    &= \begin{bmatrix} 
+    \sum_{i = 1}^n \beta^{2x_i} 
+    &
+    \sum_{i = 1}^n 2\alpha x_i \beta^{2x_i - 1} - \alpha\beta^{x_i}x_i\beta^{x_i - 1}
+    \\
+    \sum_{i = 1}^n 2\alpha x_i \beta^{2x_i - 1} - \alpha\beta^{x_i}x_i\beta^{x_i - 1}
+    &
+    \sum_{i = 1}^n \alpha^2(2x_i - 1)x_i\beta^{2x_i - 2} - \alpha \beta^{x_i} \alpha x_i(x_i - 1) \beta^{x_i - 2}
+    \end{bmatrix} \\
+    &= \begin{bmatrix} 
+    \sum_{i = 1}^n \beta^{2x_i}  
+    &
+     \sum_{i = 1}^n 2\alpha x_i \beta^{2x_i - 1} - \alpha\beta^{2x_i-1}x_i
+    \\
+    \sum_{i = 1}^n 2\alpha x_i \beta^{2x_i - 1} - \alpha\beta^{2x_i-1}x_i
+    &
+    \sum_{i = 1}^n \alpha^2(2x_i - 1)x_i\beta^{2x_i - 2} - \alpha \beta^{2x_i - 2} \alpha x_i(x_i - 1)
+    \end{bmatrix}\\
+    &= \begin{bmatrix} 
+    \sum_{i = 1}^n \beta^{2x_i}  
+    &
+     \sum_{i = 1}^n  \alpha\beta^{2x_i-1}x_i
+    \\
+    \sum_{i = 1}^n  \alpha\beta^{2x_i-1}x_i
+    &
+    \sum_{i = 1}^n n\alpha^2 x_i^2 \beta^{2x_i - 2}
+    \end{bmatrix}.  
 \end{align*}
 
 \begin{enumerate}[resume]
     \item Discuss how you will find the MLE in the following cases: 
     \begin{enumerate}[label = (\alph*)]
         \item By using the optim command in R
-        \item First fix $\beta$ and find the MLE of $\alpha$ in term of $\beta$, deknoted $\hat{\alpha}(\beta)$, next find the MLE of $\beta$ and hence that of $\alpha$-the likelihood function with $\alpha$ replaced by $\hat{\alpha(\beta)}$ is called the profile likelihood of $\beta$ (or the partially maximized likelihood function) and is denoted $\hat{L}(\beta)$. Specify the Newton-Raphson procedure for finding the MLE of $\beta$ by maximizing $\hat{L}(\beta)$. Will the procedure converge and return that MLE?
+    \end{enumerate}
+The optim function in R takes as input, a vector containing initial values and a objective function.
+The function then uses as default the ``Nelder-Mead'' procedure for minimizing the objective function. This is a procedure that uses only the function values and is therefore useful for dealing with non-differentiable functions.
+
+When dealing with differentiable functions the performance of the optim function can be improved as the function can now use other methods such as BFGS. 
+This is a method the makes use of the gradient of the objective function.
+It can therefore find a minimum of the function in fewer iterations.
+
+As the optim function takes an initial value, the point at which the function terminates will vary depending on the initial value.
+For the function given by
+\begin{align*}
+    f(x,y) = x^2 + y^2
+\end{align*}
+the initial value makes no difference as the function has only one minimum, namely at $(0,0)$.
+Consider instead the function
+\begin{align*}
+    g(x,y) = sin(x) + cos(y)
+\end{align*}
+as this function have an indefinite amount of minimums, the minimum returned by the function will depend on the initial value given.
+    \begin{enumerate}[label = (\alph*), resume]
+        \item First fix $\beta$ and find the MLE of $\alpha$ in term of $\beta$, denoted $\hat{\alpha}(\beta)$, next find the MLE of $\beta$ and hence that of $\alpha$-the likelihood function with $\alpha$ replaced by $\hat{\alpha}(\beta)$ is called the profile likelihood of $\beta$ (or the partially maximized likelihood function) and is denoted $\hat{L}(\beta)$. Specify the Newton-Raphson procedure for finding the MLE of $\beta$ by maximizing $\hat{L}(\beta)$. Will the procedure converge and return that MLE?
     \end{enumerate}
 \end{enumerate}
+
+
+First we find the MLE of $\alpha$ for fixed $\beta$
+\begin{align*}
+    S\left( Y; \alpha \right) = 0 \\
+    \sum_{i=1}^{n} y_i \beta^{x_i} - \alpha \beta^{2 x_i} = 0 \\
+    \sum_{i=1}^{n} y_i \beta^{x_i} = \alpha \sum_{i=1}^{n} \beta^{2 x_i} \\
+    \hat{\alpha} = \frac{\sum_{i=1}^{n} y_i \beta^{x_i}}{\sum_{i=1}^{n} \beta^{2x_i}}.
+\end{align*}
+This estimate is substituted into the score function for $\beta$, to obtain the profile score function of $\beta$, $\hat{S}(\beta)$
+\begin{align*}
+    S\left( Y; \beta \right) &= \sum_{i=1}^n y_i x_i \alpha \beta^{x_i - 1} - \alpha^2 x_i \beta^{2 x_i - 1}\\
+     &= \sum_{i=1}^n y_i x_i \beta^{x_i - 1} \left( \dfrac{\sum_{i=1}^n y_i\beta^{x_i}}{\sum_{i=1}^n \beta^{2x_i}}\right) - x_i\beta^{2x_i-1} \left( \dfrac{\sum_{i=1}^n y_i\beta^{x_i}}{\sum_{i=1}^n \beta^{2x_i}}\right)^2.
+\end{align*}
+Using Taylor expansion and isolating $\beta$ in this expression, we obtain
+\begin{align*}
+    S_\beta (\beta_i, y_i x) &\approx S_\beta(\beta^*) - i(\beta^*) (\hat{\beta} - \beta^*) = 0 \quad \Rightarrow \quad
+    \hat{\beta} = \beta^* + i(\beta^*)^{-1} S_\beta (\beta^*).
+\end{align*}
+Newton-Raphson finds the roots and thus in our case the maximum. The procedure is
+used to estimate the MLE in cases where $\beta$ cannot be calculated analytically but must be found numerically, therefore the returned MLE is an estimate, that maximizes the log likelihood function.  
+
+
+
 
