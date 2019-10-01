@@ -26,7 +26,7 @@ First we find the likehood function, which here is the product of standard norma
 Now we take log to the above equation to obtain the log likelihood function
 
 \begin{align*}
-   l(Y;\alpha) &= log \left( \prod_{i=1}^n \frac{1}{\sigma \sqrt{2 \pi}}exp\left[-\frac{(y_i -\mu)^2}{2 \sigma^2}\right] \right)\\
+   \ell(Y;\alpha) &= log \left( \prod_{i=1}^n \frac{1}{\sigma \sqrt{2 \pi}}exp\left[-\frac{(y_i -\mu)^2}{2 \sigma^2}\right] \right)\\
    &= \sum_{i = 1}^n log\left( \frac{1}{\sigma \sqrt{2 \pi}}exp\left[-\frac{(y_i - \mu)^2}{2 \sigma^2}\right] \right)\\
    &= \sum_{i = 1}^n log(1) - log(\sqrt{2 \pi}) - \frac{(y_i - \alpha)^2}{2}\\
    &= \sum_{i = 1}^n - log\left( \sqrt{2 \pi}\right) - \left(\frac{y_i^2 + \alpha^2 - 2y_i\alpha}{2}\right)\\
@@ -85,7 +85,7 @@ and it is found by setting the score function equal to $0$
 where $\bar{y}$ is the mean of the observed values $y_i$ for $i = 1, \ldots n$.
 
 \begin{enumerate}[resume]
-    \item  Specify the asymptotic distribution of $\hat{\alpha}\xrightarrow{\infty}$. Use this to obtain an approximate $95\%$-confidence interval for $\alpha$.
+    \item  Specify the asymptotic distribution of $\hat{\alpha}\xrightarrow \infty$. Use this to obtain an approximate $95\%$-confidence interval for $\alpha$.
 \end{enumerate}
 
 \begin{theorem}[Distribution of the ML estimator]\label{th:distribution_ml_estimator}
@@ -144,7 +144,7 @@ In order to find the log likelihood function, we first find the likelihood funct
 Now we take log of the above equation, to obtain the loglikelihood
 
 \begin{align*}
-   l(Y;\alpha \beta^{x_i}) &= log \left( \prod_{i=1}^n \frac{1}{\sigma \sqrt{2 \pi}}exp\left[-\frac{(y_i -\mu)^2}{2 \sigma^2}\right] \right)\\
+   \ell(Y;\alpha, \beta) &= log \left( \prod_{i=1}^n \frac{1}{\sigma \sqrt{2 \pi}}exp\left[-\frac{(y_i -\mu)^2}{2 \sigma^2}\right] \right)\\
    &= \sum_{i = 1}^n y_i \alpha \beta^{x_i} - log\left( \sqrt{2 \pi}\right) - \left( \frac{y_i^2 + (\alpha \beta^{x_i})^2}{2} \right)\\
    &=\sum_{i = 1}^n y_i \alpha \beta^{x_i} - log\left( \sqrt{2 \pi}\right) - \left( \frac{y_i^2 + (\alpha^2 \beta^{2x_i})}{2} \right).\\
 \end{align*}
@@ -254,9 +254,58 @@ Using Taylor expansion and isolating $\beta$ in this expression, we obtain
     S_\beta (\beta_i, y_i x) &\approx S_\beta(\beta^*) - i(\beta^*) (\hat{\beta} - \beta^*) = 0 \quad \Rightarrow \quad
     \hat{\beta} = \beta^* + i(\beta^*)^{-1} S_\beta (\beta^*).
 \end{align*}
-Newton-Raphson finds the roots and thus in our case the maximum. The procedure is
-used to estimate the MLE in cases where $\beta$ cannot be calculated analytically but must be found numerically, therefore the returned MLE is an estimate, that maximizes the log likelihood function.  
+Newton-Raphson finds the roots and thus in our case the maximum. 
+The procedure is used to estimate the MLE in cases where $\beta$ cannot be calculated analytically but must be found numerically, therefore the returned MLE is an estimate, that maximizes the log likelihood function.  
+As the procedure is sensitive to the initial value given, whether or not it will converge depends.
 
+\begin{enumerate}[resume]
+    \item Specify the asymptotic distribution of the MLE $(\hat{\alpha}, \hat{\beta})$ as $n \rightarrow \infty$.
+    Use this to obtain approximate 95\%-confidence intervals for $\alpha$ and $\beta$, respectively, and an 95\%-confidence region for $(\alpha, \beta)$
+\end{enumerate}
 
+By theorem 2.4 as the sample size tends to infinity the distribution of the ML estimator converges to the normal distribution.
+The 95\%-confidence interval for $\alpha$ becomes
+\begin{align*}
+    \left[ \left( \frac{\sum_{i=1}^n y_i \beta^{x_i}}{\sum_{i=1}^n \beta^{2x_i}}\right) \pm 1.96 \sqrt{D_{11}(Y; \alpha, \beta)} \right]
+\end{align*}
+where $D = j^{-1}$.
+The 95\%-confidence interval for $\beta$ becomes
+\begin{align*}
+    \left[ \hat{\beta}(y) \pm 1.96 \sqrt{D_{22}(Y; \alpha, \beta)} \right]
+\end{align*}
+\begin{definition}
+Suppose that for a given number $a \in (0,1)$ and for each $y \in \mathcal{Y}$, we have a specified subset $A(y)$ of the parameter space $\Theta^k$ such that
+\begin{align*}
+    P_\theta(\theta \in A(Y)) = 1 - a \qquad \text{for all } \theta \in \Theta^k.
+\end{align*}
+Then we call $A(y)$ an (\textit{exact}) $(1 - a)$-\textit{confidence region for} $\theta$.
+\end{definition}
+One way to define the confidence region is based on the likelihood ratio test.
+In our case $A(y)$ becomes
+\begin{align*}
+    A(y) = \{ (\alpha, \beta) \in \mathbb{R}^2 \ : \ -2 \: \ell_{norm}((\alpha, \beta), Y) \leq \chi^2_{1 - a}(k))\}.
+\end{align*}
 
+\begin{enumerate}[resume]
+    \item Specify methods for testing the hypothesis $\beta = 1$, i.e., when the model reduces to model 1.
+\end{enumerate}
+One way to test the hypothesis is using Wilk's likelihood ratio test.
 
+\begin{lstlisting}[language=R]
+fib <- function(n) {
+  if (n < 2)
+    n
+  else
+    fib(n - 1) + fib(n - 2)
+}
+fib(10) # => 55
+\end{lstlisting}
+
+<<chunk1>>=
+# Create a sequence of numbers
+X = 2:10
+ 
+# Display basic statistical measures
+summary(X)
+ 
+@
