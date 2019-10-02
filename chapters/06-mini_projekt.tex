@@ -20,17 +20,17 @@ where $\alpha$ is an unknown real parameter.
 First we find the likehood function, which here is the product of standard normal distribution. The pdf is 
 
 \begin{align*}
-   L(Y;\mu) &= \prod_{i=1}^n \frac{1}{\sigma \sqrt{2 \pi}}exp\left[-\frac{(y_i -\mu)^2}{2 \sigma^2}\right]\\
+   L(Y;\mu) &= \prod_{i=1}^n \left[ \frac{1}{\sigma \sqrt{2 \pi}}exp\left(-\frac{(y_i -\mu_i)^2}{2 \sigma^2}\right) \right]\\
 \end{align*}
 
 Now we take log to the above equation to obtain the log likelihood function
 
 \begin{align*}
-   \ell(Y;\alpha) &= log \left( \prod_{i=1}^n \frac{1}{\sigma \sqrt{2 \pi}}exp\left[-\frac{(y_i -\mu)^2}{2 \sigma^2}\right] \right)\\
-   &= \sum_{i = 1}^n log\left( \frac{1}{\sigma \sqrt{2 \pi}}exp\left[-\frac{(y_i - \mu)^2}{2 \sigma^2}\right] \right)\\
-   &= \sum_{i = 1}^n log(1) - log(\sqrt{2 \pi}) - \frac{(y_i - \alpha)^2}{2}\\
-   &= \sum_{i = 1}^n - log\left( \sqrt{2 \pi}\right) - \left(\frac{y_i^2 + \alpha^2 - 2y_i\alpha}{2}\right)\\
-   &= \sum_{i = 1}^n y_i \alpha - log\left( \sqrt{2 \pi}\right) - \left( \frac{y_i^2 + \alpha^2}{2} \right)
+   \ell(Y;\alpha) &= log \left( \prod_{i=1}^n \left[ \frac{1}{\sigma \sqrt{2 \pi}}exp\left(-\frac{(y_i -\mu_i)^2}{2 \sigma^2}\right) \right] \right)\\
+   &= \sum_{i = 1}^n \left[ log\left( \frac{1}{\sigma \sqrt{2 \pi}}exp\left[-\frac{(y_i - \mu_i)^2}{2 \sigma^2}\right] \right) \right]\\
+   &= \sum_{i = 1}^n \left[ log(1) - log(\sqrt{2 \pi}) - \frac{(y_i - \alpha)^2}{2} \right]\\
+   &= \sum_{i = 1}^n \left[- log\left( \sqrt{2 \pi}\right) - \left(\frac{y_i^2 + \alpha^2 - 2y_i\alpha}{2}\right) \right]\\
+   &= \sum_{i = 1}^n \left[y_i \alpha - log\left( \sqrt{2 \pi}\right) - \left( \frac{y_i^2 + \alpha^2}{2} \right) \right]
 \end{align*}
 
 \subsubsection{Score function}
@@ -38,9 +38,9 @@ Now we take log to the above equation to obtain the log likelihood function
 The score function is the log likelihood function differentiated with respect to its parameter, thus
 
 \begin{align*}
-    S\left( Y; \alpha \right) &= l'(Y; \alpha)\\
-    &= \sum_{i=1}^n y_i + 0 - \alpha\\
-    &= \sum_{i=1}^n y_i - \alpha.
+    S\left( Y; \alpha \right) &= \ell'(Y; \alpha)\\
+    &= \sum_{i=1}^n \left[ y_i + 0 - \alpha \right]\\
+    &= \sum_{i=1}^n \left[ y_i - \alpha \right].
 \end{align*}
 
 This is the score function. 
@@ -77,7 +77,7 @@ and it is found by setting the score function equal to $0$
 
 \begin{align*}
     S\left(Y; \alpha \right) &= 0\\
-    \sum_{i=1}^n y_i - \alpha &= 0\\
+    \sum_{i=1}^n \left[y_i - \alpha \right]&= 0\\
     n\alpha &= \sum_{i=1}^n y_i\\
     \hat{\alpha} &= \frac{1}{n} \sum_{i=1}^n y_i \\
     \hat{\alpha} &= \bar{y},
@@ -145,8 +145,8 @@ Now we take log of the above equation, to obtain the loglikelihood
 
 \begin{align*}
    \ell(Y;\alpha, \beta) &= log \left( \prod_{i=1}^n \frac{1}{\sigma \sqrt{2 \pi}}exp\left[-\frac{(y_i -\mu)^2}{2 \sigma^2}\right] \right)\\
-   &= \sum_{i = 1}^n y_i \alpha \beta^{x_i} - log\left( \sqrt{2 \pi}\right) - \left( \frac{y_i^2 + (\alpha \beta^{x_i})^2}{2} \right)\\
-   &=\sum_{i = 1}^n y_i \alpha \beta^{x_i} - log\left( \sqrt{2 \pi}\right) - \left( \frac{y_i^2 + (\alpha^2 \beta^{2x_i})}{2} \right).\\
+   &= \sum_{i = 1}^n \left[ y_i \alpha \beta^{x_i} - log\left( \sqrt{2 \pi}\right) - \left( \frac{y_i^2 + (\alpha \beta^{x_i})^2}{2} \right) \right]\\
+   &=\sum_{i = 1}^n \left[ y_i \alpha \beta^{x_i} - log\left( \sqrt{2 \pi}\right) - \left( \frac{y_i^2 + (\alpha^2 \beta^{2x_i})}{2} \right) \right].\\
 \end{align*}
 
 \textbf{Score function}
@@ -240,14 +240,14 @@ as this function have an indefinite amount of minimums, the minimum returned by 
 First we find the MLE of $\alpha$ for fixed $\beta$
 \begin{align*}
     S\left( Y; \alpha \right) = 0 \\
-    \sum_{i=1}^{n} y_i \beta^{x_i} - \alpha \beta^{2 x_i} = 0 \\
+    \sum_{i=1}^{n} \left[ y_i \beta^{x_i} - \alpha \beta^{2 x_i} = 0 \right] \\
     \sum_{i=1}^{n} y_i \beta^{x_i} = \alpha \sum_{i=1}^{n} \beta^{2 x_i} \\
     \hat{\alpha} = \frac{\sum_{i=1}^{n} y_i \beta^{x_i}}{\sum_{i=1}^{n} \beta^{2x_i}}.
 \end{align*}
 This estimate is substituted into the score function for $\beta$, to obtain the profile score function of $\beta$, $\hat{S}(\beta)$
 \begin{align*}
-    S\left( Y; \beta \right) &= \sum_{i=1}^n y_i x_i \alpha \beta^{x_i - 1} - \alpha^2 x_i \beta^{2 x_i - 1}\\
-     &= \sum_{i=1}^n y_i x_i \beta^{x_i - 1} \left( \dfrac{\sum_{i=1}^n y_i\beta^{x_i}}{\sum_{i=1}^n \beta^{2x_i}}\right) - x_i\beta^{2x_i-1} \left( \dfrac{\sum_{i=1}^n y_i\beta^{x_i}}{\sum_{i=1}^n \beta^{2x_i}}\right)^2.
+    S\left( Y; \beta \right) &= \sum_{i=1}^n \left[ y_i x_i \alpha \beta^{x_i - 1} - \alpha^2 x_i \beta^{2 x_i - 1} \right]\\
+     &= \sum_{i=1}^n \left[ y_i x_i \beta^{x_i - 1} \left( \dfrac{\sum_{i=1}^n y_i\beta^{x_i}}{\sum_{i=1}^n \beta^{2x_i}}\right) - x_i\beta^{2x_i-1} \left( \dfrac{\sum_{i=1}^n y_i\beta^{x_i}}{\sum_{i=1}^n \beta^{2x_i}}\right)^2 \right].
 \end{align*}
 Using Taylor expansion and isolating $\beta$ in this expression, we obtain
 \begin{align*}
@@ -291,21 +291,80 @@ In our case $A(y)$ becomes
 \end{enumerate}
 One way to test the hypothesis is using Wilk's likelihood ratio test.
 
-\begin{lstlisting}[language=R]
-fib <- function(n) {
-  if (n < 2)
-    n
-  else
-    fib(n - 1) + fib(n - 2)
-}
-fib(10) # => 55
-\end{lstlisting}
+\subsection*{2.3 The third model}
+Assume that
+\begin{align*}
+    \mu_i=\alpha \beta^{x_i}+\gamma, \quad i=1,\vdots n,
+\end{align*}
+where $\alpha$, $\beta$ and $\gamma$ are unknowwn parameters.
+\begin{enumerate}
+    \item Specify the log likelihood function, the score function, the observed information matrix and the Fisher information matrix
+\end{enumerate}
 
-<<chunk1>>=
-# Create a sequence of numbers
-X = 2:10
- 
-# Display basic statistical measures
-summary(X)
- 
-@
+\subsubsection{Log likelihood function}
+
+In order to find the log likelihood function, we first find the likelihood function
+
+\begin{align*}
+   L(Y;\mu) &= \prod_{i=1}^n \left[\frac{1}{\sigma \sqrt{2 \pi}}exp\left(-\frac{(y_i -\mu)^2}{2 \sigma^2}\right) \right].\\
+\end{align*}
+
+Now we take log of the above equation, to obtain the log likelihood
+
+\begin{align*}
+   \ell(Y;\alpha, \beta, \gamma) &= log \left( \prod_{i=1}^n \left[\frac{1}{\sigma \sqrt{2 \pi}}exp\left(-\frac{(y_i -\mu)^2}{2 \sigma^2}\right) \right] \right)\\
+   &= \sum_{i = 1}^n \left[ y_i (\alpha \beta^{x_i}+\gamma) - log\left( \sqrt{2 \pi}\right) - \left( \frac{y_i^2 + (\alpha \beta^{x_i}+\gamma)^2}{2} \right) \right] \\
+   &=\sum_{i = 1}^n \left[ y_i \alpha \beta^{x_i} +y_i\gamma - log\left( \sqrt{2 \pi}\right) - \left( \frac{y_i^2 + (\alpha^2 \beta^{2x_i}) + \gamma^2 + 2\alpha\beta^{x_i}\gamma}{2}\right) \right].\\
+\end{align*}
+
+\subsection{Score function}
+
+\begin{align*}
+    S(y;\alpha,\beta,\gamma)=
+    \begin{bmatrix}
+    &S(y;\alpha) \\
+    &S(y;\beta) \\
+    &S(y;\gamma)
+    \end{bmatrix} 
+\end{align*}
+
+where 
+
+\begin{align*}
+    S(y;\alpha) &=\sum_{i=1}^n \left[ y_i\beta^{x_i} - \frac{2\alpha\beta{2x_i}+2\beta^{x_i}\gamma}{2} \right] \\
+    &= \sum_{i=1}^n \left[ y_i\beta^{x_i}-\alpha\beta^{2x_1}-\beta^{x_i}\gamma \right]
+\end{align*}
+
+\begin{align*}
+    S(y;\beta) &= \left[ \sum_{i=1}^n x_i y_i\alpha\beta^{x_i - 1} - \frac{2x_i\alpha^2\beta^{2x_i -1}+2x_i\alpha\beta^{x_i-1}\gamma}{2} \right] \\
+    &= \sum_{i=1}^n \left[ x_i y_i\alpha\beta^{x_i-1} - x_i\alpha^2\beta^{2x_i-1} - x_i\alpha\beta^{x_i-1}\gamma \right]
+\end{align*}
+
+\begin{align*}
+    S(y;\gamma) &= \sum_{i=1}^n \left[ y_i - \frac{2\gamma + 2\alpha\beta^{x_i}}{2} \right]\\
+    &= \sum_{i=1}^n \left[ y_i-\gamma-\alpha\beta^{x_i} \right]
+\end{align*}
+
+Observed information
+
+\begin{align*}
+    &j(Y;\alpha,\beta,\gamma) = \\
+    &-\begin{bmatrix}
+        \sum_{i=1}^n \beta^{x_i} & \sum_{i=1}^n x_iy_i\beta^{x_i-1}-2x_i\alpha\beta^{2x_i}+x_i\beta^{x_i-1}\gamma & \sum_{i=1}^n \beta^{x_i} \\
+       \sum_{i=1}^n x_iy_i\beta^{x_i-1}-2x_i\alpha\beta^{2x_i}+x_i\beta^{x_i-1}\gamma & \sum_{i=1}^n x_i \alpha \beta^{x_i-2}\Big( (x_i - 1) \big( y_i  +  \gamma \big)- (2x_i-1) \alpha \beta^{x_i} \Big) & \sum_{i=1}^n x_i \alpha \beta^{x_i - 1} \\
+        \sum_{i=1}^n \beta^{x_i} & \sum_{i=1}^n x_i \alpha \beta^{x_i - 1} & n
+    \end{bmatrix}
+\end{align*}
+
+Fisher information
+
+\begin{align*}
+    &i(Y;\alpha,\beta,\gamma) = \\
+    &-\begin{bmatrix}
+        \sum_{i=1}^n \beta^{x_i} & \sum_{i=1}^n x_i\alpha\beta^{2x_i-1}+x_i\gamma \beta^{x_i-1}-2x_i\alpha\beta^{2x_i} & \sum_{i=1}^n \beta^{x_i} \\
+       \sum_{i=1}^n x_i\alpha\beta^{2x_i-1}+x_i\gamma \beta^{x_i-1}-2x_i\alpha\beta^{2x_i} & \sum_{i=1}^n x_i \alpha \beta^{x_i-2}\Big( 2x_i\gamma - x_i\alpha\beta^{x_i} \Big) & \sum_{i=1}^n x_i \alpha \beta^{x_i - 1} \\
+        \sum_{i=1}^n \beta^{x_i} & \sum_{i=1}^n x_i \alpha \beta^{x_i - 1} & n
+    \end{bmatrix}
+\end{align*}
+
+%Indgang 2,2 \sum_{i=1}^n x_i (x_i - 1) y_i \alpha \beta^{x_i - 2} - x_i (2 x_i -1) \alpha^2 \beta^{2x_i -2} + x_i (x_i -1) \alpha \beta^{x_i -2} \gamma

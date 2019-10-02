@@ -90,13 +90,22 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Theorem environments
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\theoremstyle{plain}
+\theoremstyle{break}
 \newtheorem{theorem}{Theorem}[chapter]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
 
 \theoremstyle{nonumberplain}
 \theoremsymbol{$\blacksquare$}
 \newtheorem{proof}{Proof}
+\DeclareMathOperator{\var}{\text{Var}}
+\DeclareMathOperator{\cov}{\text{Cov}}
+\DeclareMathOperator{\nsum}{\sum_{i=1}^n}
+\DeclareMathOperator{\ssr}{\text{SSR}}
+\DeclareMathOperator{\betahat}{\boldsymbol{\hat{\beta}}}
+\DeclareMathOperator{\argmin}{\text{arg min}}
+\newcommand{\homo}{homoskedasticity}
+\newcommand{\hetero}{heteroskedasticity}

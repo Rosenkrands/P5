@@ -1,5 +1,7 @@
-\documentclass[10pt,twoside,a4paper,openright]{report}
+\documentclass[10pt,twoside,a4paper,openright, dvipsnames]{report}
 \usepackage{enumitem}
+\usepackage{tkz-euclide}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Language, Encoding and Fonts
 % http://en.wikibooks.org/wiki/LaTeX/Internationalization
@@ -30,13 +32,15 @@
 % Include R code in document
 \usepackage{listings}
 \usepackage{comment}
+\usepackage{tikz}
 % load a colour package
-\usepackage[dvipsnames]{xcolor}
-\definecolor{aaublue}{RGB}{33,26,82}% dark blue
+\usepackage{xcolor}
+%\definecolor{aaublue}{RGB}{33,26,82}% dark blue
 % The standard graphics inclusion package
 \usepackage{graphicx}
 % Set up how figure and table captions are displayed
-\usepackage{caption}
+% \usepackage{caption}
+\usepackage{subcaption}
 \captionsetup{%
   font=footnotesize,% set font size to footnotesize
   labelfont=bf % bold label (e.g., Figure 3.2) font
@@ -125,10 +129,11 @@
 % Bibliography
 % http://en.wikibooks.org/wiki/LaTeX/Bibliography_Management
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{natbib}
-\bibpunct[,]{[}{]}{;}{a}{,}{,}
-\bibliographystyle{bib/harvard}
-\renewcommand{\cite}{\citep}
+\usepackage[square,numbers]{natbib}
+% \bibpunct[,]{[}{]}{;}{a}{,}{,}
+% \bibliographystyle{bib/harvard}
+\bibliographystyle{ksfh_nat}
+% \renewcommand{\cite}{\citep}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Misc
@@ -139,7 +144,6 @@
 % Add the command \pageref{LastPage} which refers to the
 % page number of the last page
 \usepackage{lastpage}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Hyperlinks
 % http://en.wikibooks.org/wiki/LaTeX/Hyperlinks
