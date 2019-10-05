@@ -1,9 +1,16 @@
-The aim of this chapter is to 
+The aim of this chapter is to present some of the key results from likelihood theory. 
+The purpose of likelihood theory is to find the statistical model, which is most compatible with observed data. 
+Through maximum likelihood estimation one obtains the estimates of the parameters in a statistical model, which maximise the likelihood function. 
+This parameterization of the distribution has most likely generated the data. \\
+
 
 \begin{definition} [Unbiased Estimator]
 \label{def:Unbiased_estmator}
 Any estimator $\boldsymbol{\hat{\beta}} = \boldsymbol{\hat{\beta}}(Y)$ is said to be unbiased if $E[\boldsymbol{\hat{\beta}}] = \boldsymbol{\beta}, \ \forall \boldsymbol{\beta} \in \Theta^k$.
 \end{definition}
+
+This means, that an estimator is considered as unbiased, if it is equal to the true parameter value. 
+In other words, the estimator is neither overestimated nor underestimated.
 
 \begin{definition} [Consistent Estimator]
 \label{def:consistent_estimator}
@@ -150,7 +157,7 @@ Consider again the model from example \ref{ex:model1} where the log likelihood f
 The score function is the log likelihood function differentiated with respect to its parameter, thus
 
 \begin{align*}
-    S\left( Y\textbf{}; \alpha \right) &= \ell'(\textbf{Y}; \alpha)\\
+    S\left( \textbf{Y}; \alpha \right) &= \ell'(\textbf{Y}; \alpha)\\
     &= \sum_{i=1}^n \left[ y_i + 0 - \alpha \right]\\
     &= \sum_{i=1}^n \left[ y_i - \alpha \right].
 \end{align*}

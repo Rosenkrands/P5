@@ -21,67 +21,23 @@ The intuition behind \homo is that the variance of the error does not depend on 
 Homoskedasticity and \hetero can be illustrated as in figure \ref{fig:homo_with_dependent_up_axis} and \ref{fig:hetero_with_dependent_up_axis}. 
 
 
-
-
-----------------------------------
-
-
 \begin{figure}[h]
 \centering
 \begin{subfigure}[b]{0.4\textwidth}
     \centering
-    \begin{tikzpicture}[scale=0.5]
-            \draw[<->,line width=1] (10,0)node[below]{$x$}--(0,0)--(0,5)node[left]{$|\epsilon|$};
-            \draw[red] plot [left] coordinates {(0,0) (9,5)};
-            \filldraw (1,1) circle (0.5mm);
-            \filldraw (1.5,0.35) circle (0.5mm);
-            \filldraw (1.8,1.7) circle (0.5mm);
-            \filldraw (2.4,0.9) circle (0.5mm);
-            \filldraw (3,2.4) circle (0.5mm);
-            \filldraw (3.6,1.3) circle (0.5mm);
-            \filldraw (4,2.8) circle (0.5mm);
-            \filldraw (4.6,1.8) circle (0.5mm);
-            \filldraw (1,1) circle (0.5mm);
-            \filldraw (1,1) circle (0.5mm);
-            \filldraw (1,1) circle (0.5mm);
-            \filldraw (1,1) circle (0.5mm);
-            \filldraw (1,1) circle (0.5mm);
-            \filldraw (1,1) circle (0.5mm);
-            \filldraw (1,1) circle (0.5mm);
-            \filldraw (1,1) circle (0.5mm);
-        \end{tikzpicture}
+    \includegraphics[width = 0.9\textwidth]{figures/Thea/homoplot.png}
     \caption{JEG RETTER DEN HOMO med afhængig}
     \label{fig:homo_with_dependent_up_axis}
 \end{subfigure}%
 ~
 \begin{subfigure}[b]{0.4\textwidth}
 \centering
-    \begin{tikzpicture}[scale=0.5]
-            \draw[<->,line width=1] (10,0)node[below]{$x$}--(0,0)--(0,5)node[left]{$|\epsilon|$};
-            \draw[red] plot [left] coordinates {(0,0) (9,5)};
-            \filldraw (1,1) circle (0.5mm);
-            \filldraw (1.5,0.35) circle (0.5mm);
-            \filldraw (1.8,1.7) circle (0.5mm);
-            \filldraw (2.4,0.9) circle (0.5mm);
-            \filldraw (3,2.4) circle (0.5mm);
-            \filldraw (3.6,1.3) circle (0.5mm);
-            \filldraw (4,2.8) circle (0.5mm);
-            \filldraw (4.6,1.8) circle (0.5mm);
-            \filldraw (1,1) circle (0.5mm);
-            \filldraw (1,1) circle (0.5mm);
-            \filldraw (1,1) circle (0.5mm);
-            \filldraw (1,1) circle (0.5mm);
-            \filldraw (1,1) circle (0.5mm);
-            \filldraw (1,1) circle (0.5mm);
-            \filldraw (1,1) circle (0.5mm);
-            \filldraw (1,1) circle (0.5mm);
-        \end{tikzpicture}
+    \includegraphics[width = 0.9\textwidth]{figures/Thea/Heteroplot.png}
     \caption{JEG RETTER DEN HETERO med afhængig}
     \label{fig:hetero_with_dependent_up_axis}
 \end{subfigure}
 \end{figure}
 
----------------------------------
 
 In the case of \homo the variance is consistent for all values of $\textbf{X}$, to which the standard errors do not depend on the explanatory variables. In the case of \hetero the variance increases as $\textbf{X}$ increases. An example of this can be if you consider family income and spending on luxury items. if the income is low most will be spend on necessity items such as food, if the income increases is the possibility but not the necessity of spending more on luxury items, thus there will be a greater variance in the consumption of luxury goods. In short \hetero arises when variances of unobserved factors changes over different segments in the sample space. 
 
