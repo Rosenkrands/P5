@@ -1,67 +1,83 @@
 The aim of this chapter is to present some of the key results from likelihood theory. 
-The purpose of likelihood theory is to find the statistical model, which is most compatible with observed data. 
-Through maximum likelihood estimation one obtains the estimates of the parameters in a statistical model, which maximise the likelihood function. 
+The purpose of likelihood theory is to find the parameters in a given statistical model, which is most compatible with observed data. 
+Through maximum likelihood estimation one obtains the estimates of the parameters in a statistical model, which maximises the likelihood function. 
 This parameterization of the distribution has most likely generated the data. \\
 
+\section{Estimation Theory}
 
-\begin{definition} [Unbiased Estimator]
-\label{def:Unbiased_estmator}
-Any estimator $\boldsymbol{\hat{\beta}} = \boldsymbol{\hat{\beta}}(Y)$ is said to be unbiased if $E[\boldsymbol{\hat{\beta}}] = \boldsymbol{\beta}, \ \forall \boldsymbol{\beta} \in \Theta^k$.
+First some general terminology and results regarding statistical inference will be introduced.
+
+\begin{definition} [Estimate and Estimator]
+    A random variable $\boldsymbol{\hat{\beta}}$, which is a function of a random sample, $X_1, \ldots, X_n$ and is used to estimate an unknown parameter $\boldsymbol{\beta}$, is called an estimator of $\boldsymbol{\beta}$. The observed value of $\boldsymbol{\hat{\beta}}$ is called the estimate of $\boldsymbol{\beta}$.
 \end{definition}
 
-This means, that an estimator is considered as unbiased, if it is equal to the true parameter value. 
-In other words, the estimator is neither overestimated nor underestimated.
+This estimator have the following properties. 
+
+\begin{definition}[Unbiased Estimator]
+\label{def:Unbiased_estmator}
+Any estimator $\boldsymbol{\hat{\beta}} = \boldsymbol{\hat{\beta}}(Y)$ is said to be unbiased if $E[\boldsymbol{\hat{\beta}}] = \boldsymbol{\beta}, \ \forall \boldsymbol{\beta} \in \Theta^k$,
+\end{definition}
+
+where $\Theta^k$ is the parameter space. This means, that an estimator is considered unbiased, if the mean is equal to the true parameter value. 
+In other words, the estimator neither overestimates or underestimates.
 
 \begin{definition} [Consistent Estimator]
 \label{def:consistent_estimator}
-An estimator is consistent if the sequence $\boldsymbol{\beta}_n(\textbf{Y})$ of estimators for all $\boldsymbol{\beta} \in \Theta^k$ and $\epsilon > 0$,
-%for the parameter $\boldsymbol{\beta}$ converges in probability to the true value $\boldsymbol{\beta}$.
+An estimator is consistent if the sequence $\boldsymbol{\beta}_n(\textbf{Y})$ of estimators for all $\boldsymbol{\beta} \in \Theta^k$ and $\epsilon > 0$ satisfies,
+
 \begin{align*}
-    P_{\boldsymbol{\beta}}(||\hat{\boldsymbol{\beta}}(\textbf{Y}) - \boldsymbol{\beta}|| > \epsilon) \xrightarrow[n \rightarrow \infty]{P} 0
+    P_{\boldsymbol{\beta}}(||\hat{\boldsymbol{\beta}}(\textbf{Y}) - \boldsymbol{\beta}|| > \epsilon) \xrightarrow[n \rightarrow \infty]{P} 0.
 \end{align*}
-Otherwise the estimator is said to be inconsistent. 
+Otherwise the estimator is said to be inconsistent.
 \end{definition}
-In other words, the parameter is said to be consistent, if the estimate converges towards the true value. 
+
+This means that the parameter is said to be consistent if the estimate converges in probability towards the true value. 
+The desired estimator is often the one with least variance, since we want a parameter close to the expected value. The formal condition for this is given in the following definition.
 
 \begin{definition} [Minimum Mean Square Error]
 \label{def:minimum_mean_square_error}
-An estimator $\boldsymbol{\hat{\beta}}=\boldsymbol{\hat{\beta}}(\textbf{Y})$ is said to be \textit{uniformly minimum square error}, if
+An estimator $\boldsymbol{\hat{\beta}}=\boldsymbol{\hat{\beta}}(\textbf{Y})$ is said to be the \textit{uniformly minimum square error}, if
 \begin{align*}
-    E\big[ (\boldsymbol{\hat{\beta}}(\textbf{Y})-\boldsymbol{\beta})(\boldsymbol{\hat{\beta}}(\textbf{Y})-\boldsymbol{\beta})^T \big] \leq E\big[ (\boldsymbol{\tilde{\beta}}(\textbf{Y})-\boldsymbol{\beta})(\boldsymbol{\tilde{\beta}}(\textbf{Y})-\boldsymbol{\beta})^T \big]
+    \var(\boldsymbol{\hat{\beta}}(Y)) = E\big[ (\boldsymbol{\hat{\beta}}(\textbf{Y})-\boldsymbol{\beta})(\boldsymbol{\hat{\beta}}(\textbf{Y})-\boldsymbol{\beta})^T \big] \leq E\big[ (\boldsymbol{\tilde{\beta}}(\textbf{Y})-\boldsymbol{\beta})(\boldsymbol{\tilde{\beta}}(\textbf{Y})-\boldsymbol{\beta})^T \big] = \var(\boldsymbol{\tilde{\beta}}(Y))
 \end{align*} 
 for all $\boldsymbol{\beta} \in \Theta^k $ and all other estimators $\boldsymbol{\tilde{\beta}(\textbf{Y})}$.
  \end{definition}
+ 
+The minimum mean square estimator is the unbiased estimator, that is said to be a \textit{minimum variance unbiased estimator}. If this estimator is considered a linear function of data, it is the \textit{best linear unbiased estimator} (BLUE). 
 
-\begin{theorem} [Cramer-Rao Inequality]
+As mentioned a low variance is often desired and a way to determine the lower bound of an unbiased estimators variance is the Cramer-Rao inequality.
+ 
+ \begin{theorem} [Cramer-Rao Inequality]
 \label{th:cramerrao_inequality}
-Given the paramtetric density $f_{\textbf{Y}}(\textbf{y};\boldsymbol{\beta}), \boldsymbol{\beta} \in \Theta^k$ for all observations $\textbf{Y}$.
-Given certain regularity conditions, the covariance matrix of any unbiased estimator $\boldsymbol{\hat{\beta}}(\textbf{Y})$ of $\boldsymbol{\beta}$ satisfies the inequality
+Given the paramtetric density $f_{\textbf{Y}}(\textbf{y};\boldsymbol{\beta}), \ \boldsymbol{\beta} \in \Theta^k$ for the observations $\textbf{Y}$ and given certain regularity conditions, the covariance matrix of any unbiased estimator $\boldsymbol{\hat{\beta}}(\textbf{Y})$ of $\boldsymbol{\beta}$ satisfies the inequality
 \begin{align} \label{eq:cramerrao_inequality}
     \var \Big[ \boldsymbol{\hat{\beta}}(\textbf{Y})\Big] \geq \textit{\textbf{i}}^{-1}(\boldsymbol{\beta})
 \end{align}
-where $\textit{i}(\beta)$ is \textit{the Fisher information matrix} which is defined by
+where $\textit{i}(\beta)$ is \textit{the Fisher information matrix} which is defined as
 \begin{align*}
-    \textit{\textbf{i}}(\boldsymbol{\beta})=E \bigg[ \bigg(\frac{\partial \log f_Y(\textbf{Y};\boldsymbol{\beta})}{\partial \boldsymbol{\beta}} \bigg)\bigg(\frac{\partial \log f_Y(\textbf{Y};\boldsymbol{\beta})}{\partial \boldsymbol{\beta}}\bigg)\bigg]
+    \textit{\textbf{i}}(\boldsymbol{\beta})=E \bigg[ \bigg(\frac{\partial \log f_Y(\textbf{Y};\boldsymbol{\beta})}{\partial \boldsymbol{\beta}} \bigg)\bigg(\frac{\partial \log f_Y(\textbf{Y};\boldsymbol{\beta})}{\partial \boldsymbol{\beta}}\bigg)^\top\bigg]
 \end{align*}
-where $\var [\boldsymbol{\hat{\beta}}(\textbf{Y})]=E[(\boldsymbol{\hat{\beta}}(\textbf{Y})-\boldsymbol{\beta})(\boldsymbol{\hat{\beta}}(\textbf{Y})-\boldsymbol{\beta})^T]$.
+where $\var [\boldsymbol{\hat{\beta}}(\textbf{Y})]=E[(\boldsymbol{\hat{\beta}}(\textbf{Y})-\boldsymbol{\beta})(\boldsymbol{\hat{\beta}}(\textbf{Y})-\boldsymbol{\beta})^\top]$.
 \end{theorem}
-I.e. regularity conditions, the theorem is subject to that $\textit{\textbf{i}}(\boldsymbol{\beta})$ is invertible for all $\boldsymbol{\beta} \in \Theta^k$ and interchanging of the of derivative and integration.
-Note that the inequality in \eqref{eq:cramerrao_inequality} entails that the right hand side subtracted from the left hand side in non-negative definite.
+Regarding the regularity conditions, the theorem is subject to:
+$\textit{\textbf{i}}(\boldsymbol{\beta})$ is invertible for all $\boldsymbol{\beta} \in \Theta^k$ and interchanging of the derivative and integral.
+Note that the inequality in \eqref{eq:cramerrao_inequality} entails that the right hand side subtracted from the left hand side is positive semidefinite.
 
 \begin{proof}
-We see that
+First, we see that
 \begin{align*}
     E\Big[\boldsymbol{\hat{\beta}}(\textbf{Y}) \frac{\partial \log f_Y(\textbf{Y};\boldsymbol{\beta})}{\partial \boldsymbol{\beta}} \Big]
     &=\int \boldsymbol{\hat{\beta}}(\textbf{y})\frac{\partial \log f_Y(\textbf{y};\boldsymbol{\beta})}{\partial \boldsymbol{\beta}}f_Y(\textbf{y};\boldsymbol{\beta}) \text{dy} \\
+    &= \int \boldsymbol{\hat{\beta}}(\textbf{y})\frac{1}{f_Y(\textbf{y};\boldsymbol{\beta})}\frac{\partial f_Y(\textbf{y};\boldsymbol{\beta})}{\partial \boldsymbol{\beta}}f_Y(\textbf{y};\boldsymbol{\beta}) \text{dy} \\
     &=\int \boldsymbol{\hat{\beta}}(\textbf{y}) \frac{\partial}{\partial \boldsymbol{\beta}}f_Y(\textbf{y};\boldsymbol{\beta}) \text{dy} \\
     &=\frac{\partial}{\partial \boldsymbol{\beta}} \int \boldsymbol{\hat{\beta}}(\textbf{y}) f_Y(\textbf{y};\boldsymbol{\beta}) \text{dy}
 \end{align*}
-where we obtain the last equation from the regularity conditions. 
-Since $\boldsymbol{\hat{\beta}}(\textbf{Y})$ is unbiased, definition \ref{def:Unbiased_estmator} 
+where we obtain the latter from the regularity conditions. 
+Since $\boldsymbol{\hat{\beta}}(\textbf{Y})$ is unbiased, c.f. definition \ref{def:Unbiased_estmator}, we see that
 \begin{align}
     \frac{\partial}{\partial \boldsymbol{\beta}} \int \boldsymbol{\hat{\beta}}(\textbf{y}) f_Y(\textbf{y};\boldsymbol{\beta}) \text{dy} &= \frac{\partial}{\partial\boldsymbol{\beta}} E\big[ \boldsymbol{\hat{\beta}}(\textbf{Y})\big] \nonumber\\
     &= \frac{\partial}{\partial\boldsymbol{\beta}} \boldsymbol{\beta} \nonumber\\
-    &= I_{k\times k} \label{eq:cramerraoe2stjerner}.
+    &= I_{k} \label{eq:cramerraoe2stjerner}.
 \end{align}
 Furthermore, we see that
 \begin{align}
@@ -70,16 +86,16 @@ Furthermore, we see that
     &=\frac{\partial}{\partial \boldsymbol{\beta}} \int f_Y(\textbf{y};\boldsymbol{\beta}) \text{dy} \nonumber \\
     &= \textbf{0}_{1 \times k} \label{eq:cramerraoe3stjerner}.
 \end{align}
-From above we are able to find the covariance matrix for $\begin{bmatrix} \boldsymbol{\hat{\beta}}(\textbf{Y}) & \partial \log f_Y(\textbf{Y};\boldsymbol{\beta})/\partial \boldsymbol{\beta}) \end{bmatrix}^T$.
+We are now able to find the covariance matrix for $\begin{bmatrix} \boldsymbol{\hat{\beta}}(\textbf{Y}) & \partial \log f_Y(\textbf{Y};\boldsymbol{\beta})/\partial \boldsymbol{\beta}) \end{bmatrix}^T$
 \begin{align*}
     \var \begin{bmatrix}  \boldsymbol{\hat{\beta}}(\textbf{Y}) \\  \partial \log f_Y(\textbf{Y};\boldsymbol{\beta})/\partial \boldsymbol{\beta}) \end{bmatrix} &= E \begin{bmatrix} \begin{pmatrix} \boldsymbol{\hat{\beta}}(\textbf{Y})-\boldsymbol{\beta} \\  \partial \log f_Y(\textbf{Y};\boldsymbol{\beta})/\partial \boldsymbol{\beta})^T\end{pmatrix} \begin{pmatrix} \boldsymbol{\hat{\beta}}(\textbf{Y}-\boldsymbol{\beta})^T &  \partial \log f_Y(\textbf{Y};\boldsymbol{\beta})/\partial \boldsymbol{\beta} \end{pmatrix}\end{bmatrix}  \\
-    &= \var \begin{bmatrix} \boldsymbol{\hat{\beta}}(\textbf{Y}) & I_{k \times k}\\
-    I_{k \times k} & \textbf{i}(\boldsymbol{\beta})\end{bmatrix}.
+    &= \var \begin{bmatrix} \boldsymbol{\hat{\beta}}(\textbf{Y}) & I_{k}\\
+    I_{k} & \textbf{i}(\boldsymbol{\beta})\end{bmatrix}.
 \end{align*}
-Because of symmetric in \eqref{eq:cramerraoe2stjerner} and \eqref{eq:cramerraoe3stjerner} the covariance matrix is clearly non-negative definite,and we have
+Because of symmetry in \eqref{eq:cramerraoe2stjerner} and \eqref{eq:cramerraoe3stjerner} the covariance matrix is clearly positive semidefinite, and we have
 \begin{align*}
-    0_{k \times k} & \leq \begin{bmatrix} I_{k\times k} & -\textbf{i}^{-1}(\boldsymbol{\beta})\end{bmatrix} \begin{bmatrix} \var[\boldsymbol{\hat{\beta}}(\textbf{Y})] & I_{k\times k} \\ I_{k\times k} & \textbf{i}(\boldsymbol{\beta}) \end{bmatrix}\begin{bmatrix} I_{k\times k} \\ -\textbf{i}^{-1}(\boldsymbol{\beta})\end{bmatrix} \\
-    &= \begin{bmatrix} \var[\boldsymbol{\hat{\beta}}(\textbf{Y})] -\textbf{i}^{-1}(\boldsymbol{\beta}) & 0_{k \times k}\end{bmatrix} \begin{bmatrix} I_{k\times k} \\ -\textbf{i}^{-1}(\boldsymbol{\beta})\end{bmatrix} \\
+    0_{k} & \leq \begin{bmatrix} I_{k} & -\textbf{i}^{-1}(\boldsymbol{\beta})\end{bmatrix} \begin{bmatrix} \var[\boldsymbol{\hat{\beta}}(\textbf{Y})] & I_{k} \\ I_{k} & \textbf{i}(\boldsymbol{\beta}) \end{bmatrix}\begin{bmatrix} I_{k} \\ -\textbf{i}^{-1}(\boldsymbol{\beta})\end{bmatrix} \\
+    &= \begin{bmatrix} \var[\boldsymbol{\hat{\beta}}(\textbf{Y})] -\textbf{i}^{-1}(\boldsymbol{\beta}) & 0_{k}\end{bmatrix} \begin{bmatrix} I_{k} \\ -\textbf{i}^{-1}(\boldsymbol{\beta})\end{bmatrix} \\
     &= \var[\boldsymbol{\hat{\beta}}(\textbf{Y})] -\textbf{i}^{-1}(\boldsymbol{\beta})
 \end{align*}
 which establishes the Cramer-Rao inequality.
@@ -87,92 +103,87 @@ which establishes the Cramer-Rao inequality.
 
 \begin{definition} [Efficient Estimator]
 \label{def:efficient_estimator}
-An unbiased estimator is said to be efficient, if its covariance-matrix is equal to the Cramer-Rao lower bound
+An unbiased estimator is said to be efficient, if its covariance-matrix is equal to the Cramer-Rao lower bound, see theorem \ref{th:cramerrao_inequality}.
 \end{definition}
+
+An efficient estimator therefore minimizes variance. 
+ 
+\section{Maximum Likelihood Estimation}
+
+A way to estimate parameters for a model is using the likelihood function to determine which parameter value is most likely. The likelihood function can be defined as follows.
 
 \begin{definition} [Likelihood Function]
 \label{def:likelihood_function}
-Given the data $\textbf{y}$ for a parametric model with density $f_Y(\textbf{y}$ and parameter space $\Theta^k$. The likelihood function for $\boldsymbol{\beta}$ is any function of the form 
+Given the data $\textbf{y}$ for a parametric model with density $f_Y(\textbf{y})$ and parameter space $\Theta^k$. The likelihood function for $\boldsymbol{\beta}$ is any function of the form 
 \begin{align*}
     L(\boldsymbol{\beta}; \textbf{y}) = c(y_1, y_2, \ldots, y_n)f_Y(y_1, y_2, \ldots, y_n; \boldsymbol{\beta}), 
 \end{align*}
 where $c(\textbf{y})>0$ does not depend on $\boldsymbol{\beta}$. 
 \end{definition}
 
-The likelihood function is only meaningful, for the terms involving the parameter, meaning that we can ignore constant terms.
-
-It is often more convenient to work with the log-likelihood, and since the logarithm only changes the function values, and not the location of the critical points, it will always have the same maximum point as the likelihood function. 
+The likelihood function is only meaningful, for the terms involving the parameter, meaning that we can ignore constant terms. It is in practice often more convenient to work with the log-likelihood function. 
 
 \begin{align*}
     \ell(\boldsymbol{\beta};\textbf{y})=log(L(\boldsymbol{\beta}; \textbf{y})).
 \end{align*}
 
-\begin{example} \label{ex:model1}
-We have $Y_1,...,Y_n$ as underlying random variables for observations/data/responses $y_1,...,y_n$.
-Specifically, we let $Y_1,...,Y_n$ be independent normally distributed random with variance $1$, and let $\mu_i= E[Y_i]$ be the mean of $Y_i, i= 1,...,n$.
-Furthermore, we let $x_1,...,x_n$ be given numbers; when the distribution of $(Y_1,...,Y_n)$ depends on $(x_1,...,x_n)$ we also call $(Y_1,...,Y_n)$ the dependent variables and $(x_1,...,x_n)$ the explanatory variables (or the independent variables, though this may be misleading terminology).
-\\
-Assume that
+Because the logarithm is a strictly increasing function, it will always have the same maximum as the likelihood function. 
+
+\begin{example}[Log-likelihood function] \label{ex:model1}
+Suppose $Y_1,\ldots,Y_n$ are the underlying random variables for observations $y_1,\ldots,y_n$, where $Y_1,\ldots,Y_n$ are normally distributed with $\sigma^2 = 1$. Regarding the mean, assume that
 \begin{align*}
     \mu_i = \alpha, \quad i = 1, \ldots,n
 \end{align*}
 where $\alpha$ is an unknown real parameter. 
-The likelihood function of the model is the product of standard normal distributions. The pdf is 
-
-% \begin{align*}
-%   L(\textbf{Y};\textbf{\mu}) &= \prod_{i=1}^n \left[ \frac{1}{\sigma \sqrt{2 \pi}}exp\left(-\frac{(y_i -\mu_i)^2}{2 \sigma^2}\right) \right]\\
-% \end{align*}
-
-Now we take log to the above equation to obtain the log likelihood function
-
+The likelihood function of the model is the product of normal distributions. The pdf is 
 \begin{align*}
-   \ell(\textbf{Y};\alpha) &= log \left( \prod_{i=1}^n \left[ \frac{1}{\sigma \sqrt{2 \pi}}exp\left(-\frac{(y_i -\mu_i)^2}{2 \sigma^2}\right) \right] \right)\\
-   &= \sum_{i = 1}^n \left[ log\left( \frac{1}{\sigma \sqrt{2 \pi}}exp\left[-\frac{(y_i - \mu_i)^2}{2 \sigma^2}\right] \right) \right]\\
+   L(\textbf{Y};\boldsymbol{\mu}) &= \prod_{i=1}^n \left[ \frac{1}{ \sqrt{2 \pi}}\exp\left(-\frac{(y_i -\alpha)^2}{2}\right) \right]
+\end{align*}
+Now we take log to the above equation to obtain the log likelihood function
+\begin{align*}
+   \ell(\textbf{Y};\alpha) &= log \left( \prod_{i=1}^n \left[ \frac{1}{\sqrt{2 \pi}}exp\left(-\frac{(y_i -\alpha)^2}{2}\right) \right] \right)\\
+   &= \sum_{i = 1}^n \left[ log\left( \frac{1}{\sqrt{2 \pi}}exp\left[-\frac{(y_i - \alpha)^2}{2}\right] \right) \right]\\
    &= \sum_{i = 1}^n \left[ log(1) - log(\sqrt{2 \pi}) - \frac{(y_i - \alpha)^2}{2} \right]\\
    &= \sum_{i = 1}^n \left[- log\left( \sqrt{2 \pi}\right) - \left(\frac{y_i^2 + \alpha^2 - 2y_i\alpha}{2}\right) \right]\\
    &= \sum_{i = 1}^n \left[y_i \alpha - log\left( \sqrt{2 \pi}\right) - \left( \frac{y_i^2 + \alpha^2}{2} \right) \right]
 \end{align*}
 \end{example}
-
-\begin{definition} [The Score Function]
+Critical points and thereby the maximum can be found by differentiating the likelihood function with respect to the parameter and setting that expression equal to 0. The derivative of the log-likelihood function is therefore very useful and is often called the score function. 
+\begin{definition}[The Score Function]
 \label{def:score_function}
-Consider $\boldsymbol{\beta} = (\beta_1, \ldots, \beta_k)^T \in \Theta^k$, and assume that $\Theta^k$ is an open subspace of $\mathbb{R}^k$, and that the log-likelihood is continuously differentiable. Then  the following first order partial derivative of the log-likelihood function
+Consider $\boldsymbol{\beta} = (\beta_1, \ldots, \beta_k)^T \in \Theta^k$, and assume that $\Theta^k$ is an open subspace of $\mathbb{R}^k$, and that the log-likelihood is continuously differentiable. Then the following vector of first order partial derivatives of the log-likelihood function is called the score function
 \begin{align*}
     S(\boldsymbol{\beta}; \textbf{y}) = \ell'_{\boldsymbol{\beta}}(\boldsymbol{\beta}; \textbf{y}) = \frac{\partial}{\partial \boldsymbol{\beta}} \ell (\boldsymbol{\beta}; \textbf{y}) = 
     \begin{pmatrix}
-        \frac{\partial}{\partial \theta_1}\ell (\boldsymbol{\beta}; \textbf{y}) \\
+        \frac{\partial}{\partial \beta_1}\ell (\boldsymbol{\beta}; \textbf{y}) \\
         \vdots \\
-        \frac{\partial}{\partial \theta_k}\ell (\boldsymbol{\beta}; \textbf{y})
+        \frac{\partial}{\partial \beta_k}\ell (\boldsymbol{\beta}; \textbf{y})
     \end{pmatrix}
 \end{align*}
-is the score function.
 \end{definition}
-
 \begin{example}
-Consider again the model from example \ref{ex:model1} where the log likelihood function was derived
+Consider again the model from example \ref{ex:model1} where the log-likelihood function was derived
 \begin{align*}
    \ell(\textbf{Y};\alpha) = \sum_{i = 1}^n \left[y_i \alpha - log\left( \sqrt{2 \pi}\right) - \left( \frac{y_i^2 + \alpha^2}{2} \right) \right].
 \end{align*}
-
-The score function is the log likelihood function differentiated with respect to its parameter, thus
-
+The score function is the log-likelihood function differentiated with respect to its parameters, in this case $\alpha$, thus
 \begin{align*}
     S\left( \textbf{Y}; \alpha \right) &= \ell'(\textbf{Y}; \alpha)\\
     &= \sum_{i=1}^n \left[ y_i + 0 - \alpha \right]\\
     &= \sum_{i=1}^n \left[ y_i - \alpha \right].
 \end{align*}
-
-This is the score function.
-
 \end{example}
-
-\begin{theorem}
-Under the same conditions as definition \ref{def:score_function}
+Following the proof of the Cramer-Rao Inequality, theorem \ref{th:cramerrao_inequality}, the next corollary is introduced.
+\begin{corollary}
+Under the same conditions as in definition \ref{def:score_function}
 \begin{align*}
-    E_{\boldsymbol{\beta}}[S(\boldsymbol{\beta}; \textbf{y})] = \textbf{0}
+    E_{\boldsymbol{\beta}}[S(\boldsymbol{\beta}; \textbf{Y})] = \textbf{0}
 \end{align*}
-\end{theorem}
-
+\end{corollary}
+\begin{proof}
+Follows directly from \eqref{eq:cramerraoe3stjerner}.
+\end{proof}
+The following are useful definitions that give additional information about the likelihood function.
 \begin{definition} [Observed Information]
 \label{def:observed_information}
 The matrix
@@ -183,14 +194,13 @@ with elements
 \begin{align*}
     \textbf{j}(\boldsymbol{\beta};\textbf{y})_{ij} = - \frac{\partial^2}{\partial \beta_i \partial \beta_j} \ell(\boldsymbol{\beta}; \textbf{y})
 \end{align*}
-is called the observed information corresponding to the observations $\textbf{y}$ and the parameter $\boldsymbol{\beta}$.
+is called the observed information corresponding to the observation $\textbf{y}$ and the parameter $\boldsymbol{\beta}$.
 \end{definition}
 
 \begin{example}
-    Consider again the situation from example \ref{ex:model1}.
-    
+    Consider again the situation from example \ref{ex:model1}. The observed information is the negation of the score function differentiated with respect to $\alpha$
     \begin{align*}
-        j\left( Y; \alpha \right) &= - S\left(Y; \alpha \right)\\
+        \textbf{j}\left( \textbf{Y}; \alpha \right) &= - S'\left(\textbf{Y}; \alpha \right)\\
         &=  - \left( \sum_{i = 1}^n -1\right) = n.
     \end{align*}
 \end{example}
@@ -199,59 +209,106 @@ is called the observed information corresponding to the observations $\textbf{y}
 \label{def:expected_information}
 The expectation of the observed information 
 \begin{align}
-    i(\boldsymbol{\beta}) = E[\textbf{j}(\boldsymbol{\beta};\textbf{Y})],
+    \textbf{i}(\boldsymbol{\beta}) = E[\textbf{j}(\boldsymbol{\beta};\textbf{Y})],
 \end{align}
 where $\textbf{j}(\boldsymbol{\beta};\textbf{Y})$ is given by equation \eqref{eq:Observed_information}, and where the expectation is determined under the distribution corresponding to $\boldsymbol{\beta}$, is called the expected information matrix corresponding to the parameter $\boldsymbol{\beta}$.
 \end{definition}
 
 \begin{example}
+Consider again the situation from example \ref{ex:model1}. The expected information is the expected value of the observed information
     \begin{align*}
-        i\left(\alpha \right) &= E\left[j(Y;\alpha)\right]\\
+        \textbf{i}\left(\alpha \right) &= E\left[\textbf{j}(Y;\alpha)\right]\\
         &= n.
     \end{align*}
+    In this case the observed information does not depend on the observations and hence the expected information is equal to the observed information.
 \end{example}
 
-\begin{lemma} [Fisher Information Matrix]
+\begin{lemma}[Fisher Information Matrix]
 \label{lem:fisher_information_matrix}
 Under regularity conditions the expected information matrix is equal to the covariance-matrix for the score function
 \begin{align*}
-    \textbf{i}(\boldsymbol{\beta}) &= E_{\beta}\left[- \frac{\partial^2}{\partial \boldsymbol{\beta} \partial \boldsymbol{\beta}^T} \ell(\boldsymbol{\beta}; \textbf{y})\right] \\
-    &= E_{\beta}\left[ \frac{\partial}{\partial \boldsymbol{\beta}}\ell (\boldsymbol{\beta}; \textbf{y}) \left( \frac{\partial}{\partial \beta} \ell (\boldsymbol{\beta}; \textbf{y}) \right) \right] \\
-    &= D_{\beta} [\ell_\beta ' (\boldsymbol{\beta}; \textbf{y})],
+    \textbf{i}(\boldsymbol{\beta}) &= E_{\beta}\left[- \frac{\partial^2}{\partial \boldsymbol{\beta} \partial \boldsymbol{\beta}^T} \ell(\boldsymbol{\beta}; \textbf{Y})\right] \\
+    &= E_{\beta}\left[ \frac{\partial}{\partial \boldsymbol{\beta}}\ell (\boldsymbol{\beta}; \textbf{Y}) \left( \frac{\partial}{\partial \boldsymbol{\beta}} \ell (\boldsymbol{\beta}; \textbf{Y}) \right)^\top \right] \\
+    &= D_{\beta} [\ell_\beta ' (\boldsymbol{\beta}; \textbf{Y})],
 \end{align*}
 where $D_\beta[\cdot]$ denotes the covariance-matrix. 
 \end{lemma}
 
+Using the previous definitions, we can now formally introduce the maximum likelihood estimate. 
+
 \begin{definition} [Maximum Likelihood Estimate (MLE)]
 \label{def:MLE}
-Given an observation $Y=y$, the maximum likelihood estimate (MLE), $\hat{\boldsymbol{\beta}}(y))$ is said to exist if it is the unique maximum of the (log-)likelihood function. 
-Let $E = \{ y : \hat{\boldsymbol{\beta}}(y) exists \}$. If $P_{\boldsymbol{\beta}}(Y \in E) = 1$ for all $\boldsymbol{\beta} in \Theta^k$, then $\hat{\boldsymbol{\beta}}(y))$ is called the maximum likelihood estimator (ML estimator).
+Given an observation $\textbf{Y}=\textbf{y}$, the maximum likelihood estimate (MLE), $\hat{\boldsymbol{\beta}}(\textbf{y}))$, is said to exist if it is the unique maximum of the log-likelihood function. 
+Let $E = \{ \textbf{y} : \hat{\boldsymbol{\beta}}(\textbf{y}) \text{ exists} \}$. If $P_{\boldsymbol{\beta}}(\textbf{Y} \in E) = 1$ for all $\boldsymbol{\beta} \in \Theta^k$, then $\hat{\boldsymbol{\beta}}(\textbf{Y})$ is called the \textit{maximum likelihood estimator} (ML estimator).
 \end{definition}
 Note that the MLE is a solution to the ML equation
 \begin{align*}
     S(\boldsymbol{\beta}; \textbf{y}) = 0
 \end{align*}
-It is therefore only a critical point and should always be checked, whether it is also a maximum point. 
+It is therefore only a critical point and it should always be checked, whether it is also a maximum. 
+
+\begin{example}
+Consider again the situation from example \ref{ex:model1}. The MLE is found by setting the score function equal to $0$
+\begin{align*}
+    S\left(\textbf{Y}; \alpha \right) &= 0\\
+    \sum_{i=1}^n \left[y_i - \alpha \right]&= 0\\
+    n\alpha &= \sum_{i=1}^n y_i\\
+    \hat{\alpha} &= \frac{1}{n} \sum_{i=1}^n y_i \\
+    \hat{\alpha} &= \bar{y},
+\end{align*}
+where $\bar{y}$ is the mean of the observed values $y_i$ for $i = 1, \ldots n$.
+
+In order to show that the MLE is unbiased we take the expectation
+\begin{align*}
+    E[\hat{\alpha}]=E[\bar{Y}]=\alpha
+\end{align*}
+Thus we have shown that the condition $E[\hat{\alpha}] = \alpha$ is satisfied. The estimator is therefore unbiased c.f. definition \ref{def:consistent_estimator}.
+
+To show that the MLE is also efficient take the variance and use the fact that $Y_1,\ldots,Y_n$ are independent normally distributed random with variance $1$
+\begin{align*}
+\var[\hat{\alpha}]&=\var[\bar{Y}] \\
+&=\var[\frac{Y.}{n}] \\
+&=\frac{1}{n^2}\var[Y.] \\
+&= \frac{1}{n^2}n \cdot 1 \\
+&= \frac{1}{n}
+\end{align*}
+where $Y.=Y_1 + \ldots + Y_n$.
+We note that the variance is equal to the Cramer-Rao lower bound given by $i^{-1}(\alpha)=\frac{1}{n}$. The estimator is therefore efficient c.f. definition \ref{def:efficient_estimator}.
+\end{example}
+
+Next we provide a result which can be used for inference under regularity conditions. 
+As the price for generality, the results are only asymptotically valid. 
+In other words, the distributions of the ML estimators is found asymptotically. 
 
 \begin{theorem}[Distribution of the ML estimator]\label{th:distribution_ml_estimator}
-Let $E = \{\mathbf{y} \ : \ \text{the MLE } \hat{\theta}(\mathbf{y}) \text{ exists}\}$. 
+Let $E = \{\mathbf{y} \ : \ \text{the MLE } \hat{\boldsymbol{\beta}}(\mathbf{y}) \text{ exists}\}$. 
 If $A$ is a $k \times k$ matrix, $A^{1/2}$ denotes the $k \times k$ matrix such that $A = A^{1/2}\left( A^{1/2} \right)^T$.
 Let $\rightarrow^\mathcal{D}$ denote convergence in distribution, $\mathbf{1}[\cdot]$ the indicator function and $I_k$ the $k \times k$ identity matrix.
-Then under regularity conditions, if $\mathbf{Y} \sim f(\cdot;\theta)$ then as $n \rightarrow \infty$ we have that
-\begin{enumerate}
-    \item $P_\theta(Y \in E) \rightarrow 1$
-    \item for any $\varepsilon > 0: \ P_\theta(Y \in E, \ \|\hat{\theta} - \theta\| \leq 1) \rightarrow 1$
-    \item $1[\mathbf{y} \in E] i(\hat{\theta})^{1/2}(\hat{\theta} - \theta) \rightarrow^\mathcal{D} N_k(0, I_k)$ and $1[\mathbf{y} \in E] j(\hat{\theta})^{1/2}(\hat{\theta} - \theta) \rightarrow^\mathcal{D} N_k(0, I_k)$
-    \item $1[\mathbf{y} \in E] i(\theta)^{1/2}(\hat{\theta} - \theta) \rightarrow^\mathcal{D} N_k(0, I_k)$
+Then under regularity conditions, if $\mathbf{Y} \sim f(\cdot \ ;\boldsymbol{\beta})$ then as $n \rightarrow \infty$ we have that
+\begin{enumerate}[label=(\alph*)]
+    \item $P_{\boldsymbol{\beta}}(Y \in E) \rightarrow 1$
+    \item For any $\varepsilon > 0: \ P_{\boldsymbol{\beta}}(Y \in E, \ \|\hat{\boldsymbol{\beta}} - \boldsymbol{\beta}\| \leq \varepsilon) \rightarrow 1$
+    \item $\mathbf{1}[\mathbf{y} \in E] i(\hat{\boldsymbol{\beta}})^{1/2}(\hat{\boldsymbol{\beta}} - \boldsymbol{\beta}) \rightarrow^\mathcal{D} N_k(0, I_k)$ and $\textbf{1}[\mathbf{y} \in E] j(\hat{\boldsymbol{\beta}})^{1/2}(\hat{\boldsymbol{\beta}} - \boldsymbol{\beta}) \rightarrow^\mathcal{D} N_k(0, I_k)$
+    \item $\textbf{1}[\mathbf{y} \in E] i(\boldsymbol{\beta})^{1/2}(\hat{\boldsymbol{\beta}} - \boldsymbol{\beta}) \rightarrow^\mathcal{D} N_k(0, I_k)$
 \end{enumerate}
 \end{theorem}
 
-\begin{definition} [The (1-a)-confidence Region]
-\label{def:confidence_region}
-Suppose that for a given number $a \in (0,1)$ and for each $\textbf{y} \in \mathcal{Y}$, we have specified a subset $A(\textbf{y})$ of the parameter space $\Theta^k$, such that
-\begin{align*}
-    P_{\boldsymbol{\beta}} (\boldsymbol{\beta} \in A(\textbf{Y})) = 1 - a, \quad \forall \boldsymbol{\beta} \in \Theta^k
-\end{align*}
-Then we call $A(y)$ a $(1-a)$-confidence region for $\boldsymbol{\beta}$.
-\end{definition}
+Property b) is known as the \textit{asymptotic consistency of the ML estimator}, as it insures that the estimated parameter converges to the true value.
 
+If $\textbf{y}\in E$ then property d) corresponds to
+\begin{align*}
+    & i(\boldsymbol{\beta})^{1/2} (\hat{\boldsymbol{\beta}}-\boldsymbol{\beta}) \approx N(0,I_k) \\
+    \Downarrow \quad & \hat{\boldsymbol{\beta}}-\boldsymbol{\beta} \approx N_k(0,i(\boldsymbol{\beta})^{-1/2} I_k (i(\boldsymbol{\beta})^{-1/2})^T) \\
+    \Downarrow \quad & \hat{\boldsymbol{\beta}} \approx N_k(\boldsymbol{\beta}, i(\boldsymbol{\beta})^{-1})
+\end{align*}
+where $i(\boldsymbol{\beta})^{-1}$ is the same as the Cramer-Rao lower bound in theorem \ref{th:cramerrao_inequality}.
+
+Similarly for property c) the distribution of the ML estimator is approximately $N_k(\boldsymbol{\beta}, i(\hat{\boldsymbol{\beta}})^{-1})$ and $N_k(\boldsymbol{\beta}, j(\hat{\boldsymbol{\beta}})^{-1})$ if $\boldsymbol{\beta}$ is the true parameter value. This follows from definition \ref{def:expected_information}, where $\textbf{y}$ is deterministic and thus the expected value $E[j(\betahat ; \textbf{Y})]$ equals $j(\betahat; \textbf{Y})$ so $i(\betahat) = j(\betahat)$. This can be written as
+\begin{align*}
+    \hat{\boldsymbol{\beta}} \approx N_k(\boldsymbol{\beta}, i(\hat{\boldsymbol{\beta}})^{-1}), \quad \hat{\boldsymbol{\beta}} \approx N_k(\boldsymbol{\beta}, j(\hat{\boldsymbol{\beta}})^{-1})
+\end{align*}
+If $\var_{ii}[\hat{\boldsymbol{\beta}}]$ is the i'th diagonal element in $j^{-1}(\hat{\boldsymbol{\beta}};y)$ then
+\begin{align*}
+    \hat{\boldsymbol{\beta}}_i \xrightarrow{\mathcal{D}} N\left( \boldsymbol{\beta}_i, \var_{ii}(\hat{\boldsymbol{\beta}}) \right).
+\end{align*}
+Thus the covariance matrix of the ML estimator $D[\hat{\boldsymbol{\beta}}]$ is approximated by $j(\hat{\boldsymbol{\beta}})^{-1}$. 

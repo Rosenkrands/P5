@@ -1,18 +1,16 @@
 \section{The Multiple Linear Regression Model}
 
-This project will use multiple linear regression to create a model for pricing apartments. The multiple linear model will therefore be introduced. Below is the multiple linear regression model with k parameters for observation $y_i$
-
-\begin{align}
-  y_i = \beta_0 + \beta_1 x_{i1} + \ldots + \beta_k x_{ik} + \varepsilon
+This project will use multiple linear regression to create a model for pricing apartments. The multiple linear regression model will therefore be introduced. The multiple linear regression model with $k+1$ parameters for observation $y_i$ is
+\begin{align}\label{eq:multiple_linear_regression}
+  y_i = \beta_0 + \beta_1 x_{i1} + \ldots + \beta_k x_{ik} + \varepsilon_i
 \end{align}
+Here $\beta_0$ is the intercept and $\beta_1, \ldots, \beta_k$ are the coefficients for the explanatory variables $\textbf{x}_i = (x_{i1}, \ldots, x_{ik})$ and $\varepsilon_i$ is the unobserved error term, which is assumed to be normally distributed, $\varepsilon_i \sim N(0, \sigma^2)$. 
 
-Here $\beta_0$ is the intercept and $\beta_1, \ldots, \beta_k$ are the coefficients for the explanatory variables $X_i = (x_{1i}, \ldots, x_{ki})$, and $\varepsilon$ is the unobservable error term, which is assumed to be normally distributed, $\varepsilon \sim N(0, \sigma^2)$. 
-
-Using matrix notation this becomes
+With multiple data points $y_i$ for $i = 1, \ldots, n$ the model can be represented using matrix notation
 \begin{align}\label{eq:multiple_linear_regression_model}
     \mathbf{y} = \mathbf{X} \boldsymbol{\beta} + \boldsymbol{\varepsilon}.
 \end{align}
-Writting the maricies out in full, we get
+Writing the matrices out in full, we get
 \begin{align}
   \begin{bmatrix}
     y_1 \\ y_2 \\ \vdots \\ y_n \\
@@ -20,7 +18,7 @@ Writting the maricies out in full, we get
   =
   \begin{bmatrix}
     1 & x_{11} & \cdots & x_{1k} \\
-    1 & x_{21} & \cdots & x_{2k} \\ \vdots & \vdots & & \vdots \\ 1 & x_{n1} & \cdots & x_{nk} \\
+    1 & x_{21} & \cdots & x_{2k} \\ \vdots & \vdots & \ddots & \vdots \\ 1 & x_{n1} & \cdots & x_{nk} \\
   \end{bmatrix}
   \begin{bmatrix}
     \beta_0 \\ \beta_1 \\ \vdots \\ \beta_k \\
@@ -29,12 +27,7 @@ Writting the maricies out in full, we get
     \varepsilon_1 \\ \varepsilon_2 \\ \vdots \\ \varepsilon_n \\
   \end{bmatrix}.
 \end{align}
-Note that the first column  in $\boldsymbol{X}$ consists of all 1's, since $\beta_{0}$ is the intercept and therefore has no coefficient. 
+Note that the first column  in $\boldsymbol{X}$ consists of all 1's, since $\beta_{0}$ is the intercept and therefore has coefficient $1$. $\textbf{X}$ is often referred to as the design matrix. 
 
-Using data for $y$ and $X$ and the assumption of $\varepsilon$, it is possible to estimate unknown parameters $\beta$. 
-In order to determine these parameters, $\boldsymbol{\beta}$, we will use the ordinary least squares (OLS) estimate, though there are other methods of estimating parameters for this model. 
-
-
-
-
-
+Using data for $\textbf{y}$ and $\textbf{X}$ and the assumption regarding the distribution of $\boldsymbol{\varepsilon}$, it is possible to estimate the unknown parameters $\boldsymbol{\beta}$. 
+In order to determine these parameters, $\boldsymbol{\beta}$, we will use the ordinary least squares (OLS) estimate, though there are other methods of estimating parameters for this model.
