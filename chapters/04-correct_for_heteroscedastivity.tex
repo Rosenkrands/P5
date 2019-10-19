@@ -42,7 +42,7 @@ The \homo \ assumption is $\var(\boldsymbol{\varepsilon} | \mathbf{X}) = \sigma^
     \var(\betahat | \mathbf{X}) = \sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}.
 \end{align*}
 
-\subsection{Residuals}
+\subsection{Residuals}\label{subsec:residuals}
 
 The residuals are the difference between the observed values $y$ and the fitted values $\hat{y}$. They are therefore the observed errors $\boldsymbol{\hat{\varepsilon}}$ described in \eqref{eq:replace_with_y}
 \begin{align*}
@@ -74,7 +74,7 @@ Residuals can be used to identfiy outliers, that is observation that do not fit 
 If this value in deemed to high, it can justify removing it as an outlier/measurement error. 
 
 \begin{proposition}
-    Consider a general linear model $Y \im N_n(X \betahat, \sigma^2 I_n)$ where the design matrix has full rank $k \leq n-2$ and $H = X (X^\top X)^{-1}X^\top$ is the corresponding projection-matrix, then
+    Consider a general linear model $Y \sim N_n(X \betahat, \sigma^2 I_n)$ where the design matrix has full rank $k \leq n-2$ and $H = X (X^\top X)^{-1}X^\top$ is the corresponding projection-matrix, then
     \begin{align*}
         r_i^{rt}(\textbf{Y}) \sim t(n-k-1).
     \end{align*}
