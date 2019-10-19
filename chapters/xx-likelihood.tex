@@ -1,14 +1,14 @@
 The aim of this chapter is to present some of the key results from likelihood theory. 
 The purpose of likelihood theory is to find the parameters in a given statistical model, which is most compatible with observed data. 
 Through maximum likelihood estimation one obtains the estimates of the parameters in a statistical model, which maximises the likelihood function. 
-This parameterization of the distribution has most likely generated the data. \\
+This parameterization of the distribution has most likely generated the data.
 
 \section{Estimation Theory}
 
 First some general terminology and results regarding statistical inference will be introduced.
 
 \begin{definition} [Estimate and Estimator]
-    A random variable $\boldsymbol{\hat{\beta}}$, which is a function of a random sample, $X_1, \ldots, X_n$ and is used to estimate an unknown parameter $\boldsymbol{\beta}$, is called an estimator of $\boldsymbol{\beta}$. The observed value of $\boldsymbol{\hat{\beta}}$ is called the estimate of $\boldsymbol{\beta}$.
+    A function $\boldsymbol{\hat{\beta}}$ of a random variable, $\textbf{Y}$, that is used to estimate unknown parameters $\boldsymbol{\beta}$, is called an estimator of $\boldsymbol{\beta}$. The observed value of $\boldsymbol{\hat{\beta}}$ is called the estimate of $\boldsymbol{\beta}$.
 \end{definition}
 
 This estimator have the following properties. 
@@ -23,10 +23,10 @@ In other words, the estimator neither overestimates or underestimates.
 
 \begin{definition} [Consistent Estimator]
 \label{def:consistent_estimator}
-An estimator is consistent if the sequence $\boldsymbol{\beta}_n(\textbf{Y})$ of estimators for all $\boldsymbol{\beta} \in \Theta^k$ and $\epsilon > 0$ satisfies,
+An estimator is consistent if the sequence $\betahat_n(\textbf{Y})$ of estimators for all $\boldsymbol{\beta} \in \Theta^k$ and $\epsilon > 0$ satisfies,
 
 \begin{align*}
-    P_{\boldsymbol{\beta}}(||\hat{\boldsymbol{\beta}}(\textbf{Y}) - \boldsymbol{\beta}|| > \epsilon) \xrightarrow[n \rightarrow \infty]{P} 0.
+    P_{\boldsymbol{\beta}}(||\hat{\boldsymbol{\beta}}_n(\textbf{Y}) - \boldsymbol{\beta}|| > \epsilon) \xrightarrow[n \rightarrow \infty]{P} 0.
 \end{align*}
 Otherwise the estimator is said to be inconsistent.
 \end{definition}
@@ -36,9 +36,9 @@ The desired estimator is often the one with least variance, since we want a para
 
 \begin{definition} [Minimum Mean Square Error]
 \label{def:minimum_mean_square_error}
-An estimator $\boldsymbol{\hat{\beta}}=\boldsymbol{\hat{\beta}}(\textbf{Y})$ is said to be the \textit{uniformly minimum square error}, if
+An estimator $\boldsymbol{\hat{\beta}}=\boldsymbol{\hat{\beta}}(\textbf{Y})$ is said to be the \textit{uniformly minimum square error estimator}, if
 \begin{align*}
-    \var(\boldsymbol{\hat{\beta}}(Y)) = E\big[ (\boldsymbol{\hat{\beta}}(\textbf{Y})-\boldsymbol{\beta})(\boldsymbol{\hat{\beta}}(\textbf{Y})-\boldsymbol{\beta})^T \big] \leq E\big[ (\boldsymbol{\tilde{\beta}}(\textbf{Y})-\boldsymbol{\beta})(\boldsymbol{\tilde{\beta}}(\textbf{Y})-\boldsymbol{\beta})^T \big] = \var(\boldsymbol{\tilde{\beta}}(Y))
+    \var(\boldsymbol{\hat{\beta}}(\textbf{Y})) = E\big[ (\boldsymbol{\hat{\beta}}(\textbf{Y})-\boldsymbol{\beta})(\boldsymbol{\hat{\beta}}(\textbf{Y})-\boldsymbol{\beta})^T \big] \leq E\big[ (\boldsymbol{\tilde{\beta}}(\textbf{Y})-\boldsymbol{\beta})(\boldsymbol{\tilde{\beta}}(\textbf{Y})-\boldsymbol{\beta})^T \big] = \var(\boldsymbol{\tilde{\beta}}(Y))
 \end{align*} 
 for all $\boldsymbol{\beta} \in \Theta^k $ and all other estimators $\boldsymbol{\tilde{\beta}(\textbf{Y})}$.
  \end{definition}
@@ -110,7 +110,9 @@ An efficient estimator therefore minimizes variance.
  
 \section{Maximum Likelihood Estimation}
 
-A way to estimate parameters for a model is using the likelihood function to determine which parameter value is most likely. The likelihood function can be defined as follows.
+A way to estimate parameters for a model is using the likelihood function to determine which parameter value is most likely to have generated the data. We are therefore only interested in the terms containing the parameters, as all other terms only influence the value and not the location of the critical points. It should be noted that critical points of a likelihood function are not necessarily maximum points and its second order derivatives should therefore be checked.   
+
+We will often use the log-likelihood function instead of the likelihood function. This purely for convenience, as taking the logarithm both simplifies the normal distribution and changes products to sums, making the function easier to work with. Firstly the likelihood function will be defined.
 
 \begin{definition} [Likelihood Function]
 \label{def:likelihood_function}
@@ -176,9 +178,9 @@ The score function is the log-likelihood function differentiated with respect to
 Following the proof of the Cramer-Rao Inequality, theorem \ref{th:cramerrao_inequality}, the next corollary is introduced.
 \begin{corollary}
 Under the same conditions as in definition \ref{def:score_function}
-\begin{align*}
+\begin{align} \label{eq:corollary}
     E_{\boldsymbol{\beta}}[S(\boldsymbol{\beta}; \textbf{Y})] = \textbf{0}
-\end{align*}
+\end{align}
 \end{corollary}
 \begin{proof}
 Follows directly from \eqref{eq:cramerraoe3stjerner}.
@@ -197,7 +199,7 @@ with elements
 is called the observed information corresponding to the observation $\textbf{y}$ and the parameter $\boldsymbol{\beta}$.
 \end{definition}
 
-\begin{example}
+\begin{example} \label{ex:Observed_information}
     Consider again the situation from example \ref{ex:model1}. The observed information is the negation of the score function differentiated with respect to $\alpha$
     \begin{align*}
         \textbf{j}\left( \textbf{Y}; \alpha \right) &= - S'\left(\textbf{Y}; \alpha \right)\\
@@ -223,16 +225,35 @@ Consider again the situation from example \ref{ex:model1}. The expected informat
     In this case the observed information does not depend on the observations and hence the expected information is equal to the observed information.
 \end{example}
 
+From differentiating the likelihood function twice and taking the expectation the following result is obtained.
+
 \begin{lemma}[Fisher Information Matrix]
 \label{lem:fisher_information_matrix}
 Under regularity conditions the expected information matrix is equal to the covariance-matrix for the score function
 \begin{align*}
     \textbf{i}(\boldsymbol{\beta}) &= E_{\beta}\left[- \frac{\partial^2}{\partial \boldsymbol{\beta} \partial \boldsymbol{\beta}^T} \ell(\boldsymbol{\beta}; \textbf{Y})\right] \\
-    &= E_{\beta}\left[ \frac{\partial}{\partial \boldsymbol{\beta}}\ell (\boldsymbol{\beta}; \textbf{Y}) \left( \frac{\partial}{\partial \boldsymbol{\beta}} \ell (\boldsymbol{\beta}; \textbf{Y}) \right)^\top \right] \\
+    &= E_{\beta}\left[ \bigg( \frac{\partial}{\partial \boldsymbol{\beta}}\ell(\boldsymbol{\beta};\textbf{Y}) \bigg)^\top \frac{\partial}{\partial \boldsymbol{\beta}}\ell(\boldsymbol{\beta};\textbf{Y})\right] \\
     &= D_{\beta} [\ell_\beta ' (\boldsymbol{\beta}; \textbf{Y})],
 \end{align*}
 where $D_\beta[\cdot]$ denotes the covariance-matrix. 
 \end{lemma}
+
+\begin{proof}
+From the regularity conditions interchanging of the derivative and the integral is allowed. By differentiating \eqref{eq:corollary}
+\begin{align}
+\textbf{0}_{k \times k} &= \frac{\partial^2}{\partial \boldsymbol{\beta} \partial \boldsymbol{\beta}^\top} \int f_Y(\boldsymbol{\beta};\textbf{y})d\textbf{y} \\
+&=\int \frac{\partial^2}{\partial \boldsymbol{\beta} \partial \boldsymbol{\beta}^\top}f_Y(\textbf{y};\boldsymbol{\beta}) d\textbf{y}
+\end{align}
+Now we use the same chain rule as in \eqref{eq:cramerraoe3stjerner}.
+\begin{align}
+\int \frac{\partial^2}{\partial \boldsymbol{\beta} \partial \boldsymbol{\beta}^\top}f_Y(\textbf{y};\boldsymbol{\beta}) d\textbf{y} &= \int \frac{\partial}{\partial \boldsymbol{\beta}} \bigg( \frac{\partial log f_Y(\textbf{y};\boldsymbol{\beta})}{\partial \boldsymbol{\beta}^\top} f_Y(\textbf{y};\boldsymbol{\beta}) \bigg)d\textbf{y} \\
+&= \int \bigg( \frac{\partial^2}{\partial \boldsymbol{\beta} \partial \boldsymbol{\beta}^\top } log f_Y(\textbf{y};\boldsymbol{\beta})  \bigg) f_Y(\textbf{y};\boldsymbol{\beta}) d\textbf{y} \\
+& \ \ \ + \int \frac{\partial log f_Y(\textbf{y};\boldsymbol{\beta})}{\partial \boldsymbol{\beta}^\top} \frac{\partial log f_Y(\textbf{y};\boldsymbol{\beta})}{\partial \boldsymbol{\beta}} f_Y(\textbf{y};\boldsymbol{\beta}) d\textbf{y} \\
+& =  -E_{\beta}\bigg[-\frac{\partial^2}{\partial \boldsymbol{\beta} \partial \boldsymbol{\beta}^\top} \ell(\boldsymbol{\beta};\textbf{Y}) \bigg]+  E_{\beta}\bigg[\bigg( \frac{\partial}{\partial \boldsymbol{\beta}}\ell(\boldsymbol{\beta};\textbf{Y}) \bigg)^\top \frac{\partial}{\partial \boldsymbol{\beta}}\ell(\boldsymbol{\beta};\textbf{Y})  \bigg]
+\end{align}
+
+Therefore $E_{\beta}\bigg[-\frac{\partial^2}{\partial \boldsymbol{\beta} \partial \boldsymbol{\beta}^\top} \ell(\boldsymbol{\beta};\textbf{Y}) \bigg] = E_{\beta}\bigg[\bigg( \frac{\partial}{\partial \boldsymbol{\beta}}\ell(\boldsymbol{\beta};\textbf{Y}) \bigg)^\top \frac{\partial}{\partial \boldsymbol{\beta}}\ell(\boldsymbol{\beta};\textbf{Y})  \bigg]$, which justifies the rewriting in the lemma. 
+\end{proof}
 
 Using the previous definitions, we can now formally introduce the maximum likelihood estimate. 
 
@@ -256,7 +277,7 @@ Consider again the situation from example \ref{ex:model1}. The MLE is found by s
     \hat{\alpha} &= \frac{1}{n} \sum_{i=1}^n y_i \\
     \hat{\alpha} &= \bar{y},
 \end{align*}
-where $\bar{y}$ is the mean of the observed values $y_i$ for $i = 1, \ldots n$.
+where $\bar{y}$ is the mean of the observed values $y_i$ for $i = 1, \ldots n$. This is the maximum point, since the observed information is positive c.f. example  \ref{ex:Observed_information}.
 
 In order to show that the MLE is unbiased we take the expectation
 \begin{align*}
@@ -311,4 +332,12 @@ If $\var_{ii}[\hat{\boldsymbol{\beta}}]$ is the i'th diagonal element in $j^{-1}
 \begin{align*}
     \hat{\boldsymbol{\beta}}_i \xrightarrow{\mathcal{D}} N\left( \boldsymbol{\beta}_i, \var_{ii}(\hat{\boldsymbol{\beta}}) \right).
 \end{align*}
-Thus the covariance matrix of the ML estimator $D[\hat{\boldsymbol{\beta}}]$ is approximated by $j(\hat{\boldsymbol{\beta}})^{-1}$. 
+Thus the covariance matrix of the ML estimator $D[\hat{\boldsymbol{\beta}}]$ is approximated by $j(\hat{\boldsymbol{\beta}})^{-1}$.
+
+The proof is omitted, as it is out of the scope of the project. 
+
+Now that key results from likelihood theory are introduced, including the ML estimator, the next chapter in this project will be on the topic of multiple linear regression.
+In the chapter the likelihood theory introduced here will be applied to the ordinary least squares estimator and used to deduce certain properties about this particular estimator.
+
+All this is done in preparation of the projects main objective, namely constructing and testing a statistical model for forecasting real estate prices.
+The theory in this chapter will play a key role in evaluating properties of the ordinary least squares estimator and thereby also the topic of multiple linear regression.

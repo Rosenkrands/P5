@@ -81,7 +81,7 @@
 \theoremstyle{break}
 \theorempreskip{5mm}
 \theorempostskip{5mm}
-\def\theoremframecommand{{\color{PineGreen}\vrule width 5pt \hspace{5pt}}}
+\def\theoremframecommand{{\color{PineGreen}\vrule width 4pt \hspace{5pt}}}
 \newshadedtheorem{example}{Example}[chapter]
 % \newenvironment{example}[1]{%
 % 		\begin{exa}[#1]
@@ -90,19 +90,88 @@
 % }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Theorem environments
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % Theorem environments
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \theoremstyle{break}
-\newtheorem{theorem}{Theorem}[chapter]
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{definition}[theorem]{Definition}
-\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{theorem}[example]{Theorem}
+\newtheorem{lemma}[example]{Lemma}
+\newtheorem{proposition}[example]{Proposition}
+\newtheorem{corollary}[example]{Corollary}
+\newtheorem{definition}[example]{Definition}
+\newtheorem{assumption}[example]{Assumption}
+
+
+\theoremheaderfont{\normalfont\bfseries}
+\theorembodyfont{\normalfont}
+\theoremstyle{break}
+\theorempreskip{5mm}
+\theorempostskip{5mm}
+\def\theoremframecommand{{\color{PineGreen}\vrule width 2pt \hspace{5pt}}}
+% \newshadedtheorem{example}{Example}[chapter]
+
+% \usepackage{mdframed}
+% \newenvironment{prooff}[1][Proof]{\begin{trivlist}
+% \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+% \newenvironment{remark}[1][Remark]{\begin{trivlist}
+% \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+% \newenvironment{udsagn}[1][Udsagn]{\begin{trivlist}
+% \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+% \newcommand{\qedd}{\nobreak \ifvmode \relax \else
+%       \ifdim\lastskip<1.5em \hskip-\lastskip
+%       \hskip1.5em plus0em minus0.5em \fi \nobreak
+%       \vrule height0.75em width0.5em depth0.25em\fi}
+      
+% \mdtheorem[%
+% hidealllines=true,
+% frametitlefont=\bfseries,
+% font=\itshape,
+% innerleftmargin=0pt]{theorem}{Theorem}[chapter]
+
+% \mdtheorem[%
+% hidealllines=true,
+% frametitlefont=\bfseries,
+% font=\itshape,
+% innerleftmargin=0pt]{corollary}[theorem]{Corollary}
+
+% \mdtheorem[%
+% hidealllines=true,
+% frametitlefont=\bfseries,
+% font=\itshape,
+% innerleftmargin=0pt]{lemma}[theorem]{Lemma}
+
+% \mdtheorem[%
+% hidealllines=true,
+% frametitlefont=\bfseries,
+% font=\itshape,
+% innerleftmargin=0pt]{proposition}[theorem]{Proposition}
+
+% \mdtheorem[%
+% linecolor=PineGreen!100!black,
+% linewidth=2pt,
+% topline=false,
+% bottomline=false,
+% rightline=false,
+% frametitlefont=\color{black!55!black}\bfseries,
+% innertopmargin=\topskip]{example}[theorem]{Example}
+
+% \mdtheorem[%
+% hidealllines=true,
+% frametitlefont=\bfseries,
+% font=\itshape,
+% innerleftmargin=0pt]{definition}[theorem]{Definition}
+
+% \mdtheorem[%
+% hidealllines=true,
+% frametitlefont=\bfseries,
+% font=\itshape,
+% innerleftmargin=0pt]{assumption}[theorem]{Assumption}
+
+
 
 \theoremstyle{nonumberplain}
 \theoremsymbol{$\blacksquare$}
-\newtheorem{proof}{Proof}
+\newtheorem{proof}{Proof.}
 \DeclareMathOperator{\var}{\text{Var}}
 \DeclareMathOperator{\cov}{\text{Cov}}
 \DeclareMathOperator{\nsum}{\sum_{i=1}^n}
@@ -112,5 +181,4 @@
 \DeclareMathOperator{\sigmahat}{\mathbf{\hat{\boldsymbol{\sigma}}^2}}
 \DeclareMathOperator{\tr}{\text{tr}}
 \DeclareMathOperator{\argmin}{\text{arg min}}
-\newcommand{\homo}{homoskedasticity }
-\newcommand{\hetero}{heteroskedasticity }
+\newcommand{\homo}{homoskedasticity}

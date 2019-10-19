@@ -1,0 +1,40 @@
+\section{Goodness of Fit}
+
+The most common measure of how well the model fits the data is R-squared denoted $\mathcal{R}^2$.
+This measures how much of the variance in the dependent variable is explained by the independent variables. 
+In our model it determines how much of the variance in $y$ is explained by the explanatory variables $\mathbf{X}$. 
+Low values of $\mathcal{R}^2$ makes predictions difficult because most of the variance in $y$ is caused by unobserved factors $\varepsilon$, so the OLS predictions will be hard to calculate given a set of explanatory variables.
+Consider the expression for $\mathcal{R}^2$
+\begin{align*}
+    \mathcal{R}^2 = 1 - \dfrac{SSR}{SST}
+\end{align*}
+Where \textbf{SSR} is the \textbf{sum of squared residuals} given as
+\begin{align*}
+    SSR \equiv \nsum \hat{\varepsilon}_i^2
+\end{align*}
+and \textbf{SST} is the \textbf{total sum of squares} given as
+\begin{align*}
+    SST \equiv \nsum (y_i - \overline{y})^2. 
+\end{align*}
+The $\mathcal{R}^2$ value is between $0$ and $1$.
+The closer the value is to one $1$ the more of the variance is accounted for in the explanatory variables, thus it is desirable to have an $\mathcal{R}^2$ value close to $1$ The $\mathcal{R}^2$ value is between $0$ and $1$. 
+The closer the value is to one $1$ the more of the variance is accounted for in the explanatory variables, thus it is desireable to have an $\mathcal{R}^2$ value close to $1$.
+This coefficient of determination can be changed to the adjusted $\mathcal{R}^2$ as
+\begin{align*}
+    \mathcal{R}^2_{Adj} &= 1 - \dfrac{SSR/(n - k - 1)}{SST/(n - 1)}\\
+    =& 1 - \dfrac{\hat{\sigma}^2}{SST/(n-1)}
+\end{align*}
+where the last rewriting was made with $\hat{\sigma}^2 = SSR/(n-k-1)$
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+

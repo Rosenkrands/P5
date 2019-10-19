@@ -1,26 +1,24 @@
 \section{The t-test}
 One way to test hypothesis about any single parameters in the population regression function is to make use of the t-test. 
 A t-test is an inferential statistic determining whether or not the difference between two t statistics, e.g. the means of two groups, is significant. 
-Recall that OLS produces unbiased estimates. 
-
-Throughout this section, given $j\in\{ 1, \ldots, k\}$, let $d_j=(X^TX)^{-1}_{jj}$ denote the $j2$'th diagonal element of $(X^TX)^{-1}$, let $\hat{\beta}_j(\textbf{y})$ denote the j'th coordinate of the MLE $\hat{\beta}(\textbf{y})$ and $\hat{\sigma}^2(\textbf{y})$ denote the usual estimate for $\sigma^2$.
+Recall that OLS produces unbiased estimates c.f. theorem \ref{th:unbiasedness_of_ols}, let $d_j=(\textbf{X}^\top\textbf{X})^{-1}_{jj}$ denote the $j$'th diagonal element of $(\textbf{X}^\top \textbf{X})^{-1}$, let $\hat{\beta}_j(\textbf{y})$ denote the j'th coordinate of the MLE $\hat{\beta}(\textbf{y})$ and $\hat{\sigma}^2(\textbf{y})$ denote the usual estimate for $\sigma^2$.
 
 In order to construct hypothesis test, the following result is needed.
 
 \begin{theorem} [Test of Individual Parameters] \label{th:t_distribution}
 Let $\beta_{0j}$ be given and consider the hypothesis $\mathcal{H}_0=\beta_{0j}$. Under the assumptions \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity}, \ref{as:zero_conditional_mean}, \ref{as:homoskedasticity_and_no_serial_correlation} and \ref{as:normality_of_errors} the t-test for $\mathcal{H}_0$ is given by
 \begin{align}
-   t_j(\textbf{y};\beta_{0j}) = \frac{\hat{\beta}_j - \beta_{0j}}{\sqrt{d_j\sigma^2(\textbf{y})}}\sim t_{n-k-1} = t_{df}, \quad for \ j=1,\ldots,k
+   t_j(\textbf{y};\beta_{0j}) = \frac{\hat{\beta}_j - \beta_{0j}}{\sqrt{d_j\sigma^2(\textbf{y})}}\sim t_{n-k-1}, \quad for \ j=1,\ldots,k
 \end{align}
-where $k+1$ is the number of unknown parameters in the population model \eqref{eq:multiple_linear_regression}, $n-k-1$ is the degrees of freedom (df) and large values of $|t_j(\textbf{y};\beta_{0j})|$ are critical for $\mathcal{H}_0$.
+where $k+1$ is the number of unknown parameters in the population model \eqref{eq:multiple_linear_regression}, $n-k-1$ is the degrees of freedom and large values of $|t_j(\textbf{y};\beta_{0j})|$ are critical for $\mathcal{H}_0$.
 
 And the p-value is
 \begin{align}
     p(\textbf{y},\beta_{0j})=P(|t_j(\textbf{Y};\beta_{0j})|\leq |t_j(\textbf{y};\beta_{0j})|).
 \end{align}
-Futhermore, for $0<a<1$, using the t-test at level $a$, the limits of a ($1-a$)-confidence interval for $\beta_j$ is
-\begin{align}
-    \hat{\beta}_{j}(\textbf{y}) \pm t_{1-a/2}(n-k-1)\sqrt{d_j\sigma^2(\textbf{y})}
+Futhermore, for $0<\alpha<1$, using the t-test at level $\alpha$, the limits of a ($1-\alpha$)-confidence interval for $\beta_j$ is
+\begin{align} \label{eq:t_statistic}
+    \hat{\beta}_{j}(\textbf{y}) \pm t_{1-\alpha/2}(n-k-1)\sqrt{d_j\sigma^2(\textbf{y})}
 \end{align}
 which corresponds to those cases where we accept the hypothesis that $\beta_j$ takes a specific value.
 \end{theorem}
@@ -28,15 +26,15 @@ which corresponds to those cases where we accept the hypothesis that $\beta_j$ t
 Recall due to the assumptions \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity}, \ref{as:zero_conditional_mean}, \ref{as:homoskedasticity_and_no_serial_correlation} and \ref{as:normality_of_errors}
 
 \begin{align} \label{eq:th_t_test}
-    \hat{\beta}(\textbf{Y}) \sim N_k(\beta,\sigma^2(X^TX)^{-1})
+    \hat{\beta}(\textbf{Y}) \sim N_k(\beta,\sigma^2(\textbf{X}^T\textbf{X})^{-1})
 \end{align}
 and thus
 \begin{align*}
-    (\hat{\beta}(\textbf{Y})-\beta_j)/\sqrt{d_j\sigma^2(\textbf{Y})} \sim N(0,d_j \sigma^2) \quad \text{and} \quad \sigma^2(\textbf{Y}) \sim \sigma^2\chi (n-k)/(n-k)
+    (\hat{\beta}(\textbf{Y})-\beta_j)/\sqrt{d_j\sigma^2(\textbf{Y})} \sim N(0,d_j \sigma^2) \quad \text{and} \quad \sigma^2(\textbf{Y}) \sim \sigma^2\chi (n-k-1)/(n-k-1)
 \end{align*}
 are independent. Therefore
 \begin{align*}
-    t_j(\textbf{Y};\beta_j)=\frac{(\hat{\beta}(\textbf{Y})-\beta_j)/\sqrt{d_j\sigma^2(\textbf{Y})}}{\sigma^2(\textbf{Y})/\sigma^2} \sim t(n-k)
+    t_j(\textbf{Y};\beta_j)=\frac{(\hat{\beta}(\textbf{Y})-\beta_j)/\sqrt{d_j\sigma^2(\textbf{Y})}}{\sigma^2(\textbf{Y})/\sigma^2} \sim t(n-k-1)
 \end{align*}
 and the first part of the theorem composed of \eqref{eq:th_t_test} is verified, and second part follows immediately. 
 \end{proof}
@@ -45,46 +43,103 @@ The pdf of the t distribution has a shape that is similar to the standard normal
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width = 0.9\textwidth]{figures/t_distribution.pdf}
+    \includegraphics[width = 0.8\textwidth]{figures/t_distribution.pdf}
     \caption{The t distribution for various DF compared to the standard normal distribution.}
     \label{fig:t_distribution}
 \end{figure}
 
-Clearly, as the degrees of freedom increases, the t distribution approaches the standard normal distribution.
+Clearly, as the degrees of freedom increases, the t distribution approaches the standard normal distribution, so $t_n \rightarrow N(0,1)$ for $n\rightarrow \infty$. 
 
-The primary interest is testing the null hypothesis
+In the case of testing OLS estimates, we test if the estimates are anything other than zero. In this case, we test against the two-tailed alternatives and therefore the primary interest is testing the null hypothesis
 \begin{align} \label{eq:t_test_h0}
-    \mathcal{H}_0=\beta_j=0, \quad for \ j=1,\ldots,k.
+    \mathcal{H}_0=\beta_j=0.
 \end{align}
+In this case the alternative hypothesis is
+\begin{align} \label{eq:t_test_ha}
+    \mathcal{H}_a \neq\beta_j=0,
+\end{align}
+which means, that $x_j$'s effect on the expected value $y$ can be both positive or negative.
 Since after controlling for all other independent variables than $x_j$, $\beta_j$ measures the partial effect of $x_j$ on the expected value of $y$. 
 Thus \eqref{eq:t_test_h0} means that, after $x_1,x_2, \ldots, x_{j-1}, x_{j+1}, \ldots, x_k$ have been accounted for, $x_j$ has no effect on the expected value for $y$ since $\beta_j=0$. 
 For $x_j$ having a partial effect on the expected value of $y$, the value of $\beta_j$ has to be anything other than zero.
 
-In practice, $\hat{\beta}$ will not be zero, whether or not $\mathcal{H}_0$ is true. Therefore the question is rather how to determine how far $\hat{\beta}_j$ is from zero. The further the sample value of $\hat{\beta}_j$ is from zero, the bigger is the evidence against $\mathcal{H}_0$. However, on the other hand the larger the sampling error is of $\hat{\beta}_j$, the smaller is the evidence against $\mathcal{H}_0$. Thus $t_{\hat{\beta}_j}$ is a ratio of how many estimated standard deviations $\hat{\beta}_j$ is away from zero. In general the larger value of $t_{\hat{\beta}_j}$, the larger the evidence against $\mathcal{H}_0$. The precise rule for rejecting $\mathcal{H}_0$ depends on the alternative hypothesis and the chosen significance level.
+In practice, $\hat{\beta}$ will not be zero, whether or not $\mathcal{H}_0$ is true. Therefore the question is rather how to determine how far $\hat{\beta}_j$ is from zero. The further the sample value of $\hat{\beta}_j$ is from zero, the bigger is the evidence against $\mathcal{H}_0$. 
+However, on the other hand the larger the sampling error is of $\hat{\beta}_j$, the smaller is the evidence against $\mathcal{H}_0$. Thus $t_{\hat{\beta}_j}$ is a ratio of how many estimated standard deviations $\hat{\beta}_j$ is away from zero.
+In general the larger value of $t_{\hat{\beta}_j}$, the larger the evidence against $\mathcal{H}_0$. 
+The precise rule for rejecting $\mathcal{H}_0$ depends on the alternative hypothesis and the chosen significance level.
 
-\subsection{Prediction}
+The t value in \eqref{eq:t_statistic} is found in the inverse of the CDF of the t distribution with $(n - k - 1)$ degrees of freedom evaluated in $(1-\alpha/2)$. 
+Since the t distribution is symmetric, $\pm t_{1-\alpha/2}$ is the same as $\mp t_{\alpha/2}$.
+If the 
+
+\begin{example} [Testing Against Two-tailed Alternative Hypothesis]
+We use the dataset CARS in Rstudio to estimate a model explaining the distance taken to stop given the speed of the car. The test is two-tailed, therefore we test the The estimated model is the null hypothesis $\mathcal{H}_0=\beta_1=0.$
+We complete the t-test at level $\alpha=0.05$ which gives the limits of a 95-confidence interval for $\hat{\beta}$.
+We obtain the estimated model
+\begin{align*}
+    \textbf{y}_{dist} = \hat{\boldsymbol{\beta}} \boldsymbol{X}_{speed},
+\end{align*}
+with values listed in the following table.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{term} & \textbf{estimate} & \textbf{std.error} & \textbf{statistic} & \textbf{p.value}\\
+\midrule
+(Intercept) & -17.579095 & 6.7584402 & -2.601058 & 0.0123188\\
+speed & 3.932409 & 0.4155128 & 9.463990 & 0.0000000\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The value of the parameter $\hat{\beta}_1=3.932409$ with t value $t_1(\hat{\beta}_1) = 9.464$ which is significant because of the low p value. 
+Therefore we reject the null hypothesis at the 5\% level. 
+This is illustrated in figure \ref{fig:t_distributionplot1}, where the dotted lines illustrates the respective end and beginning of the the rejection regions and the red line represents the value of our estimate. 
+In the figure it is clearly, that we are far into the tail of the null distribution which also indicates a small p value. 
+This indicates, that our observed $\hat{\beta}_1$ is more extreme than what is reasonably expected if the null hypothesis were true.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 0.8\textwidth]{figures/Nanna/t_distributionplot.pdf}
+    \caption{}
+    \label{fig:t_distributionplot1}
+\end{figure}
+
+Now we have concluded, that speed has a statistically significant effect on the distance at a 95\%-confidence level. 
+By computing the limits of a 95\%-confidence interval for $\hat{\beta}_1$, we find the 95\%-confidence interval which we expect contains the "true" line.
+The 95-confidence interval for $\hat{\beta}_1$ is listed in the following table.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lrr}
+\toprule
+ & \textbf{2.5 \%} & \textbf{97.5 \%}\\
+\midrule
+(Intercept) & -31.167850 & -3.990340\\
+speed & 3.096964 & 4.767853\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+In figure \ref{fig:t_distributionplot2} the blue line is our estimated model and the shaded area is the 95\%-confidence interval in which we expect the "true" line to be. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 0.8\textwidth]{figures/Nanna/Konfidensinterval.pdf}
+    \caption{}
+    \label{fig:t_distributionplot2}
+\end{figure}
+
+
+
+\end{example}
+
+\section{Prediction}
 
 Suppose an observed realization of $\textbf{Y}=\textbf{y}$, however, the extra random variable 
 
 SKRIVES UD FRA JAKOBS NOTER!!!!!!
-
-\subsection{Testing against Two-Tailed Alternatives}
-
-ARGUMENTER FOR TWO TAILED IFT TEST AF OLS ESTIMATER
-
-EKSEMPEL SKRIVES IND HER (ER LAVET)
-
-As the alternative hypothesis a one-sided alternative of the form
-\begin{align}\label{eq:onesided_alt}
-    \mathcal{H}_1:\beta_j>0 , \quad for \ j=1,\ldots,k
-\end{align}
-
-is considered and thus
-
-\begin{align}\label{eq:onesided_h0}
-    \mathcal{H}_0=\beta_j \leq 0 , \quad for \ j=1,\ldots,k.
-\end{align}
-
 
 
 
@@ -113,38 +168,37 @@ is considered and thus
 
 
 
-\begin{definition} [The (1-a)-confidence Region]
+\begin{definition} [The (1-$\alpha$)-confidence Region]
 \label{def:confidence_region}
-Suppose that for a given number $a \in (0,1)$ and for each $\textbf{y} \in \mathcal{Y}$, we have specified a subset $A(\textbf{y})$ of the parameter space $\Theta^k$, such that
+Suppose that for a given number $\alpha \in (0,1)$ and for each $\textbf{y} \in \mathcal{Y}$, we have specified a subset $A(\textbf{y})$ of the parameter space $\Theta^k$, such that
 \begin{align*}
     P_{\boldsymbol{\beta}} (\boldsymbol{\beta} \in A(\textbf{Y})) = 1 - a, \quad \forall \boldsymbol{\beta} \in \Theta^k
 \end{align*}
-Then we call $A(y)$ a $(1-a)$-confidence region for $\boldsymbol{\beta}$.
+Then we call $A(y)$ a $(1-\alpha)$-confidence region for $\boldsymbol{\beta}$.
 \end{definition}
 
 If the parameter is one-dimensional $(k=1)$ and the observations, $y$ are normally distributed, then the confidence region become the interval
 
 \begin{align*}
     \left[ 
-    \hat{\beta}(\textbf{y}) + \Phi_{a/2} \sqrt{D(\hat{\beta}(\textbf{y})} , \hat{\beta}(\textbf{y}) + \Phi_{1 - a/2} \sqrt{D(\hat{\beta}(\textbf{y})}
+    \hat{\beta}(\textbf{y}) + \Phi_{\alpha/2} \sqrt{D(\hat{\beta}(\textbf{y})} , \hat{\beta}(\textbf{y}) + \Phi_{1 - \alpha/2} \sqrt{D(\hat{\beta}(\textbf{y})}
     \right]
 \end{align*}
 
-for $0 < a \leq 0.5$. 
+for $0 < \alpha \leq 0.5$. 
 
 
 \begin{example}
 Consider again the situation from example \ref{ex:model1}. By theorem \ref{th:distribution_ml_estimator} the asymptotic distribution of the ML estimator is given by
 \begin{align*}
-    \hat{\alpha} \rightarrow^\mathcal{D} N\left( \alpha, \boldsymbol{i}(\hat{\alpha})^{-1} \right)
+    \betahat \rightarrow^\mathcal{D} N\left( \mathbf{ \beta }, \boldsymbol{i}(\betahat)^{-1} \right)
 \end{align*}
-
-Since $\alpha$ is one-dimensional, $k=1$, and for $0\leq a \leq 0.5$ we have the approximate $(1-a)$-confidence interval
+Since $\mathbf{\beta}$ is one-dimensional, $k=1$, and for $0\leq \alpha \leq 0.5$ we have the approximate $(1-\alpha)$-confidence interval
 \begin{align*}
-\left[ \hat{\alpha}(\mathbf{y}) + \Phi_{a/2} \sqrt{D\left( \hat{\alpha}\left(\mathbf{y}\right)\right)}, \hat{\alpha}(\mathbf{y}) + \Phi_{1 - a/2} \sqrt{D\left( \hat{\alpha}\left(\mathbf{y}\right)\right)} \right],
+\left[ \betahat(\mathbf{y}) + \Phi_{\alpha/2} \sqrt{D\left( \betahat\left(\mathbf{y}\right)\right)}, \betahat(\mathbf{y}) + \Phi_{1 - \alpha/2} \sqrt{D\left( \betahat\left(\mathbf{y}\right)\right)} \right],
 \end{align*}
-where $D\left(\hat{\alpha}(\mathbf{y})\right) = j\left(\hat{\alpha}(\mathbf{y})\right)^{-1}$.
-For $a=0.05$ we have the approximate $95\%$-confidence interval for $\alpha$:
+where $D\left(\betahat(\mathbf{y})\right) = j\left(\betahat(\mathbf{y})\right)^{-1}$.
+For $\alpha=0.05$ we have the approximate $95\%$-confidence interval for $\mathbf{\beta}$:
 \begin{align*}
 \left[ \bar{y} - \frac{1.96}{\sqrt{n}}, \bar{y} + \frac{1.96}{\sqrt{n}} \right]    
 \end{align*}
@@ -260,7 +314,7 @@ P-value for F test
 
 Overall significance of the regression
 
-
+TILFØJ SÆTNING SOM SAMMENLIGNER T TEST OG LIKELIHOOD RATION
 
 
 
