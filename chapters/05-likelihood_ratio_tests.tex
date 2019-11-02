@@ -1,7 +1,16 @@
+\hrule
+\begin{center}
+INTRO
+\end{center}
+\hrule
+\begin{assumption}[Normality of Errors] \label{as:normality_of_errors}
+    Conditional on $\mathbf{X}$, the $\varepsilon_i$ are independent and identically distributed as $N(0, \sigma^2)$. Equivalently, $\boldsymbol{\varepsilon}$ given $\mathbf{X}$ is distributed as multivariate normal with mean zero and variance-covariance matrix $\sigma^2 \mathbf{I}_{n \times n}$, i.e. $\boldsymbol{\varepsilon} \sim N_n(\mathbf{0}, \sigma^2 \mathbf{I}_{n \times n})$.
+\end{assumption}
+
 \section{The t-test}
-One way to test hypothesis about any single parameters in the population regression function is to make use of the t-test. 
+One way to test hypothesis about any single parameters in the true regression function is to make use of the t-test. 
 A t-test is an inferential statistic determining whether or not the difference between two t statistics, e.g. the means of two groups, is significant. 
-Recall that OLS produces unbiased estimates c.f. theorem \ref{th:unbiasedness_of_ols}, let $d_j=(\textbf{X}^\top\textbf{X})^{-1}_{jj}$ denote the $j$'th diagonal element of $(\textbf{X}^\top \textbf{X})^{-1}$, let $\hat{\beta}_j(\textbf{y})$ denote the j'th coordinate of the MLE $\hat{\beta}(\textbf{y})$ and $\hat{\sigma}^2(\textbf{y})$ denote the usual estimate for $\sigma^2$.
+Recall that OLS produces unbiased estimates c.f. theorem \ref{th:unbiasedness_of_ols}, let $d_j=(\textbf{X}^\top\textbf{X})^{-1}_{jj}$ denote the $j$'th diagonal element of $(\textbf{X}^\top \textbf{X})^{-1}$, let $\hat{\beta}_j(\textbf{y})$ denote the j'th coordinate of the MLE $\hat{\beta}(\textbf{y})$ and $\hat{\sigma}^2(\textbf{y})$ denote the usual estimate for $\sigma^2$ as in \eqref{eq:sigma_hat_2_n-k-1}.
 
 In order to construct hypothesis test, the following result is needed.
 
@@ -26,20 +35,29 @@ which corresponds to those cases where we accept the hypothesis that $\beta_j$ t
 Recall due to the assumptions \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity}, \ref{as:zero_conditional_mean}, \ref{as:homoskedasticity_and_no_serial_correlation} and \ref{as:normality_of_errors}
 
 \begin{align} \label{eq:th_t_test}
-    \hat{\beta}(\textbf{Y}) \sim N_k(\beta,\sigma^2(\textbf{X}^T\textbf{X})^{-1})
+    \hat{\beta}_j(\textbf{Y}) \sim N_k(\beta,\sigma^2(\textbf{X}^T\textbf{X})^{-1})
 \end{align}
 and thus
 \begin{align*}
-    (\hat{\beta}(\textbf{Y})-\beta_j)/\sqrt{d_j\sigma^2(\textbf{Y})} \sim N(0,d_j \sigma^2) \quad \text{and} \quad \sigma^2(\textbf{Y}) \sim \sigma^2\chi (n-k-1)/(n-k-1)
+    (\hat{\beta}(\textbf{Y})-\beta_j)/\sqrt{d_j\sigma^2(\textbf{Y})} \sim N(0,d_j \sigma^2) \quad \text{and} \quad \hat{\sigma}^2(\textbf{Y}) \sim \sigma\chi^2 (n-k-1)/(n-k-1)
 \end{align*}
-are independent. Therefore
+are independent.
+The distribution of $\hat{\sigma}^2$ comes from \eqref{eq:sigma_hat_2_n-k-1}, so
 \begin{align*}
-    t_j(\textbf{Y};\beta_j)=\frac{(\hat{\beta}(\textbf{Y})-\beta_j)/\sqrt{d_j\sigma^2(\textbf{Y})}}{\sigma^2(\textbf{Y})/\sigma^2} \sim t(n-k-1)
+    \hat{\sigma}^2(\textbf{y}) = \dfrac{1}{(n-k-1)}\sum_{i=1}^n \hat{\varepsilon}_i^2
+\end{align*}
+which is a sum of squared independent normally distributed random variables and therefore
+\begin{align*}
+\hat{\sigma}^2(\textbf{Y}) \sim \sigma\chi^2(n-k-1)/(n-k-1).    
+\end{align*}
+Hence
+\begin{align*}
+    t_j(\textbf{Y};\beta_j)=\frac{(\hat{\beta}(\textbf{Y})-\beta_j)/\sqrt{d_j\sigma^2(\textbf{Y})}}{\sqrt{d_j\hat{\sigma}^2(\textbf{Y})/d_j\sigma^2}} \sim t(n-k-1)
 \end{align*}
 and the first part of the theorem composed of \eqref{eq:th_t_test} is verified, and second part follows immediately. 
 \end{proof}
 
-The pdf of the t distribution has a shape that is similar to the standard normal distribution. Except that it is more spread out in the tails and thus has larger areas in the tails. In figure \ref{fig:t_distribution} the pdf of the t distribution is plotted for various degrees of freedom. 
+The pdf of the t distribution has a shape that is similar to the standard normal distribution. Except that it is more spread out in the tails and thus has larger areas in the tails. In figure \ref{fig:t_distribution} the pdf of the t distribution is plotted for various degrees of freedom compared to the standard normal distribution. 
 
 \begin{figure}[h]
     \centering
@@ -52,28 +70,26 @@ Clearly, as the degrees of freedom increases, the t distribution approaches the 
 
 In the case of testing OLS estimates, we test if the estimates are anything other than zero. In this case, we test against the two-tailed alternatives and therefore the primary interest is testing the null hypothesis
 \begin{align} \label{eq:t_test_h0}
-    \mathcal{H}_0=\beta_j=0.
+    \mathcal{H}_0:\beta_j=0.
 \end{align}
 In this case the alternative hypothesis is
 \begin{align} \label{eq:t_test_ha}
-    \mathcal{H}_a \neq\beta_j=0,
+    \mathcal{H}_a : \beta_j \neq 0,
 \end{align}
-which means, that $x_j$'s effect on the expected value $y$ can be both positive or negative.
-Since after controlling for all other independent variables than $x_j$, $\beta_j$ measures the partial effect of $x_j$ on the expected value of $y$. 
-Thus \eqref{eq:t_test_h0} means that, after $x_1,x_2, \ldots, x_{j-1}, x_{j+1}, \ldots, x_k$ have been accounted for, $x_j$ has no effect on the expected value for $y$ since $\beta_j=0$. 
-For $x_j$ having a partial effect on the expected value of $y$, the value of $\beta_j$ has to be anything other than zero.
+which means, that $\textbf{x}_j$'s effect on the expected value $\textbf{y}$ can be both positive or negative.
+Since after controlling for all other independent variables than $\textbf{x}_j$, $\beta_j$ measures the partial effect of $\textbf{x}_j$ on the expected value of $\textbf{y}$. 
+Thus \eqref{eq:t_test_h0} means that, after $\textbf{x}_1,\textbf{x}_2, \ldots, \textbf{x}_{j-1}, \textbf{x}_{j+1}, \ldots, \textbf{x}_k$ have been accounted for, $\textbf{x}_j$ has no effect on the expected value for $\textbf{y}$ since $\beta_j=0$. 
+For $\textbf{x}_j$ having a partial effect on the expected value of $\textbf{y}$, the value of $\beta_j$ has to be anything other than zero.
 
 In practice, $\hat{\beta}$ will not be zero, whether or not $\mathcal{H}_0$ is true. Therefore the question is rather how to determine how far $\hat{\beta}_j$ is from zero. The further the sample value of $\hat{\beta}_j$ is from zero, the bigger is the evidence against $\mathcal{H}_0$. 
 However, on the other hand the larger the sampling error is of $\hat{\beta}_j$, the smaller is the evidence against $\mathcal{H}_0$. Thus $t_{\hat{\beta}_j}$ is a ratio of how many estimated standard deviations $\hat{\beta}_j$ is away from zero.
 In general the larger value of $t_{\hat{\beta}_j}$, the larger the evidence against $\mathcal{H}_0$. 
 The precise rule for rejecting $\mathcal{H}_0$ depends on the alternative hypothesis and the chosen significance level.
-
 The t value in \eqref{eq:t_statistic} is found in the inverse of the CDF of the t distribution with $(n - k - 1)$ degrees of freedom evaluated in $(1-\alpha/2)$. 
 Since the t distribution is symmetric, $\pm t_{1-\alpha/2}$ is the same as $\mp t_{\alpha/2}$.
-If the 
 
-\begin{example} [Testing Against Two-tailed Alternative Hypothesis]
-We use the dataset CARS in Rstudio to estimate a model explaining the distance taken to stop given the speed of the car. The test is two-tailed, therefore we test the The estimated model is the null hypothesis $\mathcal{H}_0=\beta_1=0.$
+\begin{example} [Testing Against Two-tailed Alternative Hypothesis] \label{ex:ttest}
+We use the dataset CARS in Rstudio to estimate a model explaining the distance taken to stop given the speed of the car. The test is two-tailed, therefore we test the null hypothesis $\mathcal{H}_0:\beta_1=0.$
 We complete the t-test at level $\alpha=0.05$ which gives the limits of a 95-confidence interval for $\hat{\beta}$.
 We obtain the estimated model
 \begin{align*}
@@ -85,31 +101,35 @@ with values listed in the following table.
 \centering
 \begin{tabular}{lrrrr}
 \toprule
-\textbf{term} & \textbf{estimate} & \textbf{std.error} & \textbf{statistic} & \textbf{p.value}\\
+\textbf{term} & \textbf{estimate} & \textbf{std.error} & \textbf{t value} & \textbf{p.value}\\
 \midrule
 (Intercept) & -17.579095 & 6.7584402 & -2.601058 & 0.0123188\\
 speed & 3.932409 & 0.4155128 & 9.463990 & 0.0000000\\
 \bottomrule
 \end{tabular}
 \end{table}
-
 The value of the parameter $\hat{\beta}_1=3.932409$ with t value $t_1(\hat{\beta}_1) = 9.464$ which is significant because of the low p value. 
-Therefore we reject the null hypothesis at the 5\% level. 
-This is illustrated in figure \ref{fig:t_distributionplot1}, where the dotted lines illustrates the respective end and beginning of the the rejection regions and the red line represents the value of our estimate. 
+Therefore we reject the null hypothesis at the 5\% level. This is illustrated in figure \ref{fig:t_distributionplot1}, where the dotted lines illustrates the respective end and beginning of the the rejection regions and the red line represents the value of our estimate. 
 In the figure it is clearly, that we are far into the tail of the null distribution which also indicates a small p value. 
 This indicates, that our observed $\hat{\beta}_1$ is more extreme than what is reasonably expected if the null hypothesis were true.
-
 \begin{figure}[H]
     \centering
-    \includegraphics[width = 0.8\textwidth]{figures/Nanna/t_distributionplot.pdf}
-    \caption{}
+    \includegraphics[width = 0.7\textwidth]{figures/Nanna/t_distributionPlot.pdf}
+    \caption{5 \% rejection rule for $\mathcal{H}_a:\beta_1\neq0$ with 48 degrees of freedom and the observed value $\hat{\beta}_1=3.932409$.}
     \label{fig:t_distributionplot1}
 \end{figure}
-
+The t value is found in the inverse of the CDF where we obtain the t values of chosen probabilities. 
+The $95\%$-significance level causes we evaluate the inverse of the CDF in $0.025$ and $0.975$. 
+This is illustrated in figure \ref{fig:CDF_inverse} where the intersection of the dotted lines gives the t values.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 0.7\textwidth]{figures/Nanna/CDF_inverse.pdf}
+    \caption{The inverse of the CDF in which we obtain the t value for $\mathcal{H}_0$ of the chosen $95\%$-significance level.}
+    \label{fig:CDF_inverse}
+\end{figure}
 Now we have concluded, that speed has a statistically significant effect on the distance at a 95\%-confidence level. 
-By computing the limits of a 95\%-confidence interval for $\hat{\beta}_1$, we find the 95\%-confidence interval which we expect contains the "true" line.
-The 95-confidence interval for $\hat{\beta}_1$ is listed in the following table.
-
+By computing the limits of a 95\%-confidence interval for $\hat{\beta}_1$ (speed), we find the 95\%-confidence interval which we expect contains the "true" parameter.
+The 95\%-confidence intervals for $\hat{\beta}_1$ is listed in the following table.
 \begin{table}[H]
 \centering
 \begin{tabular}{lrr}
@@ -121,88 +141,122 @@ speed & 3.096964 & 4.767853\\
 \bottomrule
 \end{tabular}
 \end{table}
-
-In figure \ref{fig:t_distributionplot2} the blue line is our estimated model and the shaded area is the 95\%-confidence interval in which we expect the "true" line to be. 
-
+From this lower and upper bound of the confidence intervals of the parameters, we can plot the area in which we expect the "true" line to be. In figure \ref{fig:t_distributionplot2} the blue line is our estimated model and the shaded area is the 95\%-confidence interval of the model. 
 \begin{figure}[H]
     \centering
-    \includegraphics[width = 0.8\textwidth]{figures/Nanna/Konfidensinterval.pdf}
-    \caption{}
+    \includegraphics[width = 0.7\textwidth]{figures/Nanna/Konfidensinterval.pdf}
+    \caption{Plot of the observed values, the fitted regression line and its $95\%$-confidence intervals in which we expect the "true" line to be.}
     \label{fig:t_distributionplot2}
+\end{figure}
+
+\end{example}
+
+\section{Prediction}
+
+It is often wanted to deduce information about new observations based on the existing fitted regression model. 
+Due to this, prediction intervals are introduced as an estimate of an interval that contains a future observation with a certain probability with respect to already observed data.
+
+In this section we assume that GLM $\textbf{Y}\sim (\textbf{X}\beta, \sigma^2 I_n)$, where the design matrix $\textbf{X}$ has full rank (k+1)<n, and where $\betabold \in \mathbb{R}^{(k+1)}$ and $\sigma^2>0$ are unknown. Suppose an observed realization of $\textbf{Y}=\textbf{y}$, however, the extra random variable $\textbf{Y}_{n+1}$, where
+\begin{align*}
+    Y_{n+1}\sim N(\textbf{x}^\top_{n+1}\betabold,\sigma^2)
+\end{align*}
+is independent of $\textbf{Y}$ and where $\textbf{X}$ and $\textbf{x}_{n+1}\in\mathbb{R}^{(k+1)}$ are known. 
+The natural prediction value for $\textbf{Y}_{n+1}$ is the MLE for its mean, that is c.f. ??
+\begin{align*}
+    \hat{Y}_{n+1}(\textbf{y})=\textbf{x}^\top_{n+1}\hat{\betabold}(\textbf{y}).
+\end{align*}
+The corresponding random variable $\hat{Y}_{n+1}(\textbf{Y})$ is called the predictor for $Y_{n+1}$. 
+We want to determine the variability of $Y_{n+1}$.
+
+Given that $\hat{\betabold} \sim N_k(\betabold,\sigma^2(\textbf{X}^\top\textbf{X})^{-1})$ then $\hat{Y}_{n+1}(\textbf{Y})\sim N(\textbf{x}^\top_{n+1}\betabold,\sigma^2\textbf{x}^\top_{n+1}(\textbf{X}^\top\textbf{X})^{-1}\textbf{x}_{n+1})$ and $Y_{n+1}\sim N(\textbf{x}^\top_{n+1}\betabold,\sigma^2)$ are independent. Thus we obtain uncertainty of the estimate
+\begin{align*}
+    Y_{n+1}-\hat{Y}_{n+1} \sim N(0, \sigma^2(1+\textbf{x}^\top_{n+1}(\textbf{X}^\top\textbf{X})^{-1})).
+\end{align*}
+
+Further the variance estimator
+\begin{align*}
+    \hat{\sigma}^2(\textbf{Y})=\frac{\|\textbf{Y} - \textbf{X}( \textbf{X}^\top\textbf{X} )^{-1}\textbf{X}^\top\textbf{Y}\|^2}{n-(k+1)} \sim \frac{\chi^2(n-(k+1))}{(n-(k+1))}
+\end{align*}
+is independent of $Y_{n+1}-\hat{Y}_{n+1}(\textbf{Y})$ because of independence of data. Since $\hat{\sigma}^2(\textbf{Y})$ is independent of $\hat{\betabold}(\textbf{Y})$ then $\hat{\sigma}^2(\textbf{Y})$ is also independent of $Y_{n+1}-\hat{Y}_{n+1}$. From this we define
+\begin{align*}
+    T=\frac{Y_{n+1}-\hat{Y}_{n+1}(\textbf{Y})}{\sqrt{\hat{\sigma}^2(\textbf{Y})(1+\textbf{x}^\top_{n+1}(\textbf{X}^\top\textbf{X})^{-1}\textbf{x}_{n+1})}}
+\end{align*}
+and recall the proof of theorem \ref{th:t_distribution} from which we conclude that
+\begin{align*}
+    T=\frac{Y_{n+1}-\hat{Y}_{n+1}(\textbf{Y})/\sqrt{\sigma^2(1+\textbf{x}^\top_{n+1}(\textbf{X}^\top\textbf{X})^{-1}\textbf{x}_{n+1})}}{\sqrt{\hat{\sigma}^2(\textbf{Y})/\sigma^2}} \sim t(n-(k+1)).
+\end{align*}
+From this it is entailed for $0<\alpha<1$ with probability $(1-\alpha)$ that $Y_{n+1}$ is contained in the interval with limits
+\begin{align*}
+    \hat{Y}_{n+1}(\textbf{Y})\pm t_{\alpha/2}(n-(k+1))\sqrt{\hat{\sigma}^2(\textbf{Y})(1+\textbf{x}^\top_{n+1}(\textbf{X}^\top\textbf{X})^{-1}\textbf{x}_{n+1})}
+\end{align*}
+and by substituting $\textbf{Y}$ with the observation $\textbf{y}$ we obtain the $(1-\alpha)\%$-prediction interval for $Y_{n+1}$
+\begin{align} \label{eq:predict_interval}
+    \hat{Y}_{n+1}(\textbf{y})\pm t_{\alpha/2}(n-(k+1))\sqrt{\hat{\sigma}^2(\textbf{y})(1+\textbf{x}^\top_{n+1}(\textbf{X}^\top\textbf{X})^{-1}\textbf{x}_{n+1})}
+\end{align}
+This is the interval of which we expect future observations to be with probability $(1-\alpha)$ given our assumptions is correct.
+If we compare the $(1-\alpha)\%$-prediction interval in \eqref{eq:predict_interval} to the $(1-\alpha)\%$-confidence interval in \eqref{eq:t_statistic} it is clearly that the $(1-\alpha)\%$-prediction interval is the largest.
+This is caused by prediction intervals contain both the uncertainty in estimating the "true" mean and the the random variation of the individual values.
+
+\begin{example} [Prediction intervals]
+We use the dataset CARS in Rstudio to estimate a model explaining the distance taken to stop given the speed of the car. 
+We want to construct intervals for which we expect contains future data points with $95\%$-confidence. 
+Cars contains $50$ observations form which we choose $40$ observations randomly. 
+From these $40$ observations we have the fitted regression line from which we calculate the $95\%$-prediction interval with use of \eqref{eq:predict_interval}. 
+It is now interesting to test whether or not the remaining observations from Cars are contained in the prediction interval. 
+
+This is illustrated in figure \ref{fig:prediction} there the red line is the fitted regression line, the blue and the green line are the respective upper and lower bounds of the prediction interval, the black data points are the originally $40$ observations and the red data points are the remaining $10$ observations. 
+All the red data points are contained in the prediction interval 
+which agrees with the expectation. 
+However, to conclude something definitive about the quality of the prediction interval would require more new observations.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 0.7\textwidth]{figures/Nanna/Prediction_plot.pdf}
+    \caption{Plot of the observed values, the fitted regression line, its $95\%$-prediction intervals in which we expect new data points to be. The red data points are the new data points.}
+    \label{fig:prediction}
 \end{figure}
 
 
 
 \end{example}
 
-\section{Prediction}
 
-Suppose an observed realization of $\textbf{Y}=\textbf{y}$, however, the extra random variable 
+% \section{Confidence intervals}
 
-SKRIVES UD FRA JAKOBS NOTER!!!!!!
+% \begin{definition} [The (1-$\alpha$)-confidence Region]
+% \label{def:confidence_region}
+% Suppose that for a given number $\alpha \in (0,1)$ and for each $\textbf{y} \in \mathcal{Y}$, we have specified a subset $A(\textbf{y})$ of the parameter space $\Theta^k$, such that
+% \begin{align*}
+%     P_{\boldsymbol{\beta}} (\boldsymbol{\beta} \in A(\textbf{Y})) = 1 - a, \quad \forall \boldsymbol{\beta} \in \Theta^k
+% \end{align*}
+% Then we call $A(y)$ a $(1-\alpha)$-confidence region for $\boldsymbol{\beta}$.
+% \end{definition}
 
+% If the parameter is one-dimensional $(k=1)$ and the observations, $y$ are normally distributed, then the confidence region become the interval
 
+% \begin{align*}
+%     \left[ 
+%     \hat{\beta}(\textbf{y}) + \Phi_{\alpha/2} \sqrt{D(\hat{\beta}(\textbf{y})} , \hat{\beta}(\textbf{y}) + \Phi_{1 - \alpha/2} \sqrt{D(\hat{\beta}(\textbf{y})}
+%     \right]
+% \end{align*}
 
-
-%\textit{\section{likelihood ratio tests}
-
-%\begin{theorem}[theorem title]
-%the likelihood ratio test statistic for testing the hypothesis
-%\begin{align}
-%\mathcal{h}_0:\boldsymbol{\mu} \in \omega_0
-%\end{align}
-%against the alternative hypothesis
-%\begin{align}
-%\mathcal{h}_1:\boldsymbol{\mu} \in \omega_1 \backslash \omega_0
-%\end{align}
-%is a monotone function of 
-%\begin{align}
-%f(\boldsymbol{y})=\frac{d(p_1(\boldsymbol{y});p_0(\boldsymbol{y}))/(m_1-m_0)}{d(\boldsymbol{y};p_1(\boldsymbol{y}))/(n-m_1)}
-%\end{align}
-%where $p_1(\boldsymbol{y})$ and $p_0(\boldsymbol{y})$ are projections of $\boldsymbol{y}$ on $\omega_1$ and its subset $\omega_0$, respectively.
-%under the assumption of $\mathcal{h}_0$ 
-%\begin{align}
-%f = f(m_1-m_0,n-m_1)
-%\end{align}
-%\end{theorem}}
+% for $0 < \alpha \leq 0.5$. 
 
 
-
-\begin{definition} [The (1-$\alpha$)-confidence Region]
-\label{def:confidence_region}
-Suppose that for a given number $\alpha \in (0,1)$ and for each $\textbf{y} \in \mathcal{Y}$, we have specified a subset $A(\textbf{y})$ of the parameter space $\Theta^k$, such that
-\begin{align*}
-    P_{\boldsymbol{\beta}} (\boldsymbol{\beta} \in A(\textbf{Y})) = 1 - a, \quad \forall \boldsymbol{\beta} \in \Theta^k
-\end{align*}
-Then we call $A(y)$ a $(1-\alpha)$-confidence region for $\boldsymbol{\beta}$.
-\end{definition}
-
-If the parameter is one-dimensional $(k=1)$ and the observations, $y$ are normally distributed, then the confidence region become the interval
-
-\begin{align*}
-    \left[ 
-    \hat{\beta}(\textbf{y}) + \Phi_{\alpha/2} \sqrt{D(\hat{\beta}(\textbf{y})} , \hat{\beta}(\textbf{y}) + \Phi_{1 - \alpha/2} \sqrt{D(\hat{\beta}(\textbf{y})}
-    \right]
-\end{align*}
-
-for $0 < \alpha \leq 0.5$. 
-
-
-\begin{example}
-Consider again the situation from example \ref{ex:model1}. By theorem \ref{th:distribution_ml_estimator} the asymptotic distribution of the ML estimator is given by
-\begin{align*}
-    \betahat \rightarrow^\mathcal{D} N\left( \mathbf{ \beta }, \boldsymbol{i}(\betahat)^{-1} \right)
-\end{align*}
-Since $\mathbf{\beta}$ is one-dimensional, $k=1$, and for $0\leq \alpha \leq 0.5$ we have the approximate $(1-\alpha)$-confidence interval
-\begin{align*}
-\left[ \betahat(\mathbf{y}) + \Phi_{\alpha/2} \sqrt{D\left( \betahat\left(\mathbf{y}\right)\right)}, \betahat(\mathbf{y}) + \Phi_{1 - \alpha/2} \sqrt{D\left( \betahat\left(\mathbf{y}\right)\right)} \right],
-\end{align*}
-where $D\left(\betahat(\mathbf{y})\right) = j\left(\betahat(\mathbf{y})\right)^{-1}$.
-For $\alpha=0.05$ we have the approximate $95\%$-confidence interval for $\mathbf{\beta}$:
-\begin{align*}
-\left[ \bar{y} - \frac{1.96}{\sqrt{n}}, \bar{y} + \frac{1.96}{\sqrt{n}} \right]    
-\end{align*}
-\end{example}
+% \begin{example}
+% Consider again the situation from example \ref{ex:model1}. By theorem \ref{th:distribution_ml_estimator} the asymptotic distribution of the ML estimator is given by
+% \begin{align*}
+%     \betahat \rightarrow^\mathcal{D} N\left( \mathbf{ \beta }, \boldsymbol{i}(\betahat)^{-1} \right)
+% \end{align*}
+% Since $\mathbf{\beta}$ is one-dimensional, $k=1$, and for $0\leq \alpha \leq 0.5$ we have the approximate $(1-\alpha)$-confidence interval
+% \begin{align*}
+% \left[ \betahat(\mathbf{y}) + \Phi_{\alpha/2} \sqrt{D\left( \betahat\left(\mathbf{y}\right)\right)}, \betahat(\mathbf{y}) + \Phi_{1 - \alpha/2} \sqrt{D\left( \betahat\left(\mathbf{y}\right)\right)} \right],
+% \end{align*}
+% where $D\left(\betahat(\mathbf{y})\right) = j\left(\betahat(\mathbf{y})\right)^{-1}$.
+% For $\alpha=0.05$ we have the approximate $95\%$-confidence interval for $\mathbf{\beta}$:
+% \begin{align*}
+% \left[ \bar{y} - \frac{1.96}{\sqrt{n}}, \bar{y} + \frac{1.96}{\sqrt{n}} \right]    
+% \end{align*}
+% \end{example}
 
 
 \section{F Test}
@@ -225,7 +279,7 @@ This means we want to test the hypothesis
 \end{align}
 These are referred to as the exclusion restrictions. 
 This is done using the F statistic
-\begin{align}\label{eq:F_test}
+\begin{align}\label{eq:F_statistic}
     F \equiv \frac{\| H_1 y - H_0 y \|^2/q}{\| y - H_1 y \|^2/(n-k-1)},
 \end{align}
 that is the relative increase in $SSR$, when going from model 0 to model 1. 
@@ -237,22 +291,98 @@ This is discussed further in theorem \ref{th:Likelihood_ratio_linear_models}.
 
 We will therefore reject $\mathcal{H}_0$, when $F$ is sufficiently large, since this indicates that significantly more of the variation of the data has been explained by model 1, as compared to model 0.
 
-As with the t statistic, there is no correct significance level, but $a = 5 \%$ is often used. 
-The critical value for the significance level can be determined either by calculating one explicitly from the F distribution found below or finding it in a table. 
+As with the t test, there is no correct significance level, but $a = 5 \%$ is often used. 
+The critical value for the significance level can be determined either by calculating one explicitly from the F distribution found below or using software such as R. 
 
 $\mathcal{H}_0$ is therefore rejected if the F statistic is greater than the critical value
 \begin{align*}
     F>c.
 \end{align*}
-If this is the case, the explanatory variables $x_{k-q+1}, \ldots, x_k$ are said to be jointly statistically significant. Otherwise they are said to be jointly insignificant, which can justify removing them from the model. 
+If this is the case, the explanatory variables $x_{k-q+1}, \ldots, x_k$ are said to be jointly statistically significant. 
+Otherwise they are said to be jointly insignificant, which can justify removing them from the model. 
+In order to determine the critical value, the F distribution is given.
+
 
 \begin{definition}[F Distribution]
     Let $X_1 \sim \chi_{k_1}^2$ and $X_2 \sim \chi_{k_2}^2$ be independent random variables. Then the random variable 
         \begin{align*}
-            F = \frac{X_1/k_1}{X_2/k_2}
+            F(k_1,k_2) = \frac{X_1/k_1}{X_2/k_2}
         \end{align*}
-    has an F distribution with $(k_1, k_2)$ degrees of freedom, which is denoted as $F \sim F_{k_1, k_2}$.
+    has an F distribution with $(k_1, k_2)$ degrees of freedom, which is denoted as $F(k_1,k_2) \sim F_{k_1, k_2}$.
 \end{definition}
+
+The p-value for the F-test is therefore
+
+\begin{align*}
+    p = P(F(q,n-k-1) > F).
+\end{align*}
+
+That is the probability of observing this F-statistic under $H_0$. The confidence level therefore reflects how sure we are that the model under $H_0$ has generated the data.
+
+\begin{example}
+    As seen above we only need the degrees of freedom in order to find the F-distribution and thereby the critical value, for a given significance level.
+    Firstly our data-set and models are introduced
+    
+    \begin{lstlisting}
+        linreg1 <-lm(dist~speed,data=cars)
+        linreg2 <-lm(dist~speed+I(speed^2),data=cars)
+        n <- 50
+        df1 <- n - 2
+        df2 <- n - 3
+    \end{lstlisting}
+    
+    The pdf for our F-distribution is then found using the 'df' function in R
+    
+    \begin{lstlisting}
+        dist_df <- data.frame(
+        x = seq(0, 4, by = 0.01),
+        pdf = df(x = seq(0, 4, 0.01), df1 = df1, df2 = df2)
+        )
+    \end{lstlisting}
+    
+    We choose a significance level of $a = 0.05$, from which we get the critical value $c=1.62$. This is found using the quantile function
+    
+    \begin{lstlisting}
+        upper = qf(0.95, df1 = df1, df2 = df2)
+    \end{lstlisting}
+    
+    The pdf and associated critical value are now plotted
+    
+    \begin{lstlisting}
+        ggplot(aes(x = x, y = pdf), data = dist_df) + 
+        geom_line() +
+        #Highlighting the significans level
+        geom_area(data=dist_df[which(dist_df$x > upper),],
+        aes(x=x, y=pdf), fill = "red", alpha = 0.6)
+    \end{lstlisting}
+    
+    \begin{figure}[H]
+        \centering
+      \includegraphics[width = 1 \textwidth]{figures/Thea/Fdistsign.pdf}
+      \caption{Caption}
+      \label{fig:my_label}
+    \end{figure}
+    
+    The significance level is illustrated by the area under the curve marked with red, and has the area equal to the significance level.
+    
+    The F-statistic is calculated using \eqref{eq:F_statistic}, where the SSR for the two models are calculated by the 'anova' function in R. 
+    %Kode til Fstat
+    \begin{lstlisting}
+        RSS_model1 <- anova(linreg1,linreg2)$RSS[1]
+        RSS_model2 <- anova(linreg1,linreg2)$RSS[2]
+        Fstat <- ((RSS_model1 - RSS_model2)/(df1 - df2))/((RSS_model2)/df2)
+        2.296027
+    \end{lstlisting}
+    
+    The associated p-value is then
+    
+    \begin{lstlisting}
+        p <- pf(q = Fstat, df1 = df1, df2 = df2, lower.tail=F)
+        0.002517047
+    \end{lstlisting}
+    
+    We conclude that the parameter $speed^2$ is with 95\% certainty statistically significant.
+\end{example}
 
 The likelihood ratio can compare the goodness of fit for 2 models, specifically one over the entire parameter space and one with a restriction imposed.
 It would therefore be interesting to see what relation it has to the F-test.
@@ -295,9 +425,69 @@ It would therefore be interesting to see what relation it has to the F-test.
         &= \frac{\| (H_1 - H_0) Y \|^2/q}{\| (I - H_1) Y \|^2/(n-k-1)} \\
         &= \frac{\chi^2(q)/q}{\chi^2(n-k-1)/(n-k-1+q)}, \\
     \end{align*}
-    where the last equation holds because $H_1 - H_0$ and $I - H_1$ are projections, and therefore follow a chi-squared distribution. 
+    where the last equation holds because $H_1 - H_0$ and $I - H_1$ are projections, and therefore follow a chi-squared distribution.
 \end{proof}
 
+\begin{theorem}
+    The $t$-test (specify which) is equivalent to the likelihood ratio test for $\mathcal{H}_0 \ : \ \beta_j = \beta_{0j}$.
+\end{theorem}
+\begin{proof}
+    Without loss of generality assume that $j = 1$.
+    Let $\beta_{-1} = (\beta_2, \ldots, \beta_k)^\top$, so $\beta = (\beta_1, \beta_{-1}^\top)^\top$.
+    Denote by $\textbf{x}_1$, the first column of $\textbf{X}$, and by $\textbf{X}_{-1}$, the remaining columns of $\textbf{X}$, such that $\textbf{X} = \left[\textbf{x}_1 \ \textbf{X}_{-1}\right]$.
+    
+    Consider first the case $\beta_{01} = 0$: Then $\textbf{X}_{-1}$ is the design matrix for $\mathcal{H}_0$.
+    The hat matrices corresponding to $\textbf{X}$ and $\textbf{X}_{-1}$ are given by
+    \begin{align*}
+        H = \textbf{X}(\textbf{X}^\top\textbf{X})^{-1}\textbf{X}^\top, \quad H_{-1} = \textbf{X}_{-1}(\textbf{X}^\top_{-1}\textbf{X}_{-1})^{-1}\textbf{X}^\top_{-1},
+    \end{align*}
+    respectively.
+    The MLE for the mean vector under the original model is $H\textbf{y}$, the MLE for the mean vector under $\mathcal{H}_0$ is $H_{-1}\textbf{y}$, and the $F$-statistic for $\mathcal{H}_0$ is
+    \begin{align*}
+        F(\textbf{y}) = \frac{\|H\textbf{y} - H_{-1}\textbf{y}\|^2/(k-(k-1))}{\hat{\sigma}^2(\textbf{y})}
+    \end{align*}
+    where large values of $F(\textbf{y})$ are critical for $\mathcal{H}_0$.
+    We have
+    \begin{align*}
+        H\textbf{y} = \textbf{X}\betahat(\textbf{y}) = \textbf{x}_1\hat{\beta}_1(\textbf{y}) + \textbf{X}_{-1} \betahat_{-1}(\textbf{y})
+    \end{align*}
+    and $H_{-1}H = H_{-1}$, so
+    \begin{align*}
+        H\textbf{y}-H_{-1}\textbf{y} = 
+        H\textbf{y}-H_{-1}H\textbf{y} =
+        (I - H_{-1})H\textbf{y} = 
+        (I - H_{-1})\textbf{x}_1\hat{\beta}_1(\textbf{y})
+    \end{align*}
+    since $(I - H_{-1})\textbf{X}_{-1} = 0$.
+    Hence, as $I - H_{-1}$ is symmetric and idempotent,
+    \begin{align*}
+        \|H\textbf{y} - H_{-1}\textbf{y}\|^2 = \beta_1(\textbf{y})^2\textbf{x}_1^\top(I - H_{-1})\textbf{x}_1.
+    \end{align*}
+    \textbf{Verify that} $\textbf{x}_1^\top(I - H_{-1})\textbf{x}_1 = 1/d_i$.
+    Consequently,
+    \begin{align*}
+        F(\textbf{y}) = \frac{\hat{\beta}(\textbf{y})^2/d_1}{\hat{\sigma}^2(\textbf{y})} = t_1(\textbf{y};0)^2
+    \end{align*}
+    and so the $t$-test in theorem (specify which) is equivalent to the $F$-test which in turn is equivalent to the likelihood ratio test.
+    
+    Consider next the general case where $\beta_{01}$ is any fixed number: Let $\textbf{Z} = \textbf{Y} - x_1\beta_{01}$ and
+    \begin{align*}
+        \Tilde{\beta} = (\beta_1 - \beta_{01}, \beta_2, \ldots, \beta_k)^\top = \beta - (\beta_{01}, 0, \ldots, 0)^\top.
+    \end{align*}
+    Since $\textbf{Z} \sim N_n(\textbf{X}\Tilde{\boldsymbol{\beta}}, \sigma^2\textbf{I}_n)$ and $\{ (\beta_1 - \beta_{01}, \beta_2, \ldots, \beta_k)^\top \ : \ \beta_1 \in \mathbb{R}, \ldots, \beta_k \in \mathbb{R} \} = \mathbb{R}^k$, we see that $\textbf{Z}$ corresponds to $\textbf{Y}$ in the first case.
+    It is easily see that
+    \begin{align*}
+        \hat{\boldsymbol{\sigma}}^2(\textbf{Z}) = \hat{\boldsymbol{\sigma}}^2(\textbf{Y}), \quad \hat{\bar{\boldsymbol{\beta}}}(\textbf{Z}) = \hat{\boldsymbol{\beta}}(\textbf{Y}) - (\beta_{10}, 0, \ldots, 0)^\top,
+    \end{align*}
+    since the MLE is invariant under reparametrizations and under one-to-one transformations of the data.
+    Combining these facts we obtain
+    \begin{align*}
+        F(\textbf{z}) =
+        \frac{\hat{\bar{\boldsymbol{\beta}}}(\textbf{Z})^2/d_1}{\hat{\boldsymbol{\sigma}}^2(\textbf{z})} = 
+        \frac{(\betahat(\textbf{y}) - \beta_{01})^2/d_1}{\hat{\boldsymbol{\sigma}}^2(\textbf{y})}
+    \end{align*}
+    which completes the proof.
+\end{proof}
 \textbf{Muligvis overflødigt}
 
 In practice it can be useful to express F as a function of $R^2$ instead of $SSR$, as it can become large, making computation slower, whereas $R^2$ is always between $0$ and $1$. In addition many programs often report $R^2$ and not $SSR$.
@@ -309,6 +499,222 @@ This form of the F statistic is obtained by using the equality's $SSR_0 = SST(1 
 \end{align}
 
 
+In addition F-statistics can be used to test for the overall significance of a regression. Consider the model with $k$ independent variables, to which the null hypothesis can be written as
+\begin{align}\label{eq:null_hypo_for_F_overall_significance_R}
+    \mathcal{H}_0: \betabold_1 = \betabold_2 = \ldots = \betabold_k = 0.
+\end{align}
+Where the alternative hypothesis is that at least one estimator is different than $0$. In \eqref{eq:null_hypo_for_F_overall_significance_R} there are $k$ restrictions and they state that knowing the values the explanatory variables does not explain the dependent variable $y$. This can be written as
+\begin{align}\label{eq:unrestricted_F_hypo_for_jeg_skal_bruge_den}
+    y = \betabold_0 + \varepsilon
+\end{align}
+Where all independent variables have been excluded due to no affect on $y$. Recall equation \eqref{eq:F_test_R}, which is the F-statistics using the $\mathcal{R}$-squared. In the restricted model \eqref{eq:unrestricted_F_hypo_for_jeg_skal_bruge_den} the $\mathcal{R}$-squared is equal $0$ because none of the variation in $y$ is accounted for because there are no explanatory variables. Furthermore $q = df_r - df_{ur}$ is equal to $k$ because $df_r = n-0-1$ and $df_{ur} = n-k-1$ which means $q = n-1 - (n-k-1) = k$. If we substitute this into \eqref{eq:F_test_R} we get
+\begin{align}\label{eq:udvidelse_til_F_stat}
+    F = \dfrac{\mathcal{R}^2_{\hat{\varepsilon}^2}/k}{(1-\mathcal{R}^2_{\hat{\varepsilon}^2}) / (n-k-1)}
+\end{align}
+This F-statistics in only valid in testing for joint exclusion of all independent variables. Therefor it often referred to as the overall significance of the regression. 
+
+
+
+
+
+
+\subsection{Test for Heteroscedasticity}
+In this section we wish to introduce a method to determine if heteroskedasticity is present, because in the case of heteroskedasticity the useal OLS estimator is not BLUE. 
+
+We consider our linear model given as $y = \mathbf{\beta}_0 + \mathbf{\beta}_1x_1 + \ldots + \mathbf{\beta}_kx_k + \mathbf{\varepsilon}$ and let assumption \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity} and \ref{as:zero_conditional_mean} hold true.
+
+We then construct our null hypothesis as
+\begin{align*}
+    \mathcal{H}_0 : \var[\varepsilon | \mathbf{X}] = \var[\varepsilon] = \sigma^2. 
+\end{align*}
+With this null hypothesis we wish to determine if the homoskedasticity assumption holds. 
+If we accept our $\mathcal{H}_0$-hypothesis for a small significance value then heteroskedasticity is not present.
+Assumption \ref{as:zero_conditional_mean}, which tells that the conditional expected value is equal to $0$, implies that $\var(\varepsilon | \mathbf{X}) = E[\varepsilon^2 | \mathbf{X}]$ because of the conditional variance formula $\var(\varepsilon | \mathbf{X}) = E[\varepsilon^2 | \mathbf{X}] - (E[\varepsilon | \mathbf{X}])^2$. Using this we rewrite our $\mathcal{H}_0$-hypothesis as
+\begin{align*}
+    \mathcal{H}_0 : E[\varepsilon^2 | \mathbf{X}] = E[\varepsilon^2] = \sigma^2.
+\end{align*}
+With this $\mathcal{H}_0$-hypothesis we test if the error term, $\sigma^2$ is related with any of the explanatory variables in terms in the expected value.  
+If $\mathcal{H}_0$ is rejected then $\varepsilon^2$ is a function of at least one of the explanatory variables, so the error term can be expressed as a linear function of these explanatory variables
+\begin{align}\label{eq:test_hetero_nul_hypotese}
+    \varepsilon^2 = \delta_0 + \delta_1x_1 + \ldots + \delta_kx_k + v
+\end{align}
+Where $v$ is an error with mean equal to $0$ given the explanatory variables. In order for $\varepsilon^2$ to be homoskedastic the following $\mathcal{H}_0$-hypothesis must be accepted 
+\begin{align}\label{eq:H_nul_for_hetero_med_delta}
+    \mathcal{H}_0 : \delta_1 = \delta_2 = \ldots = \delta_k = 0
+\end{align}
+So the error term $v$ does not depend on the explanatory variables. If the error $v$ in \eqref{eq:test_hetero_nul_hypotese} is assumed to be independent of the explanatory variables $\mathbf{X}$, then F-statistics can be used to test \eqref{eq:H_nul_for_hetero_med_delta} for the overall significance of the explanatory variables for $\varepsilon^2$, even though this error term is not normally distributed. We state the central limit theorem without proof to justify this. 
+\begin{theorem}[Central Limit Theorem]
+Let $\{ Y_1, Y_2, \ldots, Y_n \}$ be a iid. random sample with mean $\mu$ and variance $\sigma^2 < \infty$. Then
+\begin{align*}
+    P\left(\dfrac{\overline{Y}_n - n\mu}{\sigma \sqrt{n}}\leq y\right) \rightarrow \Phi(y)
+\end{align*}
+Where $\Phi(y)$ is the cdf of the standard normal distribution. 
+\end{theorem}
+From the central limit theorem it is possible to derive the distribution of $\overline{Y}_n$. We have  
+\begin{align*}
+    P\left(\dfrac{\overline{Y}_n - n\mu}{\sigma \sqrt{n}} \leq y\right) \rightarrow \Phi(y)
+\end{align*}
+And for large $n$ we use the central limit theorem to rewrite as
+\begin{align*}
+    Z_n = \dfrac{\overline{Y}_n - n\mu}{\sigma \sqrt{n}} \stackrel{d}{\approx} N(0,1). 
+\end{align*}
+Where $\stackrel{d}{\approx}$ denotes the approximate distribution. It is seen that $\overline{Y}_n$ has mean $n\mu$ and variance $n \sigma^2$ from the above equation. We use this to write
+\begin{align*}
+    \overline{Y}_n \stackrel{d}{\approx} N(n\mu, n\sigma^2). 
+\end{align*}
+This means that iid. random variables has en approximate normal distribution regardless of the distribution of $Y$. It then follows that an F-statistic will be asymptotically true even though $\varepsilon^2$ is not normally distributed. 
+
+Since $\varepsilon^2$ is unobserved we cannot calculate the OLS regression on $\varepsilon^2$ for $\mathbf{X}$, so instead we calculate the regressions using the estimates. Thus
+\begin{align}\label{eq:OLS_residual_hat_epsioln_i_anden}
+    \hat{\varepsilon}^2 = \delta_0 + \delta_1x_1 + \ldots + \delta_kx_k + w
+\end{align}
+Where $\hat{\varepsilon}_i$ is an estimate for $\varepsilon_i$ for observation $i$. From this equation the F-statistics for the joint significance of $x_1, x_2, \ldots, x_k$ can be calculated to test for multicollinarity. 
+
+The F-statistics is calculated as
+\begin{align*}
+    F = \dfrac{\mathcal{R}^2_{\hat{\varepsilon}^2}/k}{(1-\mathcal{R}^2_{\hat{\varepsilon}^2}) / (n-k-1)}
+\end{align*}
+
+Which follows from \eqref{eq:udvidelse_til_F_stat}. Here $\mathcal{R}^2_{\hat{\varepsilon}^2}$ is the $\mathcal{R}$-squared found from \eqref{eq:OLS_residual_hat_epsioln_i_anden} and $k$ is the number of independent variables in \eqref{eq:OLS_residual_hat_epsioln_i_anden}. 
+
+These calculations are known as the \textbf{Breush-Pegan Test for heteroskedasticity}. We summarise the steps as follows
+
+\textbf{The Breusch-Pegan Test for Heteroskedasticity}
+\begin{enumerate}[label=(\roman*)]
+    \item Estimate the linear regression model \eqref{eq:multiple_linear_regression_model} by OLS and obtain the squared OLS residuals $\hat{\varepsilon}^2$. 
+    \item Make the regression on \eqref{eq:OLS_residual_hat_epsioln_i_anden} and calculate the $\mathcal{R}^2_{\hat{\varepsilon}^2}$. 
+    \item Perform the F-statistics. If the p-value is below the significance level, reject the null hypothesis. 
+\end{enumerate}
+
+This means that if the p-value if sufficiently small for the F-statistics, then heteroskedasticity is present. 
+
+\begin{example}[Test for Heteroskedasticity]
+
+\end{example}
+
+\subsection{Type of Heteroskedasticity}
+In addition to testing for the presence of heteroskedasticity, it is possible to test for the type of heteroskedasticity. 
+
+
+
+\subsection{Correct for Heteroscedasticity}
+To sum up \hetero will in general cause OLS standard errors to be faulty as well as the related statistical tests. In this section we wish to correct for these mistakes, so they are correct when \hetero is present.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Residuals}\label{subsec:residuals}
+
+The residuals are the difference between the observed values $y$ and the fitted values $\hat{y}$. They are therefore the observed errors $\boldsymbol{\hat{\varepsilon}}$ described in \eqref{eq:replace_with_y}
+\begin{align*}
+    r(\textbf{y}) &= \textbf{y} - \hat{\textbf{y}} = \textbf{y} - \textbf{X} \betahat = (I - H) \textbf{y}.
+    % r_i(y) &= y_i - x_i \betahat = y_i - x_i (X^\top X)^{-1}X^\top y_i = (1 - h_{ii}) y_i,
+\end{align*}
+By assumption \ref{as:normality_of_errors} the residuals have variance
+\begin{align*}
+    Var(r(\textbf{Y})) &= \sigma^2 (I - H) \\
+    Var(r_i(\textbf{Y})) &= \sigma^2(1 - h_{ii}),
+\end{align*}
+where $h_{ii}$ is the i'th diagonal element in $H$. The second equation follows, since the first equation is just the variance-covariance matrix for the residuals, which has variances in the diagonal.
+Rewriting \eqref{eq:OLS_estimate_sigma_i_anden} using projection matrices gives the following estimate for the parameter variance
+\begin{align*}
+    \hat{\sigma}^2(\textbf{Y}) &= \frac{\| Y - X \betahat (Y) \|^2 }{n-k-1} = \frac{\| y - H y \|^2}{n-k-1} .
+\end{align*}
+Residuals can be used to identfiy outliers, that is observation that do not fit the general pattern of the data.
+These datapoints can have a large effect on the estimated variance and it would therefore be useful to have a way to measure of how much variance an observation adds.
+We now introduce the notation $-i$, which refers to the removal of the i'th row e.g.
+\begin{align*}
+    \textbf{y}_{-i}^\top = (y_1, \ldots, y_{i-1}, y_{i+1}, \ldots, y_n)^\top.
+\end{align*}
+The estimate for $\sigma^2$ found by deleting the i'th row is then
+\begin{align*}
+    \hat{\sigma}^2_i(\textbf{Y}) = \frac{\| y_{-i} - H_{-i} y_{-i} \|^2}{n-k-1}.
+\end{align*}
+We now introduce the studentized residual, which take into account the variance without the i'th observation, thereby giving a more accurate measure of the standard deviation. 
+\begin{align*}
+    r_i^{rt} = \frac{r_i}{\sqrt{\hat{\sigma^2_{(i)}}(1-h_{ii})}}.
+\end{align*}
+If this value in deemed to high, it should be investigated and could potentially justify removing it as an outlier/measurement error. We now introduce an important property of the studetized residuals.
+
+\begin{proposition}
+    Consider a general linear model $Y \sim N_n(X \betahat, \sigma^2 I_n)$ where the design matrix has full rank $k \leq n-2$ and $H = X (X^\top X)^{-1}X^\top$ is the corresponding projection-matrix, then
+    \begin{align*}
+        r_i^{rt}(\textbf{Y}) \sim t(n-k-1).
+    \end{align*}
+\end{proposition}
+\begin{proof}
+    Without loss of generality let $i=1$. 
+    To summarize the above results
+    \begin{align*}
+        r_i^{rt} = \frac{r_1}{\sqrt{\hat{\sigma}^2_{(1)}}(1-h_{11})}
+        =
+        \frac{r_1(Y)/ \sqrt{\sigma^2 (I-h_{11})}}{\sqrt{\hat{\sigma}_1^2 (Y_{-1})/\sigma^2}},
+    \end{align*}
+    which has the distribution
+    \begin{align*}
+        \frac{N(0,1)}{\sqrt{\chi^2(n-k-1)/(n-k-1)}} = t(n-k-1)
+    \end{align*}
+    Therefore we just need to prove that they are independent.
+    Using the definition of the residual and the projection matrix
+    \begin{align*}
+        \begin{bmatrix}
+            r_1(\textbf{Y}) \\
+            \textbf{Y}_{-1} - H_{-1} \textbf{Y}_{-1}
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+            Y_1 - \textbf{x}_1^\top (\textbf{X}^\top \textbf{X})^{-1} X^\top \textbf{Y} \\
+            \textbf{Y}_{-1} - \textbf{X}_{-1} (\textbf{X}_{-1}^\top \textbf{X}_{-1})^{-1} \textbf{X}_{-1}^\top \textbf{Y}_{-1}
+        \end{bmatrix}
+    \end{align*}
+    This can be written as the matrix-vector product
+    \begin{align*}
+        \begin{bmatrix}
+            1 - \textbf{x}_1^\top (\textbf{X}^\top \textbf{X})^{-1} \textbf{x}_1^\top & - \textbf{x}_1^\top (\textbf{X}^\top \textbf{X})^{-1} \textbf{X}_{-1}^\top \\
+            0 & I_{n-1} - \textbf{X}_{-1} (\textbf{X}_{-1}^\top \textbf{X}_{-1})^{-1} \textbf{X}_{-1}^\top
+        \end{bmatrix}
+        \begin{bmatrix}
+            Y_1 \\
+            \textbf{Y}_{-1}
+        \end{bmatrix}
+        =
+        AY \sim N(\cdot)v 
+    \end{align*}
+    Therefore $r_1(Y) = AY$ and $A_2 = \textbf{Y}_{-1} - H_{-1} \textbf{Y}_{-1}$ are independent if they are unkorrelated. Their covariance matrix is given by 
+    \begin{align*}
+        cov(A Y, A_2 Y) &= A\  var(Y) \ A_2^\top = A \sigma^2 I A_2 = \sigma^2 A A_2 \\
+        &= \sigma^2 
+        \begin{bmatrix}
+            1 - \textbf{x}_1^\top (\textbf{X}^\top \textbf{X})^{-1} \textbf{x}_1^\top & - \textbf{x}_1^\top (\textbf{X}^\top \textbf{X})^{-1} \textbf{X}_{-1}^\top
+        \end{bmatrix}
+        \cdot
+        \begin{bmatrix}
+            0^\top \\
+            I_{n-1} - \textbf{X}_{-1} (\textbf{X}_{-1}^\top \textbf{X}_{-1})^{-1} \textbf{X}_{-1}^\top
+        \end{bmatrix} \\
+        &= \sigma^2 (- \textbf{x}_1^\top (\textbf{X}^\top \textbf{X})^{-1} \textbf{X}_{-1}^\top) (I_{n-1} - \textbf{X}_{-1} (\textbf{X}_{-1}^\top \textbf{X}_{-1})^{-1} \textbf{X}_{-1}^\top) \\
+        &= \sigma^2 (- \textbf{x}_1^\top (\textbf{X}^\top \textbf{X})^{-1} \textbf{X}_{-1}^\top + \textbf{x}_1^\top (\textbf{X}^\top \textbf{X})^{-1} \textbf{X}_{-1}^\top \textbf{X}_{-1} (\textbf{X}_{-1}^\top \textbf{X}_{-1})^{-1} \textbf{X}_{-1}^\top)) \\
+        &= \sigma^2 (- \textbf{x}_1^\top (\textbf{X}^\top \textbf{X})^{-1} \textbf{X}_{-1}^\top + \textbf{x}_1^\top (\textbf{X}^\top \textbf{X})^{-1} \textbf{X}_{-1}^\top)) \\
+        &= 0,
+    \end{align*}
+    and therefore uncorrelated and because they are normally distributed also independant.
+\end{proof}
 
 P-value for F test
 

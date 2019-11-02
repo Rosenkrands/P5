@@ -3,11 +3,12 @@ This section will introduce the method of ordinary least squares for estimating 
 The first section however will motivate the method of ordinary least squares through an example of simple linear regression.
 
 \subsection{Least Squares}
-The main idea behind the least squares method is to minimize the sum of squared residuals, also known as SSR. 
+The main idea behind the least squares method is to minimize the sum of squared residuals, also known as SSR.
+Residuals refers to the difference between the observed and fitted values.
 Given a set of data points in the plane how might one find the line that best fit the data. 
 One way is to choose the line that minimizes the sum of squared residuals.
 In figure \ref{fig:example_simple_linear_regression} an example of a simple linear regression can be seen. 
-The figure illustrates the log price plotted against the age of property sold by Home in Aalborg within the year 2012.
+The figure illustrates the log price plotted against the age of a property sold by Home in Aalborg within the year 2012.
 
 \begin{figure}[h]
     \centering
@@ -25,7 +26,7 @@ This can be formulated as
 \end{align}
 where $log(p)$ and $a$ denotes the log price and age respectively.
 The right side \eqref{eq:approx_linear_relationship} is the model function in our case.
-The function is on the form $f(a, \textbf{b})$, where $\textbf{b}$ is a $2 \times 1$ vector containing the parameters $b_0$ and $b_1$.
+The function is on the form $f(a, \textbf{b})$, where $\textbf{b}$ is a $2 \times 1$ vector containing the coefficients $b_0$ and $b_1$.
 The goal is now to find $\textbf{b}$ that minimizes the sum of squared residuals.
 For the $i$'th observation the residual is defined as $r_i = log(p_i) - f(a_i, \textbf{b})$.
 With the notation in place we can now write the sum of squared residuals as
@@ -37,21 +38,20 @@ The line that best fit the data is given by the $\textbf{b}$ that minimizes \eqr
 In the next section this optimization problem will be formulated with matrix notation.
 The intuition provided here, using simple linear regression, can then be used in the case of multiple linear regression.
 In the mean time the regression of log price on property age performed by \textbf{R} is shown in the table below.
-
 \begin{table}[H]
-\centering
-\begin{tabular}{lrrrr}
-\toprule
-\textbf{term} & \textbf{estimate} & \textbf{std.error} & \textbf{statistic} & \textbf{p.value}\\
-\midrule
-(Intercept) & 14.2340997 & 0.0850712 & 167.319930 & 0.0000000\\
-age & -0.0019912 & 0.0014324 & -1.390053 & 0.1669255\\
-\bottomrule
-\end{tabular}
-\caption{Regression coefficients from log price on age.}
-\label{tab:regress_log_price_on_age}
+    \centering
+    \begin{tabular}{lrrrr}
+        \toprule
+        \textbf{term} & \textbf{estimate} & \textbf{std.error} & \textbf{statistic} & \textbf{p.value}\\
+        \midrule
+        Intercept & 14.2340997 & 0.0850712 & 167.319930 & 0.0000000\\
+        Age & -0.0019912 & 0.0014324 & -1.390053 & 0.1669255\\
+        \bottomrule
+    \end{tabular}
+    \caption{Regression coefficients from log price on age.}
+    \label{tab:regress_log_price_on_age}
 \end{table}
-In table \ref{tab:regress_log_price_on_age} intercept refers to $b_0$ and age refers to $b_1$.
+In table \ref{tab:regress_log_price_on_age} intercept refers to $b_0$ and age coefficient refers to $b_1$.
 As $b_1$ is negative the data indicates a slight negative relationship between log price and age.
 But as the p value is above 0.05 the relationship is regarded as statistically insignificant on a 95\% confidence level.
 To fully grasp this concept, the concept of hypothesis testing will be introduced in chapter \ref{ch:hypothesis_testing}.
@@ -81,7 +81,7 @@ Where arg is the argument that minimizes the SSR w.r.t.$\!$ $\boldsymbol{\beta}$
 Taking the derivative w.r.t. $\boldsymbol{\beta}$ yields
 \begin{align}\label{eq:ssr_derivative}
     \frac{\partial \ssr(\boldsymbol{\beta})}{\partial \boldsymbol{\beta}} 
-    =  \nsum -2(y_i - \mathbf{x}_i \boldsymbol{\beta})\mathbf{x}_i
+    =  \nsum -2(y_i - \mathbf{x}_i \boldsymbol{\beta})\mathbf{x}_i.
 \end{align}
 The expression $\nabla \ssr (\betahat) = 0$ can now be rewritten as
 \begin{align*}
@@ -97,7 +97,7 @@ Writing the vector as a system of equations gives the following $k + 1$ equation
     \nsum (y_i - \betahat_0 -  \mathbf{x}_{i1} \betahat_1 - \cdots - \betahat_k \mathbf{x}_{ik}) &= 0 \\
     \nsum \mathbf{x}_{i1}(y_i - \betahat_0 -  \mathbf{x}_{i1} \betahat_1 - \cdots - \betahat_k \mathbf{x}_{ik}) &= 0 \\
     &\vdots \\
-    \nsum \mathbf{x}_{ik}(y_i - \betahat_0 -  \mathbf{x}_{i1} \betahat_1 - \cdots - \betahat_k \mathbf{x}_{ik}) &= 0
+    \nsum \mathbf{x}_{ik}(y_i - \betahat_0 -  \mathbf{x}_{i1} \betahat_1 - \cdots - \betahat_k \mathbf{x}_{ik}) &= 0.
 \end{split}
 \end{align}
 Returning to the notation used in \eqref{eq:multiple_linear_regression_model}, \eqref{eq:multiple_linear_regression_equations} will now be rewritten to matrix notation
@@ -129,7 +129,7 @@ By \eqref{eq:positive_semi_definite} this is a contradiction as it would imply t
 This is because a matrix of full column rank has columns that are linearly independent.
 Thus it is proven that if $X$ has full column rank then $X^\top X$ is positive definite.
 \begin{assumption}[Zero conditional mean]\label{as:zero_conditional_mean}
-    Conditional on the entire matrix $\mathbf{X}$, each error $\varepsilon_i$ has zero mean, i.e. \cite[p. 810]{Wooldridge2012}
+    Conditional on the entire matrix $\mathbf{X}$, each residual $\varepsilon_i$ has zero mean, i.e. \cite[p. 810]{Wooldridge2012}
     \begin{align*}
         E(\varepsilon_i | \mathbf{X}) = 0, \quad i = 1, 2, \ldots, n.
     \end{align*}
@@ -138,7 +138,7 @@ This assumption ensures that there is no correlation between each of the explana
 If it on the other hand was the case that $x_j$ were correlated with $\varepsilon_i$, the explanatory variable would be called an endogenous explanatory variable.
 In the case that assumption \ref{as:zero_conditional_mean} holds and thereby that none of the explanatory variables are correlated with $\varepsilon_i$, we have what is called exogenous explanatory variables.
 \begin{theorem}[Unbiasedness of OLS]
-    Under assumptions \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity} and \ref{as:zero_conditional_mean}, the OLS estimator $\betahat$ is unbiased for $\boldsymbol{\beta}$ \cite[p. 810]{Wooldridge2012}.
+    Under assumptions \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity} and \ref{as:zero_conditional_mean}, the OLS estimator $\betahat$ is an unbiased estimator for $\boldsymbol{\beta}$ \cite[p. 810]{Wooldridge2012}.
 \end{theorem}\label{th:unbiasedness_of_ols}
 \begin{proof}
     Under assumptions \ref{as:linear_in_the_parameters} and \ref{as:no_perfect_collinearity} we can write $\betahat$ as
@@ -148,7 +148,7 @@ In the case that assumption \ref{as:zero_conditional_mean} holds and thereby tha
         &=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{X}\boldsymbol{\beta} + (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\boldsymbol{\varepsilon} \nonumber\\
         &= \boldsymbol{\beta} + (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\boldsymbol{\varepsilon} \label{eq:beta_hat_unbiased}
     \end{align}
-    Taking the expectation of \eqref{eq:beta_hat_unbiased} and using the fact that $E(\boldsymbol{\varepsilon} | \mathbf{X}) = 0$ gives that
+    Taking the conditional expectation of \eqref{eq:beta_hat_unbiased} on $\mathbf{X}$ and using the fact that $E(\boldsymbol{\varepsilon} | \mathbf{X}) = 0$ gives
     \begin{align*}
         E(\betahat | \mathbf{X}) &= \boldsymbol{\beta} + (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top E(\boldsymbol{\varepsilon} | \mathbf{X}) \\
         &= \boldsymbol{\beta} + (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top \mathbf{0} \\
@@ -159,7 +159,7 @@ In the case that assumption \ref{as:zero_conditional_mean} holds and thereby tha
 
 \subsection{Homoscedasticity and Heteroskedasticity}
 
-In order to state the next assumption, we need a definition that enables us to describe the behaviour of the error term.
+In order to state the next assumption, we need a definition that enables us to describe the behaviour of the error terms.
 The notion of homoscedasticity and heteroscedasticity will therefore be introduced here.
 
 % In this section we wish to introduce \homo and \hetero. The section is based on \cite{Wooldridge2012}. First we define what \homo and \hetero is. 
@@ -167,7 +167,7 @@ The notion of homoscedasticity and heteroscedasticity will therefore be introduc
 \begin{definition}[Homoskedasticity and heteroskedasticity]
 When the variance of the error term does not depend on the explanatory variables $\mathbf{X}$ and is constant, the errors is said to be homoscedastic, thus the errors should satisfy
 \begin{align*}
-    \var(\varepsilon | \mathbf{X}) = \var(\varepsilon) = \sigma^2
+    \var(\varepsilon | \mathbf{X}) = \var(\varepsilon) = \sigma^2.
 \end{align*}
 If this is not satisfied the error is said to be heteroskedastic. 
 \end{definition}
@@ -189,12 +189,12 @@ Homoskedasticity and heteroskedasticity can be illustrated as in figure \ref{fig
     \label{fig:hetero_with_dependent_up_axis}
 \end{subfigure}
 \end{figure}
-In the case of \homo the variance is consistent for all values of $\mathbf{X}$, to which the standard errors do not depend on the explanatory variables.
+In the case of \homo  the variance is consistent for all values of $\mathbf{X}$, so the errors do not depend on the explanatory variables.
 In the case of \hetero the variance changes as $\mathbf{X}$ changes. Typically the variance becomes greater as $\mathbf{X}$ becomes greater.
 
 For an example you can consider a households income and its spending on luxury items. If the income is low most will be spend on necessity items such as food. If the income is high there is the possibility but not the guarantee of spending more on luxury items, thus there will be a greater variance in the consumption of luxury goods in the segment with higher household income. Heteroskedasticity can arise when variances of unobserved factors changes over different segments in the sample space. 
 
-It is desired to have \homo rather than \hetero because \hetero will cause problems in statistical tests and linear regression, which will be investigated further in the section \ref{sec:...}. 
+It is desired to have \homo rather than \hetero because \hetero will cause problems in statistical tests and linear regression, which will be investigated further in the section \ref{sec:consequence_of_hetero}. 
 
 \subsection{OLS as the Best Linear Unbiased Estimator}
 Now that the ideas of homoscedasticity and heteroscedasticity have been introduced, the next Gauss-Markov assumption can be stated.
@@ -203,17 +203,17 @@ Now that the ideas of homoscedasticity and heteroscedasticity have been introduc
     \begin{align*}
        \var(\varepsilon_i | \mathbf{X}) = \sigma^2, \quad i = 1,2, \ldots, n.
     \end{align*}
-    The second part, regarding serial corellation, states that
+    The second part, regarding serial correlation, states that
     \begin{align*}
         \cov(\varepsilon_i, \varepsilon_j | \mathbf{X}) = 0, \quad \text{for all} \ i \neq j.
     \end{align*}
-    In matrix form these to assumptions together becomes
+    In matrix form these two assumptions together become
     \begin{align*}
         \var(\boldsymbol{\varepsilon} | \mathbf{X}) = \sigma^2\mathbf{I}_{n\times n}.
     \end{align*}
 \end{assumption}
 
-With the previous assumption in place we are now able to derive the variance-covariance matrix of the OLS estimator.
+With the previous assumption in place, we are now able to derive the variance-covariance matrix of the OLS estimator.
 \begin{theorem}[Variance-Covariance Matrix of the OLS Estimator]\label{th:variance-covariance_of_the_ols_estimator}
     Under assumptions \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity}, \ref{as:zero_conditional_mean} and \ref{as:homoskedasticity_and_no_serial_correlation} the conditional variance of $\betahat$ on $\mathbf{X}$ satisfies \cite[p. 811]{Wooldridge2012} 
     \begin{align*}
@@ -234,7 +234,7 @@ With the previous assumption in place we are now able to derive the variance-cov
     \end{align*}
 \end{proof}
 
-As it was explained in conjunction with defintion \ref{def:minimum_mean_square_error}, on page \pageref{def:minimum_mean_square_error}, the BLUE is the estimator that have the smallest variance.
+As it was explained in conjunction with defintion \ref{def:minimum_mean_square_error}, on page \pageref{def:minimum_mean_square_error}, the BLUE is the estimator that has the smallest variance.
 It is possible to establish conditions that any linear unbiased estimator must satisfy, these conditions can then be used to find an expression for the variance of any linear unbiased estimator.
 Thus we can compare the variance of the OLS estimator and of any linear unbiased estimator.
 This is the motivation for the following theorem, better known as the Gauss-Markov theorem.
@@ -246,7 +246,7 @@ This is the motivation for the following theorem, better known as the Gauss-Mark
     is the best linear unbiased estimator \cite[p. 811]{Wooldridge2012}.
 \end{theorem}\label{th:gauss_markoc_theorem}
 \begin{proof}
-    Any linear estimator can be written as
+    Any linear estimator $\betahat$ can be written as
     \begin{align}\label{eq:any_linear_operator}
         \boldsymbol{\Tilde{\beta}} = \mathbf{A}^\top \mathbf{y},
     \end{align}
@@ -317,7 +317,7 @@ This is the motivation for the following theorem, better known as the Gauss-Mark
         \sigma^2\mathbf{A}^\top\left(\mathbf{I} - \mathbf{H}\right)\mathbf{A} &= \sigma^2\mathbf{A}^\top\left(\mathbf{I} - \mathbf{H}\right)^2\mathbf{A} = \sigma^2\mathbf{A}^\top\left(\mathbf{I} - \mathbf{H}\right)^\top\left(\mathbf{I} - \mathbf{H}\right)\mathbf{A}\\
         &= \sigma^2\left[\left(\mathbf{I} - \mathbf{H}\right)\mathbf{A}\right]^\top\left(\mathbf{I} - \mathbf{H}\right)\mathbf{A} \geq 0.
     \end{align*}
-    It is now shown that the variance of any linear unbiased operator is greater than or equal to the variance of the OLS estimator, or in other words the OLS estimator is the BLUE.
+    It has now been shown that the variance of any linear unbiased operator is greater than or equal to the variance of the OLS estimator, or in other words the OLS estimator is the BLUE.
 \end{proof}
 
 % \subsection{Consequences of Heteroscedasticity}
@@ -388,56 +388,87 @@ This is the motivation for the following theorem, better known as the Gauss-Mark
 
 % Furthermore \textit{confidence intervals}, \textit{t-statistics} and \textit{F-statistics} will no longer follow a normal distribution and thus their results will be invalid when \hetero is present. 
 
-The OLS is the \textbf{best linear unbiased estimator (BLUE)}, if assumption  \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity}, \ref{as:zero_conditional_mean} and \ref{as:homoskedasticity_and_no_serial_correlation} holds. In the Gauss-Markov theorem \ref{th:gauss_markoc_theorem}, it is seen that in order for the OLS to be the BLUE it is a necessary for the \homo assumption to hold true, otherwise it would not have the smallest variance of the estimators causing it to not be the best estimator.
+% The OLS is the \textbf{best linear unbiased estimator (BLUE)}, if assumption  \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity}, \ref{as:zero_conditional_mean} and \ref{as:homoskedasticity_and_no_serial_correlation} holds.
+% In the Gauss-Markov theorem \ref{th:gauss_markoc_theorem}, it is seen that in order for the OLS to be the BLUE it is a necessary for the \homo assumption to hold true, otherwise it would not have the smallest variance of the estimators causing it to not be the best estimator.
 
-In addition it is possible to determine an unbiased estimator $\sigma^2$. In order for $\sigma^2$ to be unbiased it must satisfy $E[\varepsilon^2] = \sigma^2$.  This is the same as $\sigma^2 = \dfrac{1}{n}\nsum \varepsilon_i^2$. This is not an estimator because we do not observe $\varepsilon$. Instead isolate the error term in the OLS as $\varepsilon_i = y_i - \beta_0 - \beta_1x_{i1} - \ldots - \beta_kx_{ik}$, where $\mathbf{\beta}_j$ is unknown. In order to get OLS error term we must know $\mathbf{\beta}_j$, so we replace it with its estimate so
-\begin{align*}
-     \hat{\varepsilon_i} = y_i - \hat{\beta_0} - \hat{\beta_1x_{i1}} - \ldots - \hat{\beta_kx_{ik}}.
-\end{align*}
-We can now estimate $\sigma^2$ as
-\begin{align}\label{eq:OLS_estimate_sigma_i_anden}
-    \hat{\sigma}^2 &= \dfrac{\nsum \hat{\varepsilon}^2_i}{n-k-1}\nonumber \\
-    &= \dfrac{SSR}{n-k-1}
-\end{align}
-Where $n-k-1$ is the degrees of freedom in the OLS with $n$ observations and $k$ independent variables. Note $n-k-1$ is the number of observations subtracted the number of estimated parameters. 
-To derive the variance-covariance matrix for the OLS estimator we need to make an assumption regarding the variance of the error term. 
-This assumption involves homoskedasticity, so to fully understand the concept it will be introduced in the following section.
-\vspace{5mm}
-\hrule
-\vspace{5mm}
-Next we are interested in  quantifiying the term $\sigma^2$, as $\var(\betahat|\mathbf{X})$ depends on this constant.
+% In addition it is possible to determine an unbiased estimator $\sigma^2$. 
+% In order for $\sigma^2$ to be unbiased it must satisfy $E[\varepsilon^2] = \sigma^2$.  This is the same as $\sigma^2 = \dfrac{1}{n}\nsum \varepsilon_i^2$.
+% This is not an estimator because we do not observe $\varepsilon$. Instead isolate the error term in the OLS as $\varepsilon_i = y_i - \beta_0 - \beta_1x_{i1} - \ldots - \beta_kx_{ik}$, where $\mathbf{\beta}_j$ is unknown. 
+% In order to get OLS error term we must know $\mathbf{\beta}_j$, so we replace it with its estimate so
+% \begin{align*}
+%      \hat{\varepsilon}_i = y_i - \hat{\beta_0} - \hat{\beta_1x_{i1}} - \ldots - \hat{\beta}_kx_{ik}.
+% \end{align*}
+% We can now estimate $\sigma^2$ as
+% \begin{align}\label{eq:OLS_estimate_sigma_i_anden}
+%     \hat{\sigma}^2 &= \dfrac{\nsum \hat{\varepsilon}^2_i}{n-k-1}\nonumber \\
+%     &= \dfrac{SSR}{n-k-1}
+% \end{align}
+% Where $n-k-1$ is the degrees of freedom in the OLS with $n$ observations and $k$ independent variables. 
+% Note $n-k-1$ is the number of observations subtracted the number of estimated parameters. 
+% To derive the variance-covariance matrix for the OLS estimator we need to make an assumption regarding the variance of the error term. 
+% This assumption involves homoskedasticity, so to fully understand the concept it will be introduced in the following section.
+% \vspace{5mm}
+% \hrule
+% \vspace{5mm}
+\subsection{Estimating the variance of the error term}
+Next we are interested in quantifying the term $\sigma^2$, as $\var(\betahat|\mathbf{X})$ depends on this constant.
 As previously stated $\sigma^2$ is the variance of the error term
 \begin{align*}
     \sigma^2 = \var(\varepsilon_i) =  E\left[\Big(\varepsilon_i - E(\varepsilon_i)\Big)^2\right] = E\left[\varepsilon_i^2\right],
 \end{align*}
 the last equality holds as $E(\varepsilon_i) = 0$.
-A common way to estimate the expectation of a random variable is to use the sample average, which in this case would be
-\begin{align}\label{eq:sample_average}
-    \dfrac{1}{n}\nsum \varepsilon_i^2.
+The MLE estimate for $\sigma^2$ is given by \eqref{eq:MLE_for_sigma} and repeated below
+\begin{align}\label{eq:MLE_for_sigma_omskrevet}
+    \hat{\sigma}^2 &= \frac{\|\textbf{y} - \textbf{X}( \textbf{X}^\top\textbf{X} )^{-1}\textbf{X}^\top\textbf{y}\|^2}{n}
+    = \dfrac{1}{n}\sum_{i=1}^n \left(y_i - \mathbf{x}_i\betahat\right)^2,
 \end{align}
-However \eqref{eq:sample_average} is not a valid estimator as $\varepsilon_i = y_i - \mathbf{x}_i\boldsymbol{\beta}$ is unknown to us because we do not have the true $\boldsymbol{\beta}$.
-We do however have an estimate $\betahat$ we can use to obtain an estimate for $\varepsilon_i$, lets denote the estimate
+it was found in chapter \ref{ch:likelihood_theory} on page \pageref{eq:MLE_for_sigma}.
+If we by $\hat{\varepsilon}_i$ denote the $i$'th observed residual, then
 \begin{align}\label{eq:observed_residual}
     \hat{\varepsilon}_i = y_i - \mathbf{x}_i\betahat.
 \end{align}
-In other words this is the observed residual and it will be investigated further in section \ref{subsec:residuals}.
-We can now insert \eqref{eq:observed_residual} into \eqref{eq:sample_average} to obtain a valid estimate for $\sigma^2$
+Inserting \eqref{eq:observed_residual} into \eqref{eq:MLE_for_sigma_omskrevet} the MLE estimate becomes
 \begin{align}\label{eq:valid_estimate}
-    \dfrac{1}{n}\sum_{i=1}^n \hat{\varepsilon}_i^2 = \dfrac{1}{n}\sum_{i=1}^n \left(y_i - \mathbf{x}_i\betahat\right)^2 = \frac{\ssr(\betahat)}{n}.
+    \hat{\sigma}^2 = \dfrac{1}{n}\sum_{i=1}^n \hat{\varepsilon}_i^2.
 \end{align}
-Although the estimate \eqref{eq:valid_estimate} is valid, it turns out to be biased.
+The sum in \eqref{eq:valid_estimate} can be replaced by $\ssr(\betahat)$ yielding a third expression for the MLE estimate
+\begin{align}
+    \hat{\sigma}^2 = \frac{\ssr(\betahat)}{n},
+\end{align}
+but no matter which way the MLE estimate is written it is a biased estimate.
+% \vspace{1ex}
+% \hrule
+% \vspace{1ex}
+% If the values of $\varepsilon_i^2$ a way to estimate the expectation of a $\varepsilon_i^2$ is to use the sample average, which in this case would be
+% \begin{align}\label{eq:sample_average}
+%     \dfrac{1}{n}\nsum \varepsilon_i^2.
+% \end{align}
+% However \eqref{eq:sample_average} is not a feasible estimator as $\varepsilon_i = y_i - \mathbf{x}_i\boldsymbol{\beta}$ is unknown to us because we do not have the true $\boldsymbol{\beta}$.
+% We do however have an estimate $\betahat$ we can use to obtain an estimate for $\varepsilon_i$, lets denote the estimate
+% \begin{align}\label{eq:observed_residual}
+%     \hat{\varepsilon}_i = y_i - \mathbf{x}_i\betahat.
+% \end{align}
+% In other words this is the observed residual and it will be investigated further in section \ref{subsec:residuals}.
+% We can now insert \eqref{eq:observed_residual} into \eqref{eq:sample_average} to obtain a feasible estimate for $\sigma^2$
+% \begin{align}\label{eq:valid_estimate}
+%     \dfrac{1}{n}\sum_{i=1}^n \hat{\varepsilon}_i^2 = \dfrac{1}{n}\sum_{i=1}^n \left(y_i - \mathbf{x}_i\betahat\right)^2 = \frac{\ssr(\betahat)}{n}.
+% \end{align}
+% Although the estimate \eqref{eq:valid_estimate} is valid, it turns out to be biased.
+% \vspace{1ex}
+% \hrule
+% \vspace{1ex}
 This is because the estimate does not take into account the first order conditions imposed on the observed residuals.
 The first order conditions are the $k + 1$ equations in \eqref{eq:multiple_linear_regression_equations} on page \pageref{eq:multiple_linear_regression_equations}.
 The intuition being that if we know $n - (k + 1)$ of the residuals the rest can be found using the first order conditions, which in this case becomes a system of $k + 1$ equations with $k + 1$ unknowns. 
 Because of this there is only $n - (k + 1)$ degrees of freedom in the observed residuals compared to $n$ in the error terms \cite[p. 55]{Wooldridge2012}.
 Taking this into account the unbiased estimator of $\sigma^2$ is now presented as
-\begin{align*}
+\begin{align} \label{eq:sigma_hat_2_n-k-1}
     \hat{\sigma}^2 = \frac{\ssr(\betahat)}{n - (k + 1)} = \frac{\ssr(\betahat)}{n - k - 1}.
-\end{align*}
+\end{align}
 To prove that this estimator is in fact unbiased, the following theorem is presented
-\vspace{5mm}
-\hrule
-\vspace{5mm}
+% \vspace{5mm}
+% \hrule
+% \vspace{5mm}
 \begin{theorem}[Unbiasedness of $\sigmahat$]
     Under assumptions \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity}, \ref{as:zero_conditional_mean} and \ref{as:homoskedasticity_and_no_serial_correlation}, the estimator $\hat{\sigma}^2$ is unbiased for $\sigma^2:E(\hat{\sigma}^2|\mathbf{X}) = \sigma^2$ for all $\sigma^2 > 0$ \cite[p. 813]{Wooldridge2012}.
 \end{theorem}
@@ -449,16 +480,17 @@ To prove that this estimator is in fact unbiased, the following theorem is prese
     \end{align*}
     Now $\betahat$ can be replaced by $\left(\mathbf{X}^\top\mathbf{X}\right)^{-1}\mathbf{X}^\top\mathbf{y}$, see \eqref{eq:equation_to} on page \pageref{eq:equation_to}, and \eqref{eq:projection_matrix} can be used to rewrite the expression 
     \begin{align}
-        \mathbf{y} - \mathbf{X}\left(\mathbf{X}^\top\mathbf{X}\right)^{-1}\mathbf{X}^\top\mathbf{y}
+        \hat{\boldsymbol{\varepsilon}} = \mathbf{y} - \mathbf{X}\left(\mathbf{X}^\top\mathbf{X}\right)^{-1}\mathbf{X}^\top\mathbf{y}
         = \left(\mathbf{I} - \mathbf{H}\right)\mathbf{y}. \label{eq:replace_with_y}
     \end{align}
-    Using the relationship stated at the beginning of this proof lets us rewrite \eqref{eq:replace_with_y} to
+    Using the relationship stated at the beginning of this proof lets us rewrite \eqref{eq:replace_with_y} as
     \begin{align*}
-        \boldsymbol{\hat{\varepsilon}} &= \left(\mathbf{I} - \mathbf{H}\right)\left(\mathbf{X}\betahat + \boldsymbol{\hat{\varepsilon}}\right)
-        = \left(\mathbf{I} - \mathbf{H}\right)\mathbf{X}\boldsymbol{\beta} + \left(\mathbf{I} - \mathbf{H}\right)\boldsymbol{\varepsilon} \\
-        &= \mathbf{X}\boldsymbol{\beta} - \mathbf{H}\mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon} + \mathbf{H}\boldsymbol{\varepsilon}
-        = \mathbf{X}\boldsymbol{\beta} - \mathbf{X}\left(\mathbf{X}^\top\mathbf{X}\right)^{-1}\mathbf{X}^\top\mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon} - \mathbf{X}\left(\mathbf{X}^\top\mathbf{X}\right)^{-1}\mathbf{X}^\top\boldsymbol{\varepsilon} \\
-        &= \mathbf{X}\boldsymbol{\beta} - \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon} - \mathbf{X}\left(\mathbf{X}^\top\mathbf{X}\right)^{-1}\mathbf{X}^\top\boldsymbol{\varepsilon} 
+        \boldsymbol{\hat{\varepsilon}} &= \left(\mathbf{I} - \mathbf{H}\right)\left(\mathbf{X}\betahat + \boldsymbol{\hat{\varepsilon}}\right) 
+        = \left(\mathbf{I} - \mathbf{H}\right)\mathbf{X}\betahat + \left(\mathbf{I} - \mathbf{H}\right)\boldsymbol{\hat{\varepsilon}}
+        = \left(\mathbf{I} - \mathbf{H}\right)\mathbf{X}\betahat + \left(\mathbf{I} - \mathbf{H}\right)\boldsymbol{\varepsilon}\\
+        &= \mathbf{X}\betahat - \mathbf{H}\mathbf{X}\betahat + \boldsymbol{\varepsilon} + \mathbf{H}\boldsymbol{\varepsilon}
+        = \mathbf{X}\betahat - \mathbf{X}\left(\mathbf{X}^\top\mathbf{X}\right)^{-1}\mathbf{X}^\top\mathbf{X}\betahat + \boldsymbol{\varepsilon} - \mathbf{X}\left(\mathbf{X}^\top\mathbf{X}\right)^{-1}\mathbf{X}^\top\boldsymbol{\varepsilon} \\
+        &= \mathbf{X}\betahat - \mathbf{X}\betahat + \boldsymbol{\varepsilon} - \mathbf{X}\left(\mathbf{X}^\top\mathbf{X}\right)^{-1}\mathbf{X}^\top\boldsymbol{\varepsilon} 
         = \boldsymbol{\varepsilon} - \mathbf{X}\left(\mathbf{X}^\top\mathbf{X}\right)^{-1}\mathbf{X}^\top\boldsymbol{\varepsilon} = \left(\mathbf{I} - \mathbf{H}\right)\boldsymbol{\varepsilon}.
     \end{align*}
     Because $\left(\mathbf{I} - \mathbf{H}\right)$ is a projection matrix
@@ -494,11 +526,12 @@ To prove that this estimator is in fact unbiased, the following theorem is prese
     \end{align*}
     which concludes the proof.
 \end{proof}
-\hrule
-\begin{center}
-AFRUNDING
-\end{center}
-\hrule
-\begin{assumption}[Normality of Errors] \label{as:normality_of_errors}
-    Conditional on $\mathbf{X}$, the $\varepsilon_i$ are independent and identically distributed as $N(0, \sigma^2)$. Equivalently, $\boldsymbol{\varepsilon}$ given $\mathbf{X}$ is distributed as multivariate normal with mean zero and variance-covariance matrix $\sigma^2 \mathbf{I}_{n \times n}$, i.e. $\boldsymbol{\varepsilon} \sim N_n(\mathbf{0}, \sigma^2 \mathbf{I}_{n \times n})$.
-\end{assumption}
+During this chapter we have found that under the Gauss-Markov assumptions;
+\begin{enumerate}
+    \item Linear in parameters
+    \item No perfect collinearity
+    \item Zero conditional mean
+    \item Homoskedasticity and no serial correlation
+\end{enumerate}
+ the OLS estimator is the best linear unbiased estimator. 
+ In addition we have found an unbiased estimator for the variance of the error term.

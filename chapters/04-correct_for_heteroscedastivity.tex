@@ -1,13 +1,13 @@
 \newpage
-\section{Consequences of Heteroscedasticity}
-In this sections we wish to determine how \hetero will affect both OLS, \textit{t-statistics}, \textit{F-statistics} and \textit{confidence intervals}. 
+\section{Consequences of Heteroscedasticity}\label{sec:consequence_of_hetero}
+In this sections we wish to determine how \hetero \ will affect both OLS, \textit{t-statistics}, \textit{F-statistics} and \textit{confidence intervals}. 
 
 First we wish to determine if the estimator $\betahat$ is unbiased or biased in the presence of heteroskedasticity.  
 
 Remember assumption \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity} and \ref{as:zero_conditional_mean}. If these hold theorem \ref{th:unbiasedness_of_ols} proved that the OLS estimator $\betahat$ is unbiased for $\boldsymbol{\beta}$, which is the same as $E[\hat{\beta}_j] = \beta_j
 $ for $j = 1,2, \ldots, k$. 
 
-Because the error terms in $\var(\boldsymbol{\varepsilon} | \mathbf{X})$ did no determine whether the OLS was biased or unbiased in the theorem and its proof, the presence of \hetero will not cause $\betahat$ to be biased. 
+Because the error terms in $\var(\boldsymbol{\varepsilon} | \mathbf{X})$ did no determine whether the OLS was biased or unbiased in the theorem and its proof, the presence of \hetero \ will not cause $\betahat$ to be biased. 
 
 Next we wish to determine how our measure-of-fit test $\mathcal{R}^2$ is influenced by \hetero. 
 $\mathcal{R}^2$ measures how much of the variance in the dependent variable is explained by the independent variables. In our model it determines how much of the variance in $y$ is explained in the variables $\mathbf{X}$. 
@@ -28,7 +28,7 @@ The $\mathcal{R}^2$ value is between $0$ and $1$. The closer the value is to one
 This coefficient of determination can be changed to the adjusted $\mathcal{R}^2$ as
 \begin{align*}
     \mathcal{R}^2_{Adj} =& 1 - \dfrac{SSR/(n - k - 1)}{SST/(n - 1)}\\
-      =& 1 - \dfrac{\hat{\sigma}^2}{SST/(n-1)}
+      =& 1 - \dfrac{\hat{\sigma}^2}{SST/(n-1)}.
 \end{align*}
 This rewriting of the model adjusts for the number of predictors in the model. This $\mathcal{R}^2$ increases if a predictor improves more than penalty of removing one degree of freedom. 
 
@@ -42,46 +42,6 @@ The \homo \ assumption is $\var(\boldsymbol{\varepsilon} | \mathbf{X}) = \sigma^
     \var(\betahat | \mathbf{X}) = \sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}.
 \end{align*}
 
-\subsection{Residuals}\label{subsec:residuals}
-
-The residuals are the difference between the observed values $y$ and the fitted values $\hat{y}$. They are therefore the observed errors $\boldsymbol{\hat{\varepsilon}}$ described in \eqref{eq:replace_with_y}
-\begin{align*}
-    r(\textbf{y}) &= \textbf{y} - \hat{\textbf{y}} = \textbf{y} - \textbf{X} \betahat = (I - H) \textbf{y}.
-    % r_i(y) &= y_i - x_i \betahat = y_i - x_i (X^\top X)^{-1}X^\top y_i = (1 - h_{ii}) y_i,
-\end{align*}
-By the assumption $\varepsilon \sim N(0, \sigma^2)$ the residuals have variance
-\begin{align*}
-    Var(r(\textbf{Y})) &= \sigma^2 (I - H) \\
-    Var(r_i(\textbf{Y})) &= \sigma^2(1 - h_{ii}),
-\end{align*}
-where $h_{ii}$ is the i'th diagonal element in $H$. The second equation follows, since the first equation is just the variance-covariance matrix, which has variances in the diagonal.
-Rewriting \eqref{eq:OLS_estimate_sigma_i_anden} using projection matrices gives the following estimate for the parameter variance
-\begin{align*}
-    \hat{\sigma}^2(\textbf{Y}) &= \frac{\| Y - X \betahat (Y) \|^2 }{n-k-1} = \frac{\| y - H y \|^2}{n-k-1} 
-\end{align*}
-We now introduce the notation $-i$, which refers to the removal of the i'th row e.g.
-\begin{align*}
-    \textbf{y}_{-i}^\top = (y_1, \ldots, y_{i-1}, y_{i+1}, \ldots, y_n)^\top
-\end{align*}
-The estimate for $\sigma^2$ found by deleting the i'th row is then
-\begin{align*}
-    \hat{\sigma}^2_i(\textbf{Y}) = \frac{\| y_{-i} - H_{-i} y_{-i} \|^2}{n-k-1}.
-\end{align*}
-Residuals can be used to identfiy outliers, that is observation that do not fit the general pattern of the data. These datapoints can have a large effect on the estimated variance and it would therefore be useful to have a way to measure of how much variance an observation adds. We now introduce the studentized residual
-\begin{align*}
-    r_i^{rt} = \frac{r_i}{\sqrt{\hat{\sigma^2_{(i)}}(1-h_{11})}}
-\end{align*}
-If this value in deemed to high, it can justify removing it as an outlier/measurement error. 
-
-\begin{proposition}
-    Consider a general linear model $Y \sim N_n(X \betahat, \sigma^2 I_n)$ where the design matrix has full rank $k \leq n-2$ and $H = X (X^\top X)^{-1}X^\top$ is the corresponding projection-matrix, then
-    \begin{align*}
-        r_i^{rt}(\textbf{Y}) \sim t(n-k-1).
-    \end{align*}
-\end{proposition}
-\begin{proof}
-    Without loss of generality let $i=1$. Then 
-\end{proof}
 
 The slope coefficients can be defined as 
 \begin{align}\label{eq:slope_variance_OLS_estimator}
@@ -115,38 +75,153 @@ Furthermore \textit{confidence intervals}, \textit{t-statistics} and \textit{F-s
 
 First it is needed to estimate the estimators of variance, $\var(\betahat)$, when \hetero is present. 
 
-\subsection{Correct for Heteroscedasticity}
-If we sum up \hetero will in general cause OLS standard errors to be faulty as well as the related statistical tests. In this section we wish to correct for these mistakes, so they are correct when \hetero is present.
-\subsection{Test for Heteroscedasticity}
 
-**Afsnit 8.4 siger at man kan få en bedre estimator end OLS når man kender formen på hetero**
 
-In this section we wish to determine how to detect heteroskedasticity and the type of heteroskedasticity. 
 
-We consider our linear model given as $y = \mathbf{\beta}_0 + \mathbf{\beta}_1x_1 + \ldots + \mathbf{\beta}_kx_k + \mathbf{\varepsilon}$ and let assumption \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity}, \ref{as:zero_conditional_mean} hold true. Especially that the OLS is unbiased and consistent because $E[\varepsilon | \mathbf{X}] = 0$. 
 
-We then construct out null hypothesis as
-\begin{align*}
-    \mathcal{H}_0 : \var[\varepsilon | \mathbf{X}] = \var[\varepsilon] = \sigma^2. 
-\end{align*}
-With this null hypothesis we wish to determine if the homoskedasticity assumption holds. If we cannot reject our $\mathcal{H}_0$-hypothesis for small significance value then heteroskedasticity is not present. Because it is not possible to accept a $\mathcal{H}_0$-hypothesis, but only reject or fail to reject the hypothesis we instead recall assumption \ref{as:zero_conditional_mean}, which tells the conditional expected value is $0$. This assumption implies that $\var(\varepsilon | \mathbf{X}) = E[\varepsilon^2 | \mathbf{X}]$. We can thus rewrite the $\mathcal{H}_0$-hypothesis as
-\begin{align*}
-    \mathcal{H}_0 : E[\varepsilon^2 | \mathbf{X}] = E[\varepsilon^2] = \sigma^2.
-\end{align*}
-With this $\mathcal{H}_0$-hypothesis we test if the error term, $\sigma^2$ is related with any of the explanatory variables. 
-If $\mathcal{H}_0$ is rejected then $\varepsilon^2$ is a function of a at least one the explanatory variables, so the error term can be expressed as
-\begin{align}\label{eq:test_hetero_nul_hypotese}
-    \varepsilon^2 = \delta_0 + \delta_1x_1 + \ldots + \delta_kx_k + v
-\end{align}
-Where $v$ is an error with mean equal to $0$. For this to be homoskedastic the following $\mathcal{H}_0$-hypothesis must fail to be rejected
-\begin{align}\label{eq:H_nul_for_hetero_med_delta}
-    \mathcal{H}_0 : \delta_1 = \delta_2 = \ldots = \delta_k = 0
-\end{align}
-If the error $v$ in \eqref{eq:test_hetero_nul_hypotese} is assumed to be independent of the explanatory variables $\mathbf{X}$, then F-statistics can be used to test \eqref{eq:H_nul_for_hetero_med_delta} for the overall significance of the explanatory variables for $\varepsilon^2$.
-Because $\varepsilon^2$ is unobserved we cannot make an OLS regression on $\varepsilon^2$ for the explanatory variables, but we can make the regression for its estimate as
-\begin{align*}
-    \hat{\varepsilon}^2 = \delta_0 + \delta_1x_1 + \ldots + \delta_kx_k + error
-\end{align*}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% \subsection{Test for Heteroscedasticity}
+% In this section we wish to introduce a method to determine if heteroskedasticity is present, because in the case of heteroskedasticity the useal OLS estimator is not BLUE. 
+
+% We consider our linear model given as $y = \mathbf{\beta}_0 + \mathbf{\beta}_1x_1 + \ldots + \mathbf{\beta}_kx_k + \mathbf{\varepsilon}$ and let assumption \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity} and \ref{as:zero_conditional_mean} hold true.
+
+% We then construct our null hypothesis as
+% \begin{align*}
+%     \mathcal{H}_0 : \var[\varepsilon | \mathbf{X}] = \var[\varepsilon] = \sigma^2. 
+% \end{align*}
+% With this null hypothesis we wish to determine if the homoskedasticity assumption holds. 
+% If we accept our $\mathcal{H}_0$-hypothesis for a small significance value then heteroskedasticity is not present.
+% Assumption \ref{as:zero_conditional_mean}, which tells that the conditional expected value is equal to $0$, implies that $\var(\varepsilon | \mathbf{X}) = E[\varepsilon^2 | \mathbf{X}]$ because of the conditional variance formula $\var(\varepsilon | \mathbf{X}) = E[\varepsilon^2 | \mathbf{X}] - (E[\varepsilon | \mathbf{X}])^2$. Using this we rewrite our $\mathcal{H}_0$-hypothesis as
+% \begin{align*}
+%     \mathcal{H}_0 : E[\varepsilon^2 | \mathbf{X}] = E[\varepsilon^2] = \sigma^2.
+% \end{align*}
+% With this $\mathcal{H}_0$-hypothesis we test if the error term, $\sigma^2$ is related with any of the explanatory variables in terms in the expected value.  
+% If $\mathcal{H}_0$ is rejected then $\varepsilon^2$ is a function of at least one of the explanatory variables, so the error term can be expressed as a linear function of these explanatory variables
+% \begin{align}\label{eq:test_hetero_nul_hypotese}
+%     \varepsilon^2 = \delta_0 + \delta_1x_1 + \ldots + \delta_kx_k + v
+% \end{align}
+% Where $v$ is an error with mean equal to $0$ given the explanatory variables. In order for $\varepsilon^2$ to be homoskedastic the following $\mathcal{H}_0$-hypothesis must be accepted 
+% \begin{align}\label{eq:H_nul_for_hetero_med_delta}
+%     \mathcal{H}_0 : \delta_1 = \delta_2 = \ldots = \delta_k = 0
+% \end{align}
+% So the error term $v$ does not depend on the explanatory variables. If the error $v$ in \eqref{eq:test_hetero_nul_hypotese} is assumed to be independent of the explanatory variables $\mathbf{X}$, then F-statistics can be used to test \eqref{eq:H_nul_for_hetero_med_delta} for the overall significance of the explanatory variables for $\varepsilon^2$, even though this error term is not normally distributed. We state the central limit theorem without proof to justify this. 
+% \begin{theorem}[Central Limit Theorem]
+% Let $\{ Y_1, Y_2, \ldots, Y_n \}$ be a iid. random sample with mean $\mu$ and variance $\sigma^2 < \infty$. Then
+% \begin{align*}
+%     P\left(\dfrac{\overline{Y}_n - n\mu}{\sigma \sqrt{n}}\leq y\right) \rightarrow \Phi(y)
+% \end{align*}
+% Where $\Phi(y)$ is the cdf of the standard normal distribution. 
+% \end{theorem}
+% From the central limit theorem it is possible to derive the distribution of $\overline{Y}_n$. We have  
+% \begin{align*}
+%     P\left(\dfrac{\overline{Y}_n - n\mu}{\sigma \sqrt{n}} \leq y\right) \rightarrow \Phi(y)
+% \end{align*}
+% And for large $n$ we use the central limit theorem to rewrite as
+% \begin{align*}
+%     Z_n = \dfrac{\overline{Y}_n - n\mu}{\sigma \sqrt{n}} \stackrel{d}{\approx} N(0,1). 
+% \end{align*}
+% Where $\stackrel{d}{\approx}$ denotes the approximate distribution. It is seen that $\overline{Y}_n$ has mean $n\mu$ and variance $n \sigma^2$ from the above equation. We use this to write
+% \begin{align*}
+%     \overline{Y}_n \stackrel{d}{\approx} N(n\mu, n\sigma^2). 
+% \end{align*}
+% This means that iid. random variables has en approximate normal distribution regardless of the distribution of $Y$. It then follows that an F-statistic will be asymptotically true even though $\varepsilon^2$ is not normally distributed. 
+
+% Since $\varepsilon^2$ is unobserved we cannot calculate the OLS regression on $\varepsilon^2$ for $\mathbf{X}$, so instead we calculate the regressions using the estimates. Thus
+% \begin{align}\label{eq:OLS_residual_hat_epsioln_i_anden}
+%     \hat{\varepsilon}^2 = \delta_0 + \delta_1x_1 + \ldots + \delta_kx_k + w
+% \end{align}
+% Where $\hat{\varepsilon}_i$ is an estimate for $\varepsilon_i$ for observation $i$. From this equation the F-statistics for the joint significance of $x_1, x_2, \ldots, x_k$ can be calculated to test for multicollinarity. 
+
+% The F-statistics is calculated as
+% \begin{align*}
+%     F = \dfrac{\mathcal{R}^2_{\hat{\varepsilon}^2}/k}{(1-\mathcal{R}^2_{\hat{\varepsilon}^2}) / (n-k-1)}
+% \end{align*}
+
+% Which follows from \eqref{eq:udvidelse_til_F_stat}. Here $\mathcal{R}^2_{\hat{\varepsilon}^2}$ is the $\mathcal{R}$-squared found from \eqref{eq:OLS_residual_hat_epsioln_i_anden} and $k$ is the number of independent variables in \eqref{eq:OLS_residual_hat_epsioln_i_anden}. 
+
+% These calculations are known as the \textbf{Breush-Pegan Test for heteroskedasticity}. We summarise the steps as follows
+
+% \textbf{The Breusch-Pegan Test for Heteroskedasticity}
+% \begin{enumerate}[label=(\roman*)]
+%     \item Estimate the linear regression model \eqref{eq:multiple_linear_regression_model} by OLS and obtain the squared OLS residuals $\hat{\varepsilon}^2$. 
+%     \item Make the regression on \eqref{eq:OLS_residual_hat_epsioln_i_anden} and calculate the $\mathcal{R}^2_{\hat{\varepsilon}^2}$. 
+%     \item Perform the F-statistics. If the p-value is below the significance level, reject the null hypothesis. 
+% \end{enumerate}
+
+% This means that if the p-value if sufficiently small for the F-statistics, then heteroskedasticity is present. 
+
+% \begin{example}[Test for Heteroskedasticity]
+
+% \end{example}
+
+% \subsection{Type of Heteroskedasticity}
+% In addition to testing for the presence of heteroskedasticity, it is possible to test for the type of heteroskedasticity. 
+
+
+
+% % **Udvidelse til F-statistics**
+% % In addition F-statistics can be used to test for the overall significance of a regression. Consider the model with $k$ independent variables, to which the null hypothesis can be written as
+% % \begin{align}\label{eq:null_hypo_for_F_overall_significance_R}
+% %     \mathcal{H}_0: \betabold_1 = \betabold_2 = \ldots = \betabold_k = 0.
+% % \end{align}
+% % Where the alternative hypothesis is that at least one estimator is different than $0$. In \eqref{eq:null_hypo_for_F_overall_significance_R} there are $k$ restrictions and they state that knowing the values the explanatory variables does not explain the dependent variable $y$. This can be written as
+% % \begin{align}\label{eq:unrestricted_F_hypo_for_jeg_skal_bruge_den}
+% %     y = \betabold_0 + \varepsilon
+% % \end{align}
+% % Where all independent variables have been excluded due to no affect on $y$. Recall equation \eqref{eq:F_test_R}, which is the F-statistics using the $\mathcal{R}$-squared. In the restricted model \eqref{eq:unrestricted_F_hypo_for_jeg_skal_bruge_den} the $\mathcal{R}$-squared is equal $0$ because none of the variation in $y$ is accounted for because there are no explanatory variables. Furthermore $q = df_r - df_{ur}$ is equal to $k$ because $df_r = n-0-1$ and $df_{ur} = n-k-1$ which means $q = n-1 - (n-k-1) = k$. If we substitute this into \eqref{eq:F_test_R} we get
+% % \begin{align}\label{eq:udvidelse_til_F_stat}
+% %     F = \dfrac{\mathcal{R}^2_{\hat{\varepsilon}^2}/k}{(1-\mathcal{R}^2_{\hat{\varepsilon}^2}) / (n-k-1)}
+% % \end{align}
+% % This F-statistics in only valid in testing for joint exclusion of all independent variables. Therefor it often referred to as the overall significance of the regression. 
+
+% % **udvidelse til F-statistics**
+
+
+
+
+
+
+
+
+
+
+% % \begin{theorem}[Asymptopic normality of OLS]
+% % Under assumption \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity}, \ref{as:zero_conditional_mean} and \ref{as:homoskedasticity_and_no_serial_correlation} the following is true regarding the asymptopic normality of OLS. 
+% % \begin{enumerate}[label=(\roman*)]
+% %     \item $\sqrt{n}(\betahat_j - \betabold) \stackrel{a}{\sim} N(0, \dfrac{\mathbf{\sigma}^2}{a_j^2})$, where $\dfrac{\mathbf{\sigma}^2}{a_j^2} > 0$ is the asymptopic variance of $\sqrt{n}(\betahat_j - \mathbf{\beta}_j)$; for the slope coefficients $a_j^2 = $
+% %     \item 
+% % \end{enumerate}
+% % \end{theorem}
+% % Because $\varepsilon^2$ is unobserved we cannot make an OLS regression on $\varepsilon^2$ for the explanatory variables, but we can make the regression for its estimate as
+% % \begin{align*}
+% %     \hat{\varepsilon}^2 = \delta_0 + \delta_1x_1 + \ldots + \delta_kx_k + error
+% % \end{align*}
+
+
+
+
+
+
+% \subsection{Correct for Heteroscedasticity}
+% To sum up \hetero will in general cause OLS standard errors to be faulty as well as the related statistical tests. In this section we wish to correct for these mistakes, so they are correct when \hetero is present.
 
 
 
