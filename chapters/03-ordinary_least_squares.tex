@@ -101,11 +101,11 @@ Writing the vector as a system of equations gives the following $k + 1$ equation
 \end{split}
 \end{align}
 Returning to the notation used in \eqref{eq:multiple_linear_regression_model}, \eqref{eq:multiple_linear_regression_equations} will now be rewritten to matrix notation
-\begin{align}
+\begin{align} \label{eq:equation_to}
     \mathbf{X}^\top(\mathbf{y} - \mathbf{X}\betahat) &= \mathbf{0} \nonumber\\
     \mathbf{X}^\top\mathbf{y} - \mathbf{X}^\top\mathbf{X}\betahat &= \mathbf{0}\nonumber\\
     \mathbf{X}^\top\mathbf{X}\betahat &= \mathbf{X}^\top\mathbf{y}\label{eq:equation_from} \\
-    \betahat &= \left(\mathbf{X}^\top\mathbf{X}\right)^{-1}\mathbf{X}^\top\mathbf{y}.\label{eq:equation_to}
+    \betahat &= \left(\mathbf{X}^\top\mathbf{X}\right)^{-1}\mathbf{X}^\top\mathbf{y}.
 \end{align}
 Going from \eqref{eq:equation_from} to \eqref{eq:equation_to} one must assume that $\mathbf{X}^\top\mathbf{X}$ is positive definite and thereby invertible.
 It turns out that this is not the only assumption we have to make, there are in fact four assumptions related to the OLS estimator.
@@ -137,9 +137,9 @@ Thus it is proven that if $X$ has full column rank then $X^\top X$ is positive d
 This assumption ensures that there is no correlation between each of the explanatory variables and $\varepsilon_i$ for $i = 1, \ldots, n$.
 If it on the other hand was the case that $x_j$ were correlated with $\varepsilon_i$, the explanatory variable would be called an endogenous explanatory variable.
 In the case that assumption \ref{as:zero_conditional_mean} holds and thereby that none of the explanatory variables are correlated with $\varepsilon_i$, we have what is called exogenous explanatory variables.
-\begin{theorem}[Unbiasedness of OLS]
+\begin{theorem}[Unbiasedness of OLS]\label{th:unbiasedness_of_ols}
     Under assumptions \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity} and \ref{as:zero_conditional_mean}, the OLS estimator $\betahat$ is an unbiased estimator for $\boldsymbol{\beta}$ \cite[p. 810]{Wooldridge2012}.
-\end{theorem}\label{th:unbiasedness_of_ols}
+\end{theorem}
 \begin{proof}
     Under assumptions \ref{as:linear_in_the_parameters} and \ref{as:no_perfect_collinearity} we can write $\betahat$ as
     \begin{align}
@@ -240,9 +240,9 @@ Thus we can compare the variance of the OLS estimator and of any linear unbiased
 This is the motivation for the following theorem, better known as the Gauss-Markov theorem.
 \begin{theorem}[Gauss-Markov Theorem]
     Under assumptions \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity}, \ref{as:zero_conditional_mean} and \ref{as:homoskedasticity_and_no_serial_correlation} 
-    \begin{align*}
+    \begin{align}\label{eq:betahat_y}
         \betahat &= (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{y}
-    \end{align*}
+    \end{align}
     is the best linear unbiased estimator \cite[p. 811]{Wooldridge2012}.
 \end{theorem}\label{th:gauss_markoc_theorem}
 \begin{proof}
@@ -417,25 +417,25 @@ As previously stated $\sigma^2$ is the variance of the error term
     \sigma^2 = \var(\varepsilon_i) =  E\left[\Big(\varepsilon_i - E(\varepsilon_i)\Big)^2\right] = E\left[\varepsilon_i^2\right],
 \end{align*}
 the last equality holds as $E(\varepsilon_i) = 0$.
-The MLE estimate for $\sigma^2$ is given by \eqref{eq:MLE_for_sigma} and repeated below
+The MLE for $\sigma^2$ is given by \eqref{eq:MLE_for_sigma} and repeated below
 \begin{align}\label{eq:MLE_for_sigma_omskrevet}
     \hat{\sigma}^2 &= \frac{\|\textbf{y} - \textbf{X}( \textbf{X}^\top\textbf{X} )^{-1}\textbf{X}^\top\textbf{y}\|^2}{n}
-    = \dfrac{1}{n}\sum_{i=1}^n \left(y_i - \mathbf{x}_i\betahat\right)^2,
+    = \dfrac{1}{n}\sum_{i=1}^n \left(y_i - \mathbf{x}_i\betahat\right)^2.
 \end{align}
-it was found in chapter \ref{ch:likelihood_theory} on page \pageref{eq:MLE_for_sigma}.
-If we by $\hat{\varepsilon}_i$ denote the $i$'th observed residual, then
+% it was found in chapter \ref{ch:likelihood_theory} on page \pageref{eq:MLE_for_sigma
+If we by $\hat{\varepsilon}_i$ denote the $i$'th residual, then
 \begin{align}\label{eq:observed_residual}
     \hat{\varepsilon}_i = y_i - \mathbf{x}_i\betahat.
 \end{align}
-Inserting \eqref{eq:observed_residual} into \eqref{eq:MLE_for_sigma_omskrevet} the MLE estimate becomes
+Inserting \eqref{eq:observed_residual} into \eqref{eq:MLE_for_sigma_omskrevet} the MLE becomes
 \begin{align}\label{eq:valid_estimate}
     \hat{\sigma}^2 = \dfrac{1}{n}\sum_{i=1}^n \hat{\varepsilon}_i^2.
 \end{align}
-The sum in \eqref{eq:valid_estimate} can be replaced by $\ssr(\betahat)$ yielding a third expression for the MLE estimate
+The sum in \eqref{eq:valid_estimate} is equal to $\ssr(\betahat)$ yielding a third expression for the MLE
 \begin{align}
-    \hat{\sigma}^2 = \frac{\ssr(\betahat)}{n},
+    \hat{\sigma}^2 = \frac{\ssr(\betahat)}{n}.
 \end{align}
-but no matter which way the MLE estimate is written it is a biased estimate.
+Regardless of the chosen expression, the MLE is a biased estimate.
 % \vspace{1ex}
 % \hrule
 % \vspace{1ex}
@@ -457,20 +457,20 @@ but no matter which way the MLE estimate is written it is a biased estimate.
 % \vspace{1ex}
 % \hrule
 % \vspace{1ex}
-This is because the estimate does not take into account the first order conditions imposed on the observed residuals.
+This is because the estimate does not take into account the first order conditions imposed on the residuals.
 The first order conditions are the $k + 1$ equations in \eqref{eq:multiple_linear_regression_equations} on page \pageref{eq:multiple_linear_regression_equations}.
 The intuition being that if we know $n - (k + 1)$ of the residuals the rest can be found using the first order conditions, which in this case becomes a system of $k + 1$ equations with $k + 1$ unknowns. 
-Because of this there is only $n - (k + 1)$ degrees of freedom in the observed residuals compared to $n$ in the error terms \cite[p. 55]{Wooldridge2012}.
+Because of this there is only $n - (k + 1)$ degrees of freedom in the residuals compared to $n$ in the error terms \cite[p. 55]{Wooldridge2012}.
 Taking this into account the unbiased estimator of $\sigma^2$ is now presented as
 \begin{align} \label{eq:sigma_hat_2_n-k-1}
     \hat{\sigma}^2 = \frac{\ssr(\betahat)}{n - (k + 1)} = \frac{\ssr(\betahat)}{n - k - 1}.
 \end{align}
-To prove that this estimator is in fact unbiased, the following theorem is presented
+To prove that this estimator is in fact unbiased, the following theorem is presented,
 % \vspace{5mm}
 % \hrule
 % \vspace{5mm}
 \begin{theorem}[Unbiasedness of $\sigmahat$]
-    Under assumptions \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity}, \ref{as:zero_conditional_mean} and \ref{as:homoskedasticity_and_no_serial_correlation}, the estimator $\hat{\sigma}^2$ is unbiased for $\sigma^2:E(\hat{\sigma}^2|\mathbf{X}) = \sigma^2$ for all $\sigma^2 > 0$ \cite[p. 813]{Wooldridge2012}.
+    Under assumptions \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity}, \ref{as:zero_conditional_mean} and \ref{as:homoskedasticity_and_no_serial_correlation}, the estimator $\hat{\sigma}^2$, in \eqref{eq:sigma_hat_2_n-k-1}, is unbiased for $\sigma^2:E(\hat{\sigma}^2|\mathbf{X}) = \sigma^2$ for all $\sigma^2 > 0$ \cite[p. 813]{Wooldridge2012}.
 \end{theorem}
 \begin{proof}
     Consider the relationship $\mathbf{y} = \mathbf{X}\betahat + \boldsymbol{\hat{\varepsilon}}$.
@@ -488,12 +488,13 @@ To prove that this estimator is in fact unbiased, the following theorem is prese
         \boldsymbol{\hat{\varepsilon}} &= \left(\mathbf{I} - \mathbf{H}\right)\left(\mathbf{X}\betahat + \boldsymbol{\hat{\varepsilon}}\right) 
         = \left(\mathbf{I} - \mathbf{H}\right)\mathbf{X}\betahat + \left(\mathbf{I} - \mathbf{H}\right)\boldsymbol{\hat{\varepsilon}}
         = \left(\mathbf{I} - \mathbf{H}\right)\mathbf{X}\betahat + \left(\mathbf{I} - \mathbf{H}\right)\boldsymbol{\varepsilon}\\
-        &= \mathbf{X}\betahat - \mathbf{H}\mathbf{X}\betahat + \boldsymbol{\varepsilon} + \mathbf{H}\boldsymbol{\varepsilon}
+        &= \mathbf{X}\betahat - \mathbf{H}\mathbf{X}\betahat + \boldsymbol{\varepsilon} - \mathbf{H}\boldsymbol{\varepsilon}
         = \mathbf{X}\betahat - \mathbf{X}\left(\mathbf{X}^\top\mathbf{X}\right)^{-1}\mathbf{X}^\top\mathbf{X}\betahat + \boldsymbol{\varepsilon} - \mathbf{X}\left(\mathbf{X}^\top\mathbf{X}\right)^{-1}\mathbf{X}^\top\boldsymbol{\varepsilon} \\
         &= \mathbf{X}\betahat - \mathbf{X}\betahat + \boldsymbol{\varepsilon} - \mathbf{X}\left(\mathbf{X}^\top\mathbf{X}\right)^{-1}\mathbf{X}^\top\boldsymbol{\varepsilon} 
         = \boldsymbol{\varepsilon} - \mathbf{X}\left(\mathbf{X}^\top\mathbf{X}\right)^{-1}\mathbf{X}^\top\boldsymbol{\varepsilon} = \left(\mathbf{I} - \mathbf{H}\right)\boldsymbol{\varepsilon}.
     \end{align*}
-    Because $\left(\mathbf{I} - \mathbf{H}\right)$ is a projection matrix
+    In the third equality we use $(\textbf{I} - \textbf{H})\hat{\boldsymbol{\varepsilon}} = (\textbf{I} - \textbf{H})^2\boldsymbol{\varepsilon} = (\textbf{I} - \textbf{H})\boldsymbol{\varepsilon}$.
+    Because $\left(\mathbf{I} - \mathbf{H}\right)$ is a projection matrix then
     \begin{align*}
         \boldsymbol{\hat{\varepsilon}}^\top\boldsymbol{\hat{\varepsilon}} = \left[  \left(\mathbf{I} - \mathbf{H}\right)\boldsymbol{\varepsilon} \right]^\top\left[ \left(\mathbf{I} - \mathbf{H}\right)\boldsymbol{\varepsilon} \right] = \boldsymbol{\varepsilon}^\top\left(\mathbf{I} - \mathbf{H}\right)^\top \left(\mathbf{I} - \mathbf{H}\right)\boldsymbol{\varepsilon} = \boldsymbol{\varepsilon}^\top \left(\mathbf{I} - \mathbf{H}\right)\boldsymbol{\varepsilon}.
     \end{align*}
@@ -506,9 +507,9 @@ To prove that this estimator is in fact unbiased, the following theorem is prese
     % \end{center}
     \begin{align}
         E\left[\boldsymbol{\varepsilon}^\top \left(\mathbf{I} - \mathbf{H}\right)\boldsymbol{\varepsilon}|\mathbf{X}\right] &= E\left[\tr\left(\boldsymbol{\varepsilon}^\top \left(\mathbf{I} - \mathbf{H}\right)\boldsymbol{\varepsilon}\right)|\mathbf{X}\right] 
-        = E\left[\tr\left(\left(\mathbf{I} - \mathbf{H}\right)\boldsymbol{\varepsilon}^\top\boldsymbol{\varepsilon}\right)|\mathbf{X}\right] \nonumber\\
-        &= \tr\left[E\left(\left(\mathbf{I} - \mathbf{H}\right)\boldsymbol{\varepsilon}^\top\boldsymbol{\varepsilon}|\mathbf{X}\right)\right] 
-        = \tr\left[\left(\mathbf{I} - \mathbf{H}\right)E\left(\boldsymbol{\varepsilon}^\top\boldsymbol{\varepsilon}|\mathbf{X}\right)\right] \nonumber\\
+        = E\left[\tr\left(\left(\mathbf{I} - \mathbf{H}\right)\boldsymbol{\varepsilon}\boldsymbol{\varepsilon}^\top\right)|\mathbf{X}\right] \nonumber\\
+        &= \tr\left[E\left(\left(\mathbf{I} - \mathbf{H}\right)\boldsymbol{\varepsilon}\boldsymbol{\varepsilon}^\top|\mathbf{X}\right)\right] 
+        = \tr\left[\left(\mathbf{I} - \mathbf{H}\right)E\left(\boldsymbol{\varepsilon}\boldsymbol{\varepsilon}^\top|\mathbf{X}\right)\right] \nonumber\\
         &= \tr\left[\left(\mathbf{I} - \mathbf{H}\right)\sigma^2\mathbf{I}_{n}\right]
         = \sigma^2\tr\left[\left(\mathbf{I} - \mathbf{H}\right)\right]. \label{eq:trace_projection_matrix}
     \end{align}
@@ -522,9 +523,9 @@ To prove that this estimator is in fact unbiased, the following theorem is prese
     \end{align*}
     Therefore,
     \begin{align*}
-        E\left(\hat{\sigma}^2|\mathbf{X}\right) = \frac{ E\left[\boldsymbol{\varepsilon}^\top \left(\mathbf{I} - \mathbf{H}\right)\boldsymbol{\varepsilon}|\mathbf{X}\right]}{n - k - 1} = \frac{\sigma^2\tr\left[\left(\mathbf{I} - \mathbf{H}\right)\right]}{n - k - 1} = \frac{\sigma^2(n - k - 1)}{n - k - 1} = \sigma^2
+        E\left(\hat{\sigma}^2|\mathbf{X}\right) &= \frac{E\left[\ssr(\betahat)|\textbf{X}\right]}{n - k - 1} = \frac{E\left[\boldsymbol{\hat{\varepsilon}}^\top\boldsymbol{\hat{\varepsilon}}|\textbf{X}\right]}{n - k - 1}= \frac{ E\left[\boldsymbol{\varepsilon}^\top \left(\mathbf{I} - \mathbf{H}\right)\boldsymbol{\varepsilon}|\mathbf{X}\right]}{n - k - 1} \\ &= \frac{\sigma^2\tr\left[\left(\mathbf{I} - \mathbf{H}\right)\right]}{n - k - 1} = \frac{\sigma^2(n - k - 1)}{n - k - 1} = \sigma^2
     \end{align*}
-    which concludes the proof.
+    which concludes the proof c.f. definition \ref{def:Unbiased_estmator}.
 \end{proof}
 During this chapter we have found that under the Gauss-Markov assumptions;
 \begin{enumerate}
@@ -533,5 +534,5 @@ During this chapter we have found that under the Gauss-Markov assumptions;
     \item Zero conditional mean
     \item Homoskedasticity and no serial correlation
 \end{enumerate}
- the OLS estimator is the best linear unbiased estimator. 
- In addition we have found an unbiased estimator for the variance of the error term.
+ the OLS estimator is the BLUE. 
+ In addition we have found an unbiased estimator for the variance of the error term conditional on $\textbf{X}$.

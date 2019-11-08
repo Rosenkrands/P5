@@ -1,79 +1,75 @@
 \newpage
 \section{Consequences of Heteroscedasticity}\label{sec:consequence_of_hetero}
-In this sections we wish to determine how \hetero \ will affect both OLS, \textit{t-statistics}, \textit{F-statistics} and \textit{confidence intervals}. 
+In this sections we wish to determine how \hetero will affect both OLS, \textit{t-statistics}, \textit{F-statistics} and \textit{confidence intervals}. 
 
 First we wish to determine if the estimator $\betahat$ is unbiased or biased in the presence of heteroskedasticity.  
 
-Remember assumption \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity} and \ref{as:zero_conditional_mean}. If these hold theorem \ref{th:unbiasedness_of_ols} proved that the OLS estimator $\betahat$ is unbiased for $\boldsymbol{\beta}$, which is the same as $E[\hat{\beta}_j] = \beta_j
+Remember assumption \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity} and \ref{as:zero_conditional_mean}. If these hold, theorem \ref{th:unbiasedness_of_ols} proved that the OLS estimator $\betahat$ is unbiased for $\boldsymbol{\beta}$, which is the same as $E[\hat{\beta}_j] = \beta_j
 $ for $j = 1,2, \ldots, k$. 
+Because $\var(\boldsymbol{\varepsilon} | \mathbf{X})$ did no determine whether the OLS was biased or unbiased in theorem \ref{th:unbiasedness_of_ols} and its proof, the presence of \hetero will not cause $\betahat$ to be biased. 
 
-Because the error terms in $\var(\boldsymbol{\varepsilon} | \mathbf{X})$ did no determine whether the OLS was biased or unbiased in the theorem and its proof, the presence of \hetero \ will not cause $\betahat$ to be biased. 
-
-Next we wish to determine how our measure-of-fit test $\mathcal{R}^2$ is influenced by \hetero. 
-$\mathcal{R}^2$ measures how much of the variance in the dependent variable is explained by the independent variables. In our model it determines how much of the variance in $y$ is explained in the variables $\mathbf{X}$. 
-Low values of $\mathcal{R}^2$ makes predictions difficult because most of the variance in $y$ is caused by unobserved factors in $\varepsilon$, so the OLS predictions will be hard to calculate given a set of explanatory variables.
-Consider the expression for $\mathcal{R}^2$
+Next we wish to determine how our measure-of-fit test $R^2$ is influenced by \hetero. 
+$R^2$ measures how much of the variance in the dependent variable is explained by the independent variables. In our model it determines how much of the variance in $y$ is explained in the variables $\mathbf{x}_1, \mathbf{x}_2, \ldots, \mathbf{x}_k$. 
+Low values of $R^2$ makes predictions difficult because most of the variance in $y$ is caused by unobserved factors in $\varepsilon$.
+Consider the expression for $R^2$
 \begin{align*}
-    \mathcal{R}^2 = 1 - \dfrac{SSR}{SST}
+    R^2 = 1 - \dfrac{SSR}{SST}
 \end{align*}
-Where \textbf{SSR} is the \textbf{sum of squared residuals} given as
+where SSR is the sum of squared residuals given as
 \begin{align*}
     SSR \equiv \nsum \hat{\varepsilon}_i^2
 \end{align*}
-and \textbf{SST} is the \textbf{total sum of squares} given as
+and SST is the total sum of squares given as
 \begin{align*}
     SST \equiv \nsum (y_i - \overline{y})^2. 
 \end{align*}
-The $\mathcal{R}^2$ value is between $0$ and $1$. The closer the value is to one $1$ the more of the variance is accounted for in the explanatory variables, thus it is desireable to have an $\mathcal{R}^2$ value close to $1$.
-This coefficient of determination can be changed to the adjusted $\mathcal{R}^2$ as
+The $R^2$ value is between $0$ and $1$. The closer the value is to one $1$ the more of the variance is accounted for in the explanatory variables, thus it is desireable to have an $R^2$ value close to $1$.
+This coefficient of determination can be changed to the adjusted $R^2$ as
 \begin{align*}
-    \mathcal{R}^2_{Adj} =& 1 - \dfrac{SSR/(n - k - 1)}{SST/(n - 1)}\\
-      =& 1 - \dfrac{\hat{\sigma}^2}{SST/(n-1)}.
+    R^2_{Adj} &= 1 - \dfrac{SSR/(n - k - 1)}{SST/(n - 1)}\\
+      &= 1 - \dfrac{\hat{\sigma}^2}{SST/(n-1)}.
 \end{align*}
-This rewriting of the model adjusts for the number of predictors in the model. This $\mathcal{R}^2$ increases if a predictor improves more than penalty of removing one degree of freedom. 
+This rewriting of the coefficient of determination adjusts for the number of predictors in the model. This $R^2_{Adj}$ increases if a predictor improves more than the penalty of removing one degree of freedom. 
 
-Both SSR and SST are unconditional variances in $\mathcal{R}^2$, thus they are not influenced by the presence of heteroskedasticity. This can be seen as neither SSR or SST are dependant on the explanatory variables $\textbf{X}$. 
+Both SSR and SST is the unconditional variance in $R^2$, thus they are not influenced by the presence of heteroskedasticity. This can be seen as neither SSR or SST are dependant on the explanatory variables $\textbf{X}$.
 
-This means that heteroskedasticity does not cause the OLS estimators to be biased or inconsistent and nor does it affect the $\mathcal{R}^2$ test. 
-It will however cause the variance of the OLS estimators, i.e. $\var(\betahat)$, to be biased, which will be explained next.  
+This means that heteroskedasticity does not cause the OLS estimator to be biased and nor does it affect the $R^2$ coefficient. 
+It will however cause the variance of the OLS estimator, i.e. $\var(\betahat)$, to be biased, which will be explained next.  
 
-The \homo \ assumption is $\var(\boldsymbol{\varepsilon} | \mathbf{X}) = \sigma^2$. If assumption \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity}, \ref{as:zero_conditional_mean} and \ref{as:homoskedasticity_and_no_serial_correlation} hold the variance of the OLS estimator can be expressed as in theorem \ref{th:variance-covariance_of_the_ols_estimator}, which implies that variance of $\betahat$ given the explanatory variables has an explicit form given as
+The \homo assumption is $\var(\boldsymbol{\varepsilon} | \mathbf{X}) = \sigma^2$. If assumption \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity}, \ref{as:zero_conditional_mean} and \ref{as:homoskedasticity_and_no_serial_correlation} hold the variance of the OLS estimator can be expressed as in theorem \ref{th:variance-covariance_of_the_ols_estimator}, which implies that the variance of $\betahat$ given the explanatory variables has an explicit form given as
 \begin{align*}
     \var(\betahat | \mathbf{X}) = \sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}.
 \end{align*}
-
-
-The slope coefficients can be defined as 
+The variance of the slope coefficients can be defined as
 \begin{align}\label{eq:slope_variance_OLS_estimator}
-    \var(\hat{\beta}_j|\mathbf{X}) = \dfrac{\sigma^2}{SST_j(1- \mathcal{R}_j^2)}
+    \var(\hat{\beta}_j|\mathbf{X}) = \dfrac{\sigma^2}{SST_j(1- R_j^2)},
 \end{align}
-Where $j = 1, \ldots, k$ and $SST_j = \nsum (x_{ij} - \overline{x}_j)^2$ is the total sample variation in $x_j$ and $\mathcal{R}^2_j$ is found from a regression on $x_j$ with all other independent variables. 
+where $j = 1, \ldots, k$ and $SST_j = \nsum (x_{ij} - \overline{x}_j)^2$ is the total sample variation in $x_j$ and $R^2_j$ is found from a regression on $x_j$ with all other independent variables. 
 
-Equation \eqref{eq:slope_variance_OLS_estimator} depends on $\sigma^2$, $SST_j$ and $\mathcal{R}^2_j$.
-Here $\sigma^2$ is an unknown variable, the larger $\sigma^2$ the larger are the variances for the OLS estimators. $SST_j$ is the total sample variation in $x_j$, the larger it is the smaller will the variance of the OLS estimators be so it is preferred to have as much sample variation as possible which can be obtained by increasing sample size. 
-Notice that $\mathcal{R}^2_j$ is found with a regression involving only the independent variables in the original model, where $x_j$ is the dependent variable. 
-This differs from the $\mathcal{R}^2$ found by regression on $y$ with $x_1, \ldots, x_k$ as the independent variables. 
+Equation \eqref{eq:slope_variance_OLS_estimator} depends on $\sigma^2$, $SST_j$ and $R^2_j$.
+Here $\sigma^2$ is an unknown variable, the larger $\sigma^2$ the larger are the variances for the OLS estimators. $SST_j$ is the total sample variation in $x_j$, the larger it is the smaller the variance of the OLS estimators so it is preferred to have as much sample variation as possible which can be obtained by increasing sample size. 
+Notice that $R^2_j$ is found with a regression involving only the independent variables in the original model, where $x_j$ is the dependent variable. 
+This differs from the $R^2$ found by regression on $y$ with $x_1, \ldots, x_k$ as the independent variables. 
 
-Consider the example $y = \betahat_0 + \betahat_1 x_1 + \betahat_2 x_2 + \varepsilon$, here $\mathcal{R}^2_1$ is found by making a regression of $x_1$ on $x_2$. 
-As always an $\mathcal{R}^2_1$ value close to one means that $x_2$ explains much of the variation in $x_1$, so a value close to $1$ means that $x_1$ and $x_2$ are highly correlated.
-$\mathcal{R}^2_j$ tests how much of the variation in one of the independent variables is explained from the remaining independent variables.
-The best estimator for $\betahat_j$ is found with a low value of $\mathcal{R}^2_j$, thus a smaller relationship between the explanatory variables is desired when retrieving $\var(\betahat_j)$. Note $\mathcal{R}^2$ cannot equal $0$ due to assumption \ref{as:no_perfect_collinearity}. 
+Consider the example $y = \betahat_0 + \betahat_1 x_1 + \betahat_2 x_2 + \varepsilon$, here $R^2_1$ is found by making a regression of $x_1$ on $x_2$. 
+As always an $R^2_1$ value close to one means that $x_2$ explains much of the variation in $x_1$, so a value close to $1$ means that $x_1$ and $x_2$ are highly correlated.
+$R^2_j$ tests how much of the variation in one of the independent variables is explained from the remaining independent variables.
+The best estimator for $\betahat_j$ is found with a low value of $R^2_j$, thus a smaller relationship between the explanatory variables is desired when retrieving $\var(\betahat_j)$. Note $R^2$ cannot equal $0$ due to assumption \ref{as:no_perfect_collinearity}. 
 
-From \eqref{eq:slope_variance_OLS_estimator} it is possible to find the standard deviation of $\betahat_j$, which is the squre root of \ref{eq:slope_variance_OLS_estimator}, which is
+From \eqref{eq:slope_variance_OLS_estimator} it is possible to find the standard deviation of $\betahat_j$, which is the square root of \ref{eq:slope_variance_OLS_estimator}, which is
 \begin{align}\label{eq:standard_deviation}
-    sd(\betahat_j) = \dfrac{\sigma}{SST_j(\big(1- \mathcal{R}_j^2)\big)^{1/2}}
+    sd(\betahat_j) = \dfrac{\sigma}{\left(SST_j(1- R_j^2)\right)^{1/2}}
 \end{align}
 The standard deviation, $\sigma$, is replaced by its estimate to obtain the standard error
 \begin{align}\label{eq:standad_error}
-    se(\betahat_j) = \dfrac{\hat{\sigma}}{SST_j(\big(1- \mathcal{R}_j^2)\big)^{1/2}}
+    se(\betahat_j) = \dfrac{\hat{\sigma}}{\big(SST_j(1- R_j^2)\big)^{1/2}}
 \end{align}
 Note that the standard deviation measures the dispersion a data set has from the mean, whereas the standard errors measures how far the sample mean of the data is likely to be from the true sample space mean. 
 
-Since \eqref{eq:standad_error} is obtained from \eqref{eq:slope_variance_OLS_estimator}, which relies on \homo the standard error will not be a valid estimator of the standard deviation in \eqref{eq:standard_deviation} in the presence of \hetero. This means that \hetero will cause bias in the $\var(\betahat_j)$ which invalidates the standard errors, $\varepsilon$. 
+Since \eqref{eq:standad_error} is obtained from \eqref{eq:slope_variance_OLS_estimator}, which relies on \homo the standard error will not be a feasible estimator of the standard deviation in \eqref{eq:standard_deviation} in the presence of heteroskedasticity. This means that \hetero will cause bias in the $\var(\betahat_j)$ which invalidates the assumption of the error term $\varepsilon$.
+Therefore if the assumption of homoskedasticity is violated, the variance of the slope coefficients will be biased. Because of the hetero assumption the error terms will not be normally distributed and thus \textit{confidence intervals}, \textit{t-statistics} and \textit{F-statistics} will no longer follow a normal distribution and thus their results will be invalid when \hetero is present. These statistics will be introduced next.
 
-Furthermore \textit{confidence intervals}, \textit{t-statistics} and \textit{F-statistics} will no longer follow a normal distribution and thus their results will be invalid when \hetero is present. 
 
-First it is needed to estimate the estimators of variance, $\var(\betahat)$, when \hetero is present. 
 
 
 

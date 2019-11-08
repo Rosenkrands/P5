@@ -1,1 +1,96 @@
-\chapter{Appendix name}\label{ch:appAlabel}
+\chapter{Block Matrix Inversion}\label{ch:block_matrix_inversion}
+This appendix is based on \cite{Bierens2013}.
+\begin{theorem}
+    Let $X$ be an $n \times n$ block matrix with blocks $A, B, C, D$ where $A$ and $D$ are square and non-singular.
+    Futhermore let $A$ be $k \times k$, with $n > k$ and let $A-BD^{-1}C$ be invertible.
+    Then $X$ is invertible and the inverse is given by
+    \begin{align}
+        \begin{bmatrix}
+            A & B \\
+            C & D
+        \end{bmatrix}^{-1}
+        =
+        \begin{bmatrix}
+            (A - BD^{-1}C)^{-1} &
+            -(A - BD^{-1}C)^{-1}BD^{-1} \\
+            -D^{-1}C(A - BD^{-1}C)^{-1} &
+            (D - CA^{-1}B)^{-1}
+        \end{bmatrix}
+    \end{align}
+\end{theorem}
+\begin{proof}
+    Suppose $Z = X^{-1}$ then
+    \begin{align}
+        \begin{split}
+            XZ &=
+            \begin{bmatrix}
+                A & B \\
+                C & D
+            \end{bmatrix}
+            \begin{bmatrix}
+                E & F \\
+                G & H
+            \end{bmatrix} \\
+            &=
+            \begin{bmatrix}
+                AE + BG & AF + BH \\
+                CE + DG & CF + DH
+            \end{bmatrix} \\
+            &=
+            \begin{bmatrix}
+                I_k & 0_{k,n-k} \\
+                0_{n-k,k} & I_{n-k}.
+            \end{bmatrix}
+            \label{eq:block_matrix_inversion}
+        \end{split}
+    \end{align}
+    For $Z$ to satisfy \eqref{eq:block_matrix_inversion} it must satisfy the following matrix equations
+    \begin{align}
+        AE + BG &= I_k \label{eq:block_system_1} \\
+        AF + BH &= 0_{k,n-k} \label{eq:block_system_2} \\
+        CE + DG &= 0_{n-k,k} \label{eq:block_system_3} \\
+        CF + DH &= I_{n-k}. \label{eq:block_system_4}
+    \end{align}
+    Lets start by isolating $F$ in \eqref{eq:block_system_2}
+    \begin{align}
+        AF + BH &= 0_{k,n-k} \nonumber \\
+        AF &= - BH \nonumber \\
+        F &= -A^{-1}BH. \label{eq:block_f}
+    \end{align}
+    Similarly $G$ can be isolated in \eqref{eq:block_system_3}
+    \begin{align}
+        G = -D^{-1}CE. \label{eq:block_g}
+    \end{align}
+    We can now insert \eqref{eq:block_f} into  \eqref{eq:block_system_4}
+    \begin{align*}
+        -CA^{-1}BH + DH &= I_{n-k} \\
+        (D - CA^{-1}B)H &= I_{n-k},
+    \end{align*}
+    and the same can be done for \eqref{eq:block_g} and \eqref{eq:block_system_1}
+    \begin{align*}
+        AE + BG &= I_k \\
+        AE - BD^{-1}CE &= I_k \\
+        (A - BD^{-1}C)E &= I_k.
+    \end{align*}
+    This implies that
+    \begin{align}
+        E &= (A - BD^{-1}C)^{-1} \label{eq:block_sub_1} \\
+        H &= (D - CA^{-1}B)^{-1}, \label{eq:block_sub_2}
+    \end{align}
+    substituting \eqref{eq:block_sub_1} and \eqref{eq:block_sub_2} into \eqref{eq:block_f} and \eqref{eq:block_g} gives
+    \begin{align*}
+        F &= -A^{-1}B(D - CA^{-1}B)^{-1} \\
+        G &= -D^{-1}C(A - BD^{-1}C)^{-1}.
+    \end{align*}
+    We can now conclude that
+    \begin{align*}
+        X^{-1} =
+        \begin{bmatrix}
+            (A - BD^{-1}C)^{-1} &
+            -(A - BD^{-1}C)^{-1}BD^{-1} \\
+            -D^{-1}C(A - BD^{-1}C)^{-1} &
+            (D - CA^{-1}B)^{-1}
+        \end{bmatrix}.
+    \end{align*}
+\end{proof}
+
