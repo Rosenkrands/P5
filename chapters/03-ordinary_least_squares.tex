@@ -101,7 +101,7 @@ Writing the vector as a system of equations gives the following $k + 1$ equation
 \end{split}
 \end{align}
 Returning to the notation used in \eqref{eq:multiple_linear_regression_model}, \eqref{eq:multiple_linear_regression_equations} will now be rewritten to matrix notation
-\begin{align} \label{eq:equation_to}
+\begin{align}\label{eq:equation_to}
     \mathbf{X}^\top(\mathbf{y} - \mathbf{X}\betahat) &= \mathbf{0} \nonumber\\
     \mathbf{X}^\top\mathbf{y} - \mathbf{X}^\top\mathbf{X}\betahat &= \mathbf{0}\nonumber\\
     \mathbf{X}^\top\mathbf{X}\betahat &= \mathbf{X}^\top\mathbf{y}\label{eq:equation_from} \\
@@ -463,14 +463,14 @@ The intuition being that if we know $n - (k + 1)$ of the residuals the rest can 
 Because of this there is only $n - (k + 1)$ degrees of freedom in the residuals compared to $n$ in the error terms \cite[p. 55]{Wooldridge2012}.
 Taking this into account the unbiased estimator of $\sigma^2$ is now presented as
 \begin{align} \label{eq:sigma_hat_2_n-k-1}
-    \hat{\sigma}^2 = \frac{\ssr(\betahat)}{n - (k + 1)} = \frac{\ssr(\betahat)}{n - k - 1}.
+    s^2 = \frac{\ssr(\betahat)}{n - (k + 1)} = \frac{\ssr(\betahat)}{n - k - 1}.
 \end{align}
 To prove that this estimator is in fact unbiased, the following theorem is presented,
 % \vspace{5mm}
 % \hrule
 % \vspace{5mm}
 \begin{theorem}[Unbiasedness of $\sigmahat$]
-    Under assumptions \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity}, \ref{as:zero_conditional_mean} and \ref{as:homoskedasticity_and_no_serial_correlation}, the estimator $\hat{\sigma}^2$, in \eqref{eq:sigma_hat_2_n-k-1}, is unbiased for $\sigma^2:E(\hat{\sigma}^2|\mathbf{X}) = \sigma^2$ for all $\sigma^2 > 0$ \cite[p. 813]{Wooldridge2012}.
+    Under assumptions \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity}, \ref{as:zero_conditional_mean} and \ref{as:homoskedasticity_and_no_serial_correlation}, the estimator $s^2$, in \eqref{eq:sigma_hat_2_n-k-1}, is unbiased for $\sigma^2:E(s^2|\mathbf{X}) = \sigma^2$ for all $\sigma^2 > 0$ \cite[p. 813]{Wooldridge2012}.
 \end{theorem}
 \begin{proof}
     Consider the relationship $\mathbf{y} = \mathbf{X}\betahat + \boldsymbol{\hat{\varepsilon}}$.
@@ -523,7 +523,7 @@ To prove that this estimator is in fact unbiased, the following theorem is prese
     \end{align*}
     Therefore,
     \begin{align*}
-        E\left(\hat{\sigma}^2|\mathbf{X}\right) &= \frac{E\left[\ssr(\betahat)|\textbf{X}\right]}{n - k - 1} = \frac{E\left[\boldsymbol{\hat{\varepsilon}}^\top\boldsymbol{\hat{\varepsilon}}|\textbf{X}\right]}{n - k - 1}= \frac{ E\left[\boldsymbol{\varepsilon}^\top \left(\mathbf{I} - \mathbf{H}\right)\boldsymbol{\varepsilon}|\mathbf{X}\right]}{n - k - 1} \\ &= \frac{\sigma^2\tr\left[\left(\mathbf{I} - \mathbf{H}\right)\right]}{n - k - 1} = \frac{\sigma^2(n - k - 1)}{n - k - 1} = \sigma^2
+        E\left(s^2|\mathbf{X}\right) &= \frac{E\left[\ssr(\betahat)|\textbf{X}\right]}{n - k - 1} = \frac{E\left[\boldsymbol{\hat{\varepsilon}}^\top\boldsymbol{\hat{\varepsilon}}|\textbf{X}\right]}{n - k - 1}= \frac{ E\left[\boldsymbol{\varepsilon}^\top \left(\mathbf{I} - \mathbf{H}\right)\boldsymbol{\varepsilon}|\mathbf{X}\right]}{n - k - 1} \\ &= \frac{\sigma^2\tr\left[\left(\mathbf{I} - \mathbf{H}\right)\right]}{n - k - 1} = \frac{\sigma^2(n - k - 1)}{n - k - 1} = \sigma^2
     \end{align*}
     which concludes the proof c.f. definition \ref{def:Unbiased_estmator}.
 \end{proof}

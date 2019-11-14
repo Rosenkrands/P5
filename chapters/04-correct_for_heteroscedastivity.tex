@@ -1,6 +1,6 @@
 \newpage
 \section{Consequences of Heteroscedasticity}\label{sec:consequence_of_hetero}
-In this sections we wish to determine how \hetero will affect both OLS, \textit{t-statistics}, \textit{F-statistics} and \textit{confidence intervals}. 
+In this section we wish to determine how \hetero will affect both OLS, \textit{t-statistics}, \textit{F-statistics} and \textit{confidence intervals}. 
 
 First we wish to determine if the estimator $\betahat$ is unbiased or biased in the presence of heteroskedasticity.  
 
@@ -9,7 +9,7 @@ $ for $j = 1,2, \ldots, k$.
 Because $\var(\boldsymbol{\varepsilon} | \mathbf{X})$ did no determine whether the OLS was biased or unbiased in theorem \ref{th:unbiasedness_of_ols} and its proof, the presence of \hetero will not cause $\betahat$ to be biased. 
 
 Next we wish to determine how our measure-of-fit test $R^2$ is influenced by \hetero. 
-$R^2$ measures how much of the variance in the dependent variable is explained by the independent variables. In our model it determines how much of the variance in $y$ is explained in the variables $\mathbf{x}_1, \mathbf{x}_2, \ldots, \mathbf{x}_k$. 
+$R^2$ measures how much of the variance in the dependent variable is explained by the independent variables. In our model it determines how much of the variance in $y$ is explained by the variables $\mathbf{x}_1, \mathbf{x}_2, \ldots, \mathbf{x}_k$. 
 Low values of $R^2$ makes predictions difficult because most of the variance in $y$ is caused by unobserved factors in $\varepsilon$.
 Consider the expression for $R^2$
 \begin{align*}
@@ -27,7 +27,7 @@ The $R^2$ value is between $0$ and $1$. The closer the value is to one $1$ the m
 This coefficient of determination can be changed to the adjusted $R^2$ as
 \begin{align*}
     R^2_{Adj} &= 1 - \dfrac{SSR/(n - k - 1)}{SST/(n - 1)}\\
-      &= 1 - \dfrac{\hat{\sigma}^2}{SST/(n-1)}.
+      &= 1 - \dfrac{s^2}{SST/(n-1)}.
 \end{align*}
 This rewriting of the coefficient of determination adjusts for the number of predictors in the model. This $R^2_{Adj}$ increases if a predictor improves more than the penalty of removing one degree of freedom. 
 
@@ -42,7 +42,7 @@ The \homo assumption is $\var(\boldsymbol{\varepsilon} | \mathbf{X}) = \sigma^2$
 \end{align*}
 The variance of the slope coefficients can be defined as
 \begin{align}\label{eq:slope_variance_OLS_estimator}
-    \var(\hat{\beta}_j|\mathbf{X}) = \dfrac{\sigma^2}{SST_j(1- R_j^2)},
+    \var(\hat{\beta}_j|\mathbf{X}) = d_j = \dfrac{\sigma^2}{SST_j(1- R_j^2)},
 \end{align}
 where $j = 1, \ldots, k$ and $SST_j = \nsum (x_{ij} - \overline{x}_j)^2$ is the total sample variation in $x_j$ and $R^2_j$ is found from a regression on $x_j$ with all other independent variables. 
 
@@ -62,30 +62,12 @@ From \eqref{eq:slope_variance_OLS_estimator} it is possible to find the standard
 \end{align}
 The standard deviation, $\sigma$, is replaced by its estimate to obtain the standard error
 \begin{align}\label{eq:standad_error}
-    se(\betahat_j) = \dfrac{\hat{\sigma}}{\big(SST_j(1- R_j^2)\big)^{1/2}}
+    se(\betahat_j) = \dfrac{s}{\big(SST_j(1- R_j^2)\big)^{1/2}}
 \end{align}
 Note that the standard deviation measures the dispersion a data set has from the mean, whereas the standard errors measures how far the sample mean of the data is likely to be from the true sample space mean. 
 
 Since \eqref{eq:standad_error} is obtained from \eqref{eq:slope_variance_OLS_estimator}, which relies on \homo the standard error will not be a feasible estimator of the standard deviation in \eqref{eq:standard_deviation} in the presence of heteroskedasticity. This means that \hetero will cause bias in the $\var(\betahat_j)$ which invalidates the assumption of the error term $\varepsilon$.
 Therefore if the assumption of homoskedasticity is violated, the variance of the slope coefficients will be biased. Because of the hetero assumption the error terms will not be normally distributed and thus \textit{confidence intervals}, \textit{t-statistics} and \textit{F-statistics} will no longer follow a normal distribution and thus their results will be invalid when \hetero is present. These statistics will be introduced next.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
