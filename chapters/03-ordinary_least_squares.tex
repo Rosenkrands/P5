@@ -3,7 +3,7 @@ This section will introduce the method of ordinary least squares for estimating 
 The first section however will motivate the method of ordinary least squares through an example of simple linear regression.
 
 \subsection{Least Squares}
-The main idea behind the least squares method is to minimize the sum of squared residuals, also known as SSR.
+The main idea behind the least squares method is to minimize the sum of squared residuals, also known as $SSR$.
 Residuals refers to the difference between the observed and fitted values.
 Given a set of data points in the plane how might one find the line that best fit the data. 
 One way is to choose the line that minimizes the sum of squared residuals.
@@ -31,7 +31,7 @@ The goal is now to find $\textbf{b}$ that minimizes the sum of squared residuals
 For the $i$'th observation the residual is defined as $r_i = log(p_i) - f(a_i, \textbf{b})$.
 With the notation in place we can now write the sum of squared residuals as
 \begin{align}
-  \ssr(\textbf{b}) = \sum_{i = 1}^{130} r_i^2 &= \sum_{i = 1}^{130} \left( log(p_i) - f(a_i, \textbf{b}) \right)^2 \nonumber\\
+  SSR(\textbf{b}) = \sum_{i = 1}^{130} r_i^2 &= \sum_{i = 1}^{130} \left( log(p_i) - f(a_i, \textbf{b}) \right)^2 \nonumber\\
   &= \sum_{i = 1}^{130} \left( log(p_i) - (b_0 + b_1 a_i) \right)^2.\label{eq:SSR}
 \end{align}
 The line that best fit the data is given by the $\textbf{b}$ that minimizes \eqref{eq:SSR} over all possible values $\textbf{b}$.
@@ -70,17 +70,17 @@ Estimating parameters for a multiple linear regression model in matrix form stil
 Where $\mathbf{x}_i$ denotes the $i$'th row in the design matrix $\mathbf{X}$.
 Thus the sum of squared residuals is given by
 \begin{align*}
-    \ssr(\boldsymbol{\beta}) = \nsum (y_i - \mathbf{x}_i\boldsymbol{\beta})^2.
+    SSR(\boldsymbol{\beta}) = \nsum (y_i - \mathbf{x}_i\boldsymbol{\beta})^2.
 \end{align*}
 % where $y_i$ denotes the price of property $i$ and $\mathbf{x}_i$ denotes the $i$'th row in the design matrix $\mathbf{X}$.
 Suppose that $\betahat$ minimizes the sum of squared residuals, that is
 \begin{align*}
     \betahat = \underset{\boldsymbol{\beta}}{\argmin} \nsum (y_i - \mathbf{x}_i\boldsymbol{\beta})^2.
 \end{align*}
-Where arg is the argument that minimizes the SSR w.r.t.$\!$ $\boldsymbol{\beta}$. Then $\betahat$ must satisfy the condition $\nabla \ssr(\betahat) = 0$.
+Where arg is the argument that minimizes the $SSR$ w.r.t.$\!$ $\boldsymbol{\beta}$. Then $\betahat$ must satisfy the condition $\nabla \ssr(\betahat) = 0$.
 Taking the derivative w.r.t. $\boldsymbol{\beta}$ yields
 \begin{align}\label{eq:ssr_derivative}
-    \frac{\partial \ssr(\boldsymbol{\beta})}{\partial \boldsymbol{\beta}} 
+    \frac{\partial SSR(\boldsymbol{\beta})}{\partial \boldsymbol{\beta}} 
     =  \nsum -2(y_i - \mathbf{x}_i \boldsymbol{\beta})\mathbf{x}_i.
 \end{align}
 The expression $\nabla \ssr (\betahat) = 0$ can now be rewritten as
@@ -101,12 +101,13 @@ Writing the vector as a system of equations gives the following $k + 1$ equation
 \end{split}
 \end{align}
 Returning to the notation used in \eqref{eq:multiple_linear_regression_model}, \eqref{eq:multiple_linear_regression_equations} will now be rewritten to matrix notation
-\begin{align}\label{eq:equation_to}
+\begin{align}
     \mathbf{X}^\top(\mathbf{y} - \mathbf{X}\betahat) &= \mathbf{0} \nonumber\\
     \mathbf{X}^\top\mathbf{y} - \mathbf{X}^\top\mathbf{X}\betahat &= \mathbf{0}\nonumber\\
     \mathbf{X}^\top\mathbf{X}\betahat &= \mathbf{X}^\top\mathbf{y}\label{eq:equation_from} \\
-    \betahat &= \left(\mathbf{X}^\top\mathbf{X}\right)^{-1}\mathbf{X}^\top\mathbf{y}.
+    \betahat &= \left(\mathbf{X}^\top\mathbf{X}\right)^{-1}\mathbf{X}^\top\mathbf{y}. \label{eq:equation_to}
 \end{align}
+
 Going from \eqref{eq:equation_from} to \eqref{eq:equation_to} one must assume that $\mathbf{X}^\top\mathbf{X}$ is positive definite and thereby invertible.
 It turns out that this is not the only assumption we have to make, there are in fact four assumptions related to the OLS estimator.
 Together these assumptions are known as the Gauss-Markov assumptions. 
@@ -410,7 +411,7 @@ This is the motivation for the following theorem, better known as the Gauss-Mark
 % \vspace{5mm}
 % \hrule
 % \vspace{5mm}
-\subsection{Estimating the variance of the error term}
+\subsection{Estimating the Variance of the Error Term}
 Next we are interested in quantifying the term $\sigma^2$, as $\var(\betahat|\mathbf{X})$ depends on this constant.
 As previously stated $\sigma^2$ is the variance of the error term
 \begin{align*}
@@ -431,9 +432,9 @@ Inserting \eqref{eq:observed_residual} into \eqref{eq:MLE_for_sigma_omskrevet} t
 \begin{align}\label{eq:valid_estimate}
     \hat{\sigma}^2 = \dfrac{1}{n}\sum_{i=1}^n \hat{\varepsilon}_i^2.
 \end{align}
-The sum in \eqref{eq:valid_estimate} is equal to $\ssr(\betahat)$ yielding a third expression for the MLE
+The sum in \eqref{eq:valid_estimate} is equal to $SSR(\betahat)$ yielding a third expression for the MLE
 \begin{align}
-    \hat{\sigma}^2 = \frac{\ssr(\betahat)}{n}.
+    \hat{\sigma}^2 = \frac{SSR(\betahat)}{n}.
 \end{align}
 Regardless of the chosen expression, the MLE is a biased estimate.
 % \vspace{1ex}
@@ -463,7 +464,7 @@ The intuition being that if we know $n - (k + 1)$ of the residuals the rest can 
 Because of this there is only $n - (k + 1)$ degrees of freedom in the residuals compared to $n$ in the error terms \cite[p. 55]{Wooldridge2012}.
 Taking this into account the unbiased estimator of $\sigma^2$ is now presented as
 \begin{align} \label{eq:sigma_hat_2_n-k-1}
-    s^2 = \frac{\ssr(\betahat)}{n - (k + 1)} = \frac{\ssr(\betahat)}{n - k - 1}.
+    s^2 = \frac{SSR(\betahat)}{n - (k + 1)} = \frac{SSR(\betahat)}{n - k - 1}.
 \end{align}
 To prove that this estimator is in fact unbiased, the following theorem is presented,
 % \vspace{5mm}
@@ -523,7 +524,7 @@ To prove that this estimator is in fact unbiased, the following theorem is prese
     \end{align*}
     Therefore,
     \begin{align*}
-        E\left(s^2|\mathbf{X}\right) &= \frac{E\left[\ssr(\betahat)|\textbf{X}\right]}{n - k - 1} = \frac{E\left[\boldsymbol{\hat{\varepsilon}}^\top\boldsymbol{\hat{\varepsilon}}|\textbf{X}\right]}{n - k - 1}= \frac{ E\left[\boldsymbol{\varepsilon}^\top \left(\mathbf{I} - \mathbf{H}\right)\boldsymbol{\varepsilon}|\mathbf{X}\right]}{n - k - 1} \\ &= \frac{\sigma^2\tr\left[\left(\mathbf{I} - \mathbf{H}\right)\right]}{n - k - 1} = \frac{\sigma^2(n - k - 1)}{n - k - 1} = \sigma^2
+        E\left(s^2|\mathbf{X}\right) &= \frac{E\left[SSR(\betahat)|\textbf{X}\right]}{n - k - 1} = \frac{E\left[\boldsymbol{\hat{\varepsilon}}^\top\boldsymbol{\hat{\varepsilon}}|\textbf{X}\right]}{n - k - 1}= \frac{ E\left[\boldsymbol{\varepsilon}^\top \left(\mathbf{I} - \mathbf{H}\right)\boldsymbol{\varepsilon}|\mathbf{X}\right]}{n - k - 1} \\ &= \frac{\sigma^2\tr\left[\left(\mathbf{I} - \mathbf{H}\right)\right]}{n - k - 1} = \frac{\sigma^2(n - k - 1)}{n - k - 1} = \sigma^2
     \end{align*}
     which concludes the proof c.f. definition \ref{def:Unbiased_estmator}.
 \end{proof}

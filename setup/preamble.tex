@@ -1,5 +1,6 @@
 \documentclass[10pt,twoside,a4paper,openright, dvipsnames]{report}
 \usepackage{enumitem}
+\usepackage{multicol}
 \usepackage{tkz-euclide}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -172,4 +173,15 @@
 
 \lstset{language=R,
 basicstyle=\small\ttfamily,
+commentstyle=\color{OliveGreen}\ttfamily,
+stringstyle=\color{RawSienna},
+numberstyle=\color{Blue},
+}
+
+\lstdefinestyle{base}{
+  language=C,
+  emptylines=1,
+  breaklines=true,
+  basicstyle=\ttfamily\color{black},
+  moredelim=**[is][\color{red}]{@}{@},
 }
