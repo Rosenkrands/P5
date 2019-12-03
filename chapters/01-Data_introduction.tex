@@ -36,7 +36,7 @@ Furthermore we have chosen to disregard observations that contain NA values.
 The number of observations after the reduction is 3.086.
 
 \section{Partitioning the Dataset}
-In preparation for section \ref{} we will set aside the observations from sales in 2016.
+In preparation for section \ref{sec:prediction} we will set aside the observations from sales in 2016.
 These observations can then be used to asses the predictive accuracy of the models that will be developed in the project.
 The number of sales in 2016 amounts to 200 observations, the distribution between cities can be found in table \ref{tbl:2016_obs_per_city}.
 \begin{table}[H]
@@ -139,7 +139,23 @@ The figure shows a clear positive relationship between the two variables in all 
 \end{figure}
 
 \subsection*{Year of Sale}
-A variable that tells in which year the apartment was sold.
+This variable is a categorical variable that can take one of three possible outcomes, namely ``pre.crisis'', ``crisis'' or ``post.crisis''.
+In table \ref{tbl:year_of_sale} a count of observations in each of the categories can be found.
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lr}
+        \toprule
+        \textbf{Year of Sale} & \textbf{Obs.}\\
+        \midrule
+        pre.crisis & 1008\\
+        crisis & 1001\\
+        post.crisis & 877\\
+        \bottomrule
+    \end{tabular}
+    \caption{Count of observations per year of sale category.}
+    \label{tbl:year_of_sale}
+\end{table}
+
 In figure \ref{fig:year_of_sale_histogram} it can be seen how the distribution of sales have been in the period from 2004 to 2016.
 \begin{figure}[H]
     \centering
@@ -191,7 +207,7 @@ If the value is 0 the apartment was either sold the day it went on the market or
 
 \subsection*{Decade of Construction}
 The dataset has information regarding which year the apartment have been constructed.
-We have chosen to group the variable by decade, meaning if an apartment was constructed for example in 1992 it would be placed in the 1990's bin.
+We have here chosen to group the variable in decades.
 In table \ref{tbl:year_of_constuction} there is a count of apartments constructed per decade.
 \begin{table}[H]
     \centering
@@ -229,6 +245,7 @@ A possible intuition would be that the newer the apartment the higher the sellin
     \label{fig:house_price_year}
 \end{figure}
 The pattern suggested is that new apartments as well as old apartment have the highest mean price, whereas the apartments constructed from the 1890's until the 1980's have a lower mean price.
+However there could be other factors to account for.
 
 \subsection*{Balcony and Renovation}
 The variables regarding whether the apartment has a balcony or has been renovated are binary.

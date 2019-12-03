@@ -1,6 +1,5 @@
-\section{Hypothesis Testing}
+\section{Hypothesis Testing}\label{sec:Hypothesis_Testing}
 In this section $t$-tests and $F$-tests are introduced to test the significance of the different parameters, both individually and combined, considered in our model. 
-
 
 As an addition to the Gauss-Markov assumptions from chapter \ref{ch:Multip_linear_regresssion} we will introduce the following assumption, that imposes an additional restriction on the errors. 
 \begin{assumption}[Normality of Errors] \label{as:normality_of_errors}
@@ -126,7 +125,7 @@ Therefore the covariance and by extension correlation is
     \cov (\betahat, \textbf{r}) &= E(\textbf{r} \betahat^\top) - E(\betahat) E(\textbf{r}) \\
     &= 0 - E(\betahat) \cdot 0
 \end{align*}
-Meaning that $\betahat$ and $s^2(\textbf{Y})$ are independent, since $s^2(\textbf{Y})$ is just a constant times $SSR$ cf. \eqref{eq:sigma_square_of_Y}.
+Meaning that $\betahat$ and $s^2(\textbf{Y})$ are independent, since $s^2(\textbf{Y})$ is just a constant times $SSR$ c.f.$\!$ \eqref{eq:sigma_square_of_Y}.
 
 We see that
 \begin{align*}
@@ -159,16 +158,16 @@ However, the larger the standard error is of $\hat{\beta}_j$, the smaller is the
 Thus $t_{j}$ is a ratio of how many estimated standard deviations $\hat{\beta}_j$ is away from zero.
 In general the larger value of $t_{j}$, the larger the evidence against $\mathcal{H}_0$. 
 The precise rule for rejecting $\mathcal{H}_0$ depends on the alternative hypothesis and the chosen significance level.
-The $t$-value in \eqref{eq:t_statistic} is found using the inverse of the CDF of the $t$-distribution with $(n - k - 1)$ degrees of freedom evaluated in $(1-\alpha/2)$. 
+The $t$-value in \eqref{eq:t_statistic} is found using the inverse of the \textit{cdf} of the $t$-distribution with $(n - k - 1)$ degrees of freedom evaluated in $(1-\alpha/2)$. 
 Since the $t$-distribution is symmetric, $\pm t_{1-\alpha/2}$ is the same as $\mp t_{\alpha/2}$.
 
-\subsubsection{Application of T-test}  \label{ex:ttest}
+\subsubsection{Application of \textit{t}-test}  \label{ex:ttest}
 Consider the simple model with one independent variable for each of the cities 
-\begin{lstlisting} 
-    log(price) = log(size). 
-\end{lstlisting}
+\begin{align*}
+    \log(price) \sim \log(size).
+\end{align*}
 The test is two-tailed, therefore we test the null hypothesis $\mathcal{H}_0:\beta_1=0.$
-We complete the $t$-test at level $\alpha=0.05$ which gives the limits of a 95\%-confidence interval for $\hat{\beta}_1$.
+We complete the $t$-test at significance level $\alpha=0.05$ which gives the limits of a 95\%-confidence interval for $\hat{\beta}_1$.
 We obtain the estimated model for Copenhagen with values listed in the following table.
 
 \begin{table}[H]
@@ -178,7 +177,7 @@ We obtain the estimated model for Copenhagen with values listed in the following
 \textbf{term} & \textbf{estimate} & \textbf{std.error} & \textbf{t value} & \textbf{p.value}\\
 \midrule
 (Intercept) & 10.52852 & 0.07412 & 142.05 & <2e-16\\
-log(Boligareal) & 0.96832 & 0.01682 & 57.59 & <2e-16\\
+$\log(size)$ & 0.96832 & 0.01682 & 57.59 & <2e-16\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -228,7 +227,7 @@ This is illustrated in figure \ref{fig:CDF_inverse} where the intersection of th
     \caption{The inverse of the CDF in which we obtain the critic values for $\mathcal{H}_0$ of the chosen $95\%$-significance level.}
     \label{fig:CDF_inverse}
 \end{figure}
-Now we have concluded, that the logarithm of \textbf{the square meters} has a statistically significant effect on the logarithm of the \textbf{apartment prices} at a 95\%-confidence level for Copenhagen. 
+Now we have concluded, that $\log(size)$ has a statistically significant effect on $\log(price)$ at a 95\%-confidence level for Copenhagen. 
 By computing the limits of a 95\%-confidence interval for $\hat{\beta}_1$ with \eqref{eq:t_statistic}, we find the 95\%-confidence interval which we expect contains the ``true'' parameter.
 \begin{lstlisting}
 #We calculate the confidence interval for our parameter
@@ -249,10 +248,16 @@ In figure \ref{fig:t_distributionplot2} the blue line is our estimated model and
 
 For the remaining cities, we draw the same conclusions. 
 Each of the simple models of the cities gives $t$-statistics that entails significant $p$-values and we can reject the null hypothesis in all cases. 
-Therefore, we conclude that the \textbf{logarithm of the square meters} has a statistically significant effect on the logarithm of the housing prices at a 95\%-confidence level in both Copenhagen, Aarhus, Odense and Aalborg. 
+Therefore, we conclude that $\log(size)$ has a statistically significant effect on $\log(price)$ at a 95\%-confidence level in both Copenhagen, Aarhus, Odense and Aalborg. 
 
-We have performed $t$-test for each of the explanatory variables presented in ?? for each of the four cities. As a result, 
+We have performed $t$-test for each of the parameters presented in section \ref{sec:modelling} for each of the four cities. As a result, \textit{balcony} and \textit{year.sale} are also significant for each of the four cities. 
+Varying results are obtained for the remaining parameters, which indicates, that different parameters determinate the price for each city. \textit{selling.period} is only significant for Odense. 
+Cond is significant for Aarhus and, only for the value ``high'', for Copenhagen. 
+\textit{construct.year} is significant for Copenhagen and Odense but insignificant for Aalborg and Aarhus.
+\textit{year.sale} is in significant for all cities.
 
+From the $t$-test, we have obtained knowledge of the parameters individually effect on $\log(size)$ and if the effect is considered as significant. 
+In order to test models with more than one parameter, we therefore now introduce the $F$-test as a method.
 
 % \section{Confidence intervals}
 
@@ -396,7 +401,7 @@ Note this is only the case for multiple regression.
         &= \frac{\| (H_1 - H_0) Y \|^2/q}{\| (I - H_1) Y \|^2/(n-k-1)} \\
         &\sim \frac{\chi^2(q)/q}{\chi^2(n-k-1)/(n-k-1)}, \\
     \end{align*}
-    cf. definition \ref{def:F-distribution}. Here the last equation holds because $H_1 - H_0$ and $I - H_1$ are projections, and therefore follow a chi-squared distribution.
+    cf. definition \ref{def:F-distribution}. Here the last equation holds because $H_1 - H_0$ and $I - H_1$ are projections, and therefore follow a $\chi^2$ distribution.
 \end{proof}
 
 \begin{theorem}
@@ -490,23 +495,23 @@ This $F$-statistics in only valid in testing for joint exclusion of all independ
 Therefore it often referred to as the overall significance of the regression.
 
 \subsubsection{Application of \textit{F}-test}
-    As seen above we only need the degrees of freedom in order to find the $F$-distribution and thereby the critical value, for a given significance level.
-    Firstly our dataset and models are introduced
-    
+    This subsection will use the F-test to compare the full model from section \ref{sec:modelling}, to a model containing the parameters with highest R-squared. 
+    The intuition here is that \textit{size} and \textit{year.sale} explain much more of the variation than \textit{balcony} and \textit{cond} do.
+    Additionally this subsection will also evaluate models constructed from the parameters discussed in section \ref{sec:modelling}.
+    % As seen above we only need the degrees of freedom in order to find the $F$-distribution and thereby the critical value, for a given significance level.
+    Firstly our models are introduced
     \begin{lstlisting}
         # The Models
-        linreg1 <- lm(log(Kontantpris) ~ Boligtilstand + log(Boligareal) + 
-        Liggetid + Opfoerelsesaar + Altan + OmbygningSket + By,
-        data = Storbyer_clean)
-        linreg0 <- lm(log(Kontantpris) ~ log(Boligareal) + By, 
-        data = Storbyer_clean)
+        linreg1 <- lm(log(price) ~ log(size) + cond + balcony + year.sale, 
+        data = cities.data)
+        linreg0 <- lm(log(price) ~ log(size) + year.sale, data = cities.data)
         
-        n <- length(Storbyer_clean$Kontantpris)
+        # Degrees of freedom
+        n <- length(cities.data$price)
         dfmod1 <- n - length(linreg1$coefficients)
         dfmod0 <- n - length(linreg0$coefficients)
     \end{lstlisting}
-    
-    Here the dataset \textbf{Storbyer\_clean} is just the previousely used dataset, with all NA values removed. This is done to make sure that the number of observations, is the same for the two models
+    Here the dataset cities.data containing only observations for Copenhagen is used.
     The $pdf$ for our $F$-distribution is then found using the \texttt{df} function in R, not to be confused with the degrees of freedom. 
     
     \begin{lstlisting}
@@ -516,7 +521,7 @@ Therefore it often referred to as the overall significance of the regression.
     )
     \end{lstlisting}
     
-    We choose a significance level of $a = 0.05$, from which we get the critical value $c=1.054$. 
+    We choose a significance level of $a = 0.05$, from which we get the critical value $c=1.10142$. 
     This is found using the quantile function
     
     \begin{lstlisting}
@@ -527,7 +532,7 @@ Therefore it often referred to as the overall significance of the regression.
     
     \begin{lstlisting}
         ggplot(aes(x = x, y = pdf), data = dist_df) + 
-        geom_line() +
+        geom_line()
         # Mark significance level
         geom_area(data=dist[which(dist$x > upper),], aes(x=x, y=pdf), 
         fill = "red", alpha = 0.6)
@@ -540,19 +545,20 @@ Therefore it often referred to as the overall significance of the regression.
       \label{fig:my_label}
     \end{figure}
     
-    The significance level is illustrated by the area under the curve marked with red, and has the area equal to the significance level. Note that the $pdf$ converges toward the normal distribution, as the degrees of freedom increases.
+    The significance level is illustrated by the area under the curve marked with red, and has area equal to the significance level. Note that the $pdf$ converges toward a normal distribution, as the degrees of freedom increases.
     
     The $F$-statistic is calculated using \eqref{eq:F_statistic}, where the $SSR$ for the two models are calculated by the \texttt{anova} function in R. 
     %Kode til Fstat
     \begin{lstlisting}
         # Residuals
-        RSS_model1 <- anova(linreg1,linreg0)$RSS[1]
-        RSS_model0 <- anova(linreg1,linreg0)$RSS[2]
+        RSS_model1 <- anova(linreg1,linreg0)$RSS[1]; RSS_model1
+        24.10871
+        RSS_model0 <- anova(linreg1,linreg0)$RSS[2]; RSS_model0
+        28.50651
         # F-statistic
         Fstat <- ((RSS_model0 - RSS_model1)/(dfmod0 - dfmod1))/
         ((RSS_model1)/(dfmod1)); Fstat
-        37.1533
-        
+        43.67925
     \end{lstlisting}
     
     The associated $p$-value is then
@@ -562,16 +568,70 @@ Therefore it often referred to as the overall significance of the regression.
         <2.2e^{-16},
     \end{lstlisting}
     
-    or effectively zero. We conclude that the additional parameters are almost certainly statistically significant.
+    or effectively zero. We therefore conclude that the additional parameters are statistically significant.
+    It may seem as though any parameter would be significant, but this is because of our initial filtering of the data, where we had already removed the insignificant parameters.
+    In addition the large dataset also plays a role, since the difference in degrees of freedom is relatively small for many observations. 
     
-    This is a bit misleading as the the additional 5 parameters only explain about 15\% more of the residuals. 
-    The reason they are still significant is because the decrease in degrees of freedom is relatively small, due to the large set of observations.
-    The $F$-test is therefore best suited for smaller datasets, and we will now look at another way to validate models based on a larger amount of observations. 
+    This test was done using only observations from Copenhagen and performing the same procedure for the observations from Aalborg gives $F=0.7301$ and $p=0.5345$.
+    Meaning that the full model is not significantly better than one containing only $log(size)$ and $year.sale$, when only considering observation from Aalborg. 
+    
+    This does not mean that the full model is a lot better, since the additional 2 parameters only explain about $4\%$ more of the remaining residuals. 
+    Alternatively we could check all possible combinations of the parameters, to see if any of the the corresponding models contain statistically insignificant parameters. 
+    
+    In order to avoid testing all possible combination it would be beneficial, to determine which parameter adds the least fit to the model and then remove the variables in that order. 
+
+Choosing the order of which to remove the parameters is known as subset selection and there are several different approaches.
+One method is called backwards step wise selection. 
+The approach is to first remove the parameter that explains the least variation in the data, in order to remove the parameters in a strategic manner.
+More specifically it is a greedy algorithm that starts with the full model, and at each step removes the parameter which adds the least to the $R$-squared. 
+In table \ref{tbl:backward_order_of_parameters} the order of parameters removal is listed.
+    
+\begin{table}[H]
+    \centering
+    \begin{tabular}{r|llll}
+        \toprule
+        \textbf{Order} & \textbf{Copenhagen} & \textbf{Aarhus} & \textbf{Odense} & \textbf{Aalborg}\\
+        \midrule
+        1 & $balcony$              & $balcony$         & $cond$            & $cond$ \\
+        2 & $cond$           & $cond$            & $balcony$         & $balcony$ \\
+        3 & $year.sale$    & $year.sale$  & $year.sale$  & $year.sale$ \\
+        4 & $log(size)$         & $log(size)$       & $log(size)$       & $log(size)$ \\
+        \bottomrule
+    \end{tabular}
+    \caption{The order of which backwards stepwise selection removes the parameters for each of the cities.}
+    \label{tbl:backward_order_of_parameters}
+\end{table}
+
+Using this to compare the full model to one with one removed, we notably get a $p$-value of 0.2944 for Aarhus, 0.3943 for Odense and 0.5025 for Aalborg. 
+In the same manner we find the second removed parameter for Aalborg to also be insignificant with a p-value of 0.3678, as expected from the first test.
+This means that the following models have significant parameters.
+\begin{align*}
+    log(price)_{Cph} &\sim log(size) + year.sale + cond + balcony \\
+    log(price)_{Aar} &\sim log(size) + year.sale + cond \\
+    log(price)_{Ode} &\sim log(size) + year.sale + balcony \\
+    log(price)_{Aal} &\sim log(size) + year.sale \\
+\end{align*}
+The F-test only takes the available data into account and can not test how well it aligns with new observations.
+It therefore does not measure how good these models are at predicting future apartment prices.
+
+
+
+% This means that the model, containing the parameter \textit{selling.period}, is not significantly improved compared to the one without this parameter.
+% Comparing the remaining models, we find that all other parameters significantly improves the models. 
+% The decision of whether or not to include the additional parameters, then becomes a trade off between better model fit and potential overfitting.
+% This will be explored further in the next section.
+    
+    
+    
+    % The reason they are still significant is because the decrease in degrees of freedom is relatively small, due to the large set of observations.
+    % The $F$-test is therefore best suited for smaller datasets, and we will now look at another way to validate models based on a larger amount of observations. 
 
 \section{Cross-Validation}
+This section is based upon \cite{Hastie2008}.
+
 Previously we applied the $F$-statistic for the purpose of testing whether or not the model should be restricted. 
 As we concluded in section \ref{sec:Ftest}, the $F$-test is more suitable for datasets of fewer observations. 
-This is the motivation of using cross validation in order to test the selected variables and the models performance.
+This is the motivation for using cross validation in order to test the selected variables and the models performance.
 Cross-validation is a widely used method for estimating prediction error.
 There are many variations of cross-validation, and this project will only cover a limited selection. 
 
@@ -581,16 +641,16 @@ This method uses part of the data to fit the model and another to test it. This 
 
 The data is split up in $K$ partitions, where one of them is retained as the test or validation fold. 
 The remaining $K-1$ partitions are referred to as training sets and are used to fit the model.
-Ideally this process is repeated $K$ times, where each partition is used as validation set once. 
+Ideally this process is repeated $K$ times, where each partition is used as the validation set once. 
 This way the entire dataset is used, while keeping the modelling and validation data separate. 
 
 More formally, let $\kappa: \{1, \ldots, n\} \rightarrow \{1, \ldots, K\}$ be the function that indicates which partition observation $i$ belongs to. 
-Denote the model fitted with the $k$'th part of the data removed by $\textbf{x}_i \betahat^{-\kappa(i)}$. 
+Denote the model fitted with the $k$'th part of the data removed by $(\textbf{x}_i \betahat)^{-\kappa(i)}$. 
 Then the cross-validation estimate of the prediction error is 
 \begin{align*}
-    CV(\betahat)_k = \frac{1}{n} \sum_{i=1}^n L(y_i, \textbf{x}_i \betahat^{-\kappa(i)}),
+    CV(\betahat)_k = \frac{1}{n} \sum_{i=1}^n L\left(y_i, (\textbf{x}_i \betahat)^{-\kappa(i)}\right),
 \end{align*}
-where we choose the loss function $L(y_i, \textbf{x}_i \betahat^{-\kappa(i)})=\left(y_i - \textbf{x}_i \betahat^{-\kappa(i)}\right)^2$, which indicates how much of the variation in the data is explained by the model fitted from the subset that did not include the $k$'th partition. 
+where we choose the loss function $L\left(y_i, (\textbf{x}_i \betahat)^{-\kappa(i)}\right)=\left(y_i - (\textbf{x}_i \betahat)^{-\kappa(i)}\right)^2$, which indicates how much of the variation in the data is explained by the model fitted from the subset that did not include the $k$'th partition. 
 
 Common choices for $K$ are 5 or 10, which is what we will use in this project. 
 The case $K = n$ is known as leave-one-out cross-validation. 
@@ -599,33 +659,88 @@ This method is approximately unbiased, since each training set is comparatively 
 Conversely $K=5$ has lower variance, as each training partition is larger, but bias may be a problem. 
 
 
-
-
-\subsection{Application of K-fold Cross-Validation}
-
+\subsection{Application of \textit{K}-fold Cross-Validation}
 %Modelselection - forward
 In order to test the effect of each parameter, they need to be added one by one. 
+Choosing the order to add the parameters is known as subset selection and there are several different approaches.
+One method is called forwards step wise selection, the intuition behind this method is:
 We want to first add the parameter that individually explains the most variation in the data, in order to end up with the best possible model after having removed some of the parameters.
-Here best refers to the model that increases R-squared the most. 
+Here best refers to the model that increases $R$-squared the most.
+More specifically it is a greedy algorithm that starts with the intercept, and at each step adds the parameter with the highest $R$-squared.
 
-The method used for this is forwards step wise selection. 
-This is a greedy algorithm that starts with the intercept, and at each step adds the parameter with the highest R-squared. 
-\textbf{TOMMELFINGERREGEL}
-Knowing this, we can make sure that we omit the parameter that contributes least to R-squared first, and thereby achieving the best model. 
-Using this model we now move on to applying cross-validation. 
+After performing the forward stepwise selection on the four cities the order of which the parameters are added can be seen in table \ref{tbl:order_of_parameters}.
+To give a little explanation of the table, suppose we want a model considering Aalborg with 2 parameters.
+We then choose the Aalborg column and go down to the 2'nd row of the table, and see that the model would be on the form $price \sim \log(size) + year.construct$.
+\begin{table}[H]
+    \centering
+    \begin{tabular}{r|llll}
+        \toprule
+        \textbf{Order} & \textbf{Copenhagen} & \textbf{Aarhus} & \textbf{Odense} & \textbf{Aalborg}\\
+        \midrule
+        1 & $\log(size)$        & $\log(size)$      & $\log(size)$      & $\log(size)$ \\
+        2 & $year.sale$         & $year.sale$       & $year.sale$       & $year.sale$ \\
+        3 & $cond$    & $cond$  & $balcony$  & $cond$ \\
+        4 & $balcony$           & $balcony$            & $cond$         & $balcony$ \\
+        \bottomrule
+    \end{tabular}
+    \caption{The order of which forward stepwise selection adds the parameters for each of the cities.}
+    \label{tbl:order_of_parameters}
+\end{table}
+%\textbf{TOMMELFINGERREGEL}
+%Knowing this, we can make sure that we omit the parameter that contributes least to R-squared first, and thereby achieving the best model. 
+%Using this model we now move on to applying cross-validation. 
 
 In figure \ref{fig:CrossValidationCopenhagen} cross-validation is performed for the HOME dataset that only contains the observations for Copenhagen.
-For each fold the prediction error (RMSE) has been plotted with its standard error, as indicated by the variation between each fold. 
-To determine the desired number of parameters, the 'one-standard-error' rule is used. This states that we choose the most parsimonious model whose error is no more than one standard error above the error of the model with highest $R$-squared.
+For each fold the prediction error (RMSE) has been plotted for each of the six models from table \ref{tbl:order_of_parameters}. Every fold gives varying predictions errors for each model which indicates some randomness crosswise the five folds. The model with the lowest RMSE therefore differs depending on the selected train and testset. Thus it is the interesting result obtained form the meanplot in which the  standard errors calculated from the five folds. Clearly, the models with most variation crosswise the 5 folds have the highest standard errors. 
+
+To determine the desired number of parameters, the ``one-standard-error'' rule is used. 
+This states that we choose the most parsimonious model whose prediction error is no more than one standard error above the prediction error of the best model. The rule is applied to reduce the probability of overfitting and it is therefore expected, that it performs better out-of-sample. Which seems relatively fair, since the increasing in the prediction error is relatively small.
 
     \begin{figure}[H]
         \centering
-      \includegraphics[width = 1 \textwidth]{figures/CrossValidationCopenhagen.pdf}
-      \caption{Misclassification error for each model with associated standard error.}
+      \includegraphics[width = 1 \textwidth]{figures/Nanna/CrossValidationCopenhagen.pdf}
+      \caption{Plots of the prediction errors for each fold and their mean with the associated standard errors.}
       \label{fig:CrossValidationCopenhagen}
     \end{figure}
     
-In the case of Copenhagen we chose 5 parameters as this has the lowest prediction error. 
+In the case of Copenhagen observe that a model with four parameters has the lowest prediction error, then we choose the smallest number of predictors with a prediction error within the standard error for the model with four parameters.
+In this case the optimal number of parameters, according the the rule, is four.
+
+This procedure is performed for the remaining three cities. Note in table \ref{tbl:order_of_parameters} the order of the selected parameters from the execution of the forward-selection-algorithm differs crosswise the cities. In figure \ref{fig:CrossValidationSamlet} is the meanplot for each city, in which we conclude from the 5-fold cross-validation, that the optimal number of parameters is four for Aarhus, one for Odense and three for Aalborg.
+\begin{figure}[H]
+    \centering
+  \includegraphics[width = 1 \textwidth]{figures/Nanna/CrossValidationSamlet.pdf}
+  \caption{Mean plot for each city with prediction error for each model with associated standard error.}
+  \label{fig:CrossValidationSamlet}
+\end{figure}
+
+The final models due to the result from the performed 5-fold cross-validation is listed in Appendix \ref{aap:cv}.
+
+Due to the later purpose of testing the model on out of sample performance regarding predicting prices for houses sold in year 2016, it is interesting to investigate the out of sample performance on the selected models from CV. If the errors fulfil the earlier stated assumptions regarding normally distributed errors with med zero and \homo, when we expect the model to perform well out of sample. In figure \ref{fig:cv_normal_homo} the errors obtained from the CV of Copenhagen are presented.
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}[b]{0.5\textwidth}
+    \centering
+    \includegraphics[width = \textwidth]{figures/Nanna/Normal.pdf}
+    \caption{Testing for normality}
+    \label{fig:cv_normal}
+\end{subfigure}%
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+    \includegraphics[width = \textwidth]{figures/Nanna/Homo.pdf}
+    \caption{Testing for \hetero}
+    \label{fig:cv_homo}
+\end{subfigure}
+\label{fig:cv_normal_homo}
+\end{figure}
+
+From figure \ref{fig:cv_normal} it is concluded that there are problems in the tails of the errors. 
+In the tails there are deviations of that is expected from the normal distribution. 
+This might cause problems with both the prediction interval of the model, since this does not take the larger tales into account.
+The tails indicates, that the prediction interval should be enlarged.
+Therefore, the model is now suspected to have difficulties performing out of sample. 
+In figure \ref{fig:cv_homo} the errors seems overall homoskedastic with mean zero. 
 
 \section{Residuals}\label{subsec:residuals}
 So far we have only discussed residuals in passing. 
@@ -645,7 +760,7 @@ Rewriting \eqref{eq:sigma_hat_2_n-k-1} using projection matrices gives the follo
 \begin{align*}
     \hat{\sigma}^2(\textbf{Y}) &= \frac{\| \textbf{Y} - \textbf{X} \betahat (\textbf{y}) \|^2 }{n-k-1} = \frac{\| \textbf{Y} - \textbf{H} \textbf{Y} \|^2}{n-k-1} .
 \end{align*}
-Residuals can be used to identifiy outliers, which is the observations that do not fit the general pattern of the data.
+Residuals can be used to identify outliers, which is the observations that do not fit the general pattern of the data.
 These data points can have a large effect on the estimated variance and it would therefore be useful to have a way to measure how much variance an observation adds.
 We now introduce the notation $-i$, which refers to the removal of the $i$'th row e.g.
 \begin{align*}
@@ -655,23 +770,23 @@ The estimate for $\sigma^2$ found by deleting the $i$'th row is then
 \begin{align*}
     \hat{\sigma}^2_{-i}(\textbf{Y}) = \frac{\| \textbf{Y}_{-i} - H_{-i} \textbf{Y}_{-i} \|^2}{n-1-(k+1)}.
 \end{align*}
-We now introduce the studentized residual $(r^{rt})$, which takes into account the variance without the i'th observation, thereby giving a more accurate measure of the standard deviation
+We now introduce the studentized residual $(\textbf{r}^{rt})$, which takes into account the variance without the i'th observation, thereby giving a more accurate measure of the standard deviation
 \begin{align*}
-    \textbf{r}_i^{rt} = \frac{r_i}{\sqrt{\hat{\sigma}^2_{-i}(1-h_{ii})}}.
+    r_i^{rt} = \frac{r_i}{\sqrt{\hat{\sigma}^2_{-i}(1-h_{ii})}}.
 \end{align*}
 If this value in deemed to high, it should be investigated and could potentially justify removing it as an outlier/measurement error. We now introduce an important property of the studentized residuals.
 
 \begin{proposition}
     Consider a general linear model $\textbf{Y} \sim N_n(\textbf{X} \betahat, \sigma^2 \textbf{I}_n)$ where the design matrix has full rank $k \leq n-3$ and $\textbf{H} = \textbf{X} (\textbf{X}^\top \textbf{X})^{-1}\textbf{X}^\top$ is the corresponding projection-matrix, then
     \begin{align*}
-        \textbf{r}_i^{rt}(\textbf{Y}) \sim t(n-k-2).
+        r_i^{rt}(\textbf{Y}) \sim t(n-k-2).
     \end{align*}
 \end{proposition}
 \begin{proof}
     Without loss of generality let $i=1$. 
     To summarize the above results
     \begin{align*}
-        \textbf{r}_1^{rt}(\textbf{Y}) = \frac{r_1(\textbf{Y})}{\sqrt{\hat{\sigma}^2_{-1}(\textbf{Y}_{-1})(1-h_{11})}}
+        r_1^{rt}(\textbf{Y}) = \frac{r_1(\textbf{Y})}{\sqrt{\hat{\sigma}^2_{-1}(\textbf{Y}_{-1})(1-h_{11})}}
         =
         \frac{r_1(\textbf{Y})/ \sqrt{\sigma^2 (1-h_{11})}}{\sqrt{\hat{\sigma}_{-i}^2 (\textbf{Y}_{-1})/\sigma^2}},
     \end{align*}
@@ -683,7 +798,7 @@ If this value in deemed to high, it should be investigated and could potentially
     Using the definition of the residual $r_1(\textbf{Y}) = Y_1 -  (\textbf{HY})_1$ and the projection matrix
     \begin{align*}
         \begin{bmatrix}
-            \textbf{r}_1(\textbf{Y}) \\
+            r_1(\textbf{Y}) \\
             \textbf{Y}_{-1} - \textbf{H}_{-1} \textbf{Y}_{-1}
         \end{bmatrix}
         =
@@ -712,7 +827,7 @@ If this value in deemed to high, it should be investigated and could potentially
         \sim N(\cdot)
               \
     \end{align*}
-    Therefore $\textbf{A}_1 \textbf{Y} = \textbf{r}_1(\textbf{Y})$ and $\textbf{A}_2 \textbf{Y} = \textbf{Y}_{-1} - \textbf{H}_{-1} \textbf{Y}_{-1}$ are independent if they are uncorrelated. Their covariance matrix is given by 
+    Therefore $\textbf{A}_1 \textbf{Y} = r_1(\textbf{Y})$ and $\textbf{A}_2 \textbf{Y} = \textbf{Y}_{-1} - \textbf{H}_{-1} \textbf{Y}_{-1}$ are independent if they are uncorrelated. Their covariance matrix is given by 
     \begin{align*}
         \cov(\textbf{A}_1 \textbf{Y}, \mathbf{A}_2 \textbf{Y}) &= \textbf{A}_1\  \var(\textbf{Y}) \ \textbf{A}_2^\top = \textbf{A}_1 \sigma^2 \textbf{I}_n \textbf{A}_2^\top = \sigma^2 \textbf{A}_1 \mathbf{A}_2^\top \\
         &= \sigma^2 
@@ -732,181 +847,178 @@ If this value in deemed to high, it should be investigated and could potentially
     and therefore uncorrelated and because they are jointly normally distributed also independent.
 \end{proof}
 
-The distribution of the studendentized residuals should therefore be checked, in order to verify assumption \ref{as:normality_of_errors}. 
+The distribution of the studentized residuals should therefore be checked, in order to verify assumption \ref{as:normality_of_errors}. 
 Since the $t$-distribution converges toward the normal distribution for large datasets, a plot similar to the following is often made.
 
 \subsection{Application of Studentized Residuals}
 
-The same data as in section ?? is used
-\begin{lstlisting}
-    #The studentized residuals are found for each model
-    res1 <- rstudent(mod1)
-    res2 <- rstudent(mod2)
-    
-    #Histogram for the residuals, and associated normal distribution
-    hist(res1,prob=TRUE); curve(dnorm(x,mean(res1),sd(res1)),add=TRUE)
-    hist(res2,prob=TRUE); curve(dnorm(x,mean(res2),sd(res2)),add=TRUE)
-\end{lstlisting}
-The residuals for both models clearly follow a normal distribution and assumption \ref{as:normality_of_errors} is therefore satisfied, as illustrated in fugure \ref{fig:studentized_res_plot}.
+In this application we want to verify the earlier stated assumption \ref{as:normality_of_errors} about the errors for the models obtained from the F-test (F-models) and from the 5-fold cross-validation (CV-models). 
+Since the error term is not to be observed, the investigation is performed on the residuals of the models.
+Again, Copenhagen is the illustrated case in figure \ref{fig:studentized_res_plot}
+
+The model obtained from cross-validation seems to better comply with assumption \ref{as:normality_of_errors}, but both have more data located at the tails of the distribution, as compared to the normal distribution. 
+This means that there are more large errors than expected, which is obviously undesirable for a model used for prediction.
+This is only applicable for a small part of the dataset, and the model may therefore still be good as a rough estimate. 
+
     \begin{figure}[H]
         \centering
-      \includegraphics[width = 1 \textwidth]{figures/Histogram_Residuals.pdf}
-      \caption{Distribution of Studentized Residuals.}
+      \includegraphics[width = 1 \textwidth]{figures/Nanna/studentized_res_plot.pdf}
+      \caption{qq-plot and histogram plot for the studentized residuals respectively for the F-model and CV-model for Copenhagen.}
       \label{fig:studentized_res_plot}
     \end{figure}
 
 
-\section{Test for Heteroskedasticity}
-In this section we wish to introduce a method to determine if heteroskedasticity is present, because in the case of heteroskedasticity the usual OLS estimator is not BLUE. 
+% The same data as in section ?? is used
+% \begin{lstlisting}
+%     #The studentized residuals are found for each model
+%     res1 <- rstudent(mod1)
+%     res2 <- rstudent(mod2)
+    
+%     #Histogram for the residuals, and associated normal distribution
+%     hist(res1,prob=TRUE); curve(dnorm(x,mean(res1),sd(res1)),add=TRUE)
+%     hist(res2,prob=TRUE); curve(dnorm(x,mean(res2),sd(res2)),add=TRUE)
+% \end{lstlisting}
+% The residuals for both models clearly follow a normal distribution and assumption \ref{as:normality_of_errors} is therefore satisfied, as illustrated in figure \ref{fig:studentized_res_plot}.
+%     \begin{figure}[H]
+%         \centering
+%       \includegraphics[width = 1 \textwidth]{RRESIUDALPLOT_HISTOGRAM.pdf}
+%       \caption{Distribution of Studentized Residuals.}
+%       \label{fig:studentized_res_plot}
+%     \end{figure}
 
-We consider our linear model given as $y = \mathbf{\beta}_0 + \mathbf{\beta}_1x_1 + \ldots + \mathbf{\beta}_kx_k + \mathbf{\varepsilon}$ and let assumption \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity} and \ref{as:zero_conditional_mean} hold.
 
-We then construct our null hypothesis as
+\section{Testing and Correcting for Heteroskedasticity}
+In this section we wish to introduce methods for detecting heteroskedasticity and afterwards how to correct for heteroskedasticity so it is possible to test hypotheses when evaluating our models in the case of heteroskedasticity.
+
+\subsection{Test for Heteroskedasticity}
+In this section we wish to introduce a method to determine if heteroskedasticity is present, because in the case of heteroskedasticity the usual OLS estimator is not BLUE cf. \ref{as:homoskedasticity_and_no_serial_correlation}. 
+
+We consider our linear model given as $\textbf{y} = \textbf{X} \betabold + \boldsymbol{\varepsilon}$ and let assumption \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity} and \ref{as:zero_conditional_mean} hold. We then construct our null hypothesis as
 \begin{align*}
-    \mathcal{H}_0 : \var[\varepsilon | \mathbf{X}] = \var[\varepsilon] = \sigma^2. 
+    \mathcal{H}_0 : \var[\boldsymbol{\varepsilon} | \mathbf{X}] = \var[\boldsymbol{\varepsilon}] = \sigma^2. 
 \end{align*}
-With this null hypothesis we wish to determine if the homoskedasticity assumption holds. 
+With this null hypothesis we wish to determine if the homoskedasticity assumption holds true. 
 If we accept our $\mathcal{H}_0$-hypothesis for a small significance level then heteroskedasticity is with a high probability not present.
-Assumption \ref{as:zero_conditional_mean}, which says that the conditional expected value is equal to $0$, implying that $\var(\varepsilon | \mathbf{X}) = E[\varepsilon^2 | \mathbf{X}]$ because of the conditional variance formula $\var(\varepsilon | \mathbf{X}) = E[\varepsilon^2 | \mathbf{X}] - (E[\varepsilon | \mathbf{X}])^2$. Using this we rewrite our $\mathcal{H}_0$-hypothesis as
+Assumption \ref{as:zero_conditional_mean}, which says that the conditional expected value is equal to $0$, implies that $\var(\boldsymbol{\varepsilon} | \mathbf{X}) = E[\boldsymbol{\varepsilon \varepsilon^\top} | \mathbf{X}]$ because of the conditional variance formula $\var(\boldsymbol{\varepsilon} | \mathbf{X}) = E[\boldsymbol{\varepsilon \varepsilon^\top} | \mathbf{X}] - (E[\boldsymbol{\varepsilon} | \mathbf{X}])^2$. Using this we rewrite our $\mathcal{H}_0$-hypothesis as
 \begin{align*}
-    \mathcal{H}_0 : E[\varepsilon^2 | \mathbf{X}] = E[\varepsilon^2] = \sigma^2.
+    \mathcal{H}_0 : E[\boldsymbol{\varepsilon \varepsilon^\top} | \mathbf{X}] = E[\boldsymbol{\varepsilon \varepsilon^\top}] = \sigma^2.
 \end{align*}
 With this $\mathcal{H}_0$-hypothesis we test if the error term, $\sigma^2$ is related with any of the explanatory variables in terms of the expected value.  
-If $\mathcal{H}_0$ is rejected then $\varepsilon^2$ is a function of at least one of the explanatory variables, so the error term can be expressed as a linear function of these explanatory variables
+If $\mathcal{H}_0$ is rejected then $\boldsymbol{\varepsilon \varepsilon^\top}$ is a function of at least one of the explanatory variables, so the error term can be expressed as a linear function of these explanatory variables
 \begin{align}\label{eq:test_hetero_nul_hypotese}
-    \varepsilon^2 = \delta_0 + \delta_1x_1 + \ldots + \delta_kx_k + v
+    \boldsymbol{\varepsilon \varepsilon^\top} = \delta_0 \textbf{1} + \delta_1\textbf{x}_1 + \ldots + \delta_k\textbf{x}_k + \textbf{v}
 \end{align}
-Where $v$ is an error with mean equal to $0$ given the explanatory variables. In order for $\varepsilon^2$ to be homoskedastic the following $\mathcal{H}_0$-hypothesis must be accepted 
+where $\textbf{v}$ is an error with mean equal to $0$ given the explanatory variables. In order for $\boldsymbol{\varepsilon \varepsilon^\top}$ to be homoskedastic the following $\mathcal{H}_0$-hypothesis must be accepted 
 \begin{align}\label{eq:H_nul_for_hetero_med_delta}
     \mathcal{H}_0 : \delta_1 = \delta_2 = \ldots = \delta_k = 0
 \end{align}
-So the error term $v$ does not depend on the explanatory variables. 
-If the error $v$ in \eqref{eq:test_hetero_nul_hypotese} is assumed to be independent of the explanatory variables $\mathbf{X}$, then the $F$-statistics can be used to test \eqref{eq:H_nul_for_hetero_med_delta} for the overall significance of the explanatory variables for $\varepsilon^2$, even though this error term is not normally distributed.
-We state the central limit theorem without proof to justify this. 
+So the error term $\textbf{v}$ does not depend on the explanatory variables. 
+If the error $\textbf{v}$ is assumed to be independent of the explanatory variables $\mathbf{X}$, then the $F$-statistics can be used to test \eqref{eq:H_nul_for_hetero_med_delta} for the overall significance of the explanatory variables for $\boldsymbol{\varepsilon \varepsilon^\top}$, even though this error term is not normally distributed. This is shown by the Central Limit Theorem, which we state without proof. 
 \begin{theorem}[Central Limit Theorem] \label{th:Central_limit_theorem}
-Let $\{ Y_1, Y_2, \ldots, Y_n \}$ be a i.i.d.$\!$ random sample with mean $\mu$ and variance $\sigma^2 < \infty$. Then
-\begin{align*}
-    P\left(\dfrac{\overline{Y}_n - n\mu}{\sigma \sqrt{n}}\leq y\right) \rightarrow \Phi(y)
-\end{align*}
-Where $\Phi(y)$ is the cdf of the standard normal distribution. 
-\end{theorem}
-From the central limit theorem it is possible to derive the distribution of $\overline{Y}_n$. We have  
-\begin{align*}
-    P\left(\dfrac{\overline{Y}_n - n\mu}{\sigma \sqrt{n}} \leq y\right) \rightarrow \Phi(y)
-\end{align*}
-And for large $n$ we use the central limit theorem to rewrite as
-\begin{align*}
-    Z_n = \dfrac{\overline{Y}_n - n\mu}{\sigma \sqrt{n}} \stackrel{d}{\approx} N(0,1). 
-\end{align*}
-Where $\stackrel{d}{\approx}$ denotes the approximate distribution. It is seen that $\overline{Y}_n$ has mean $n\mu$ and variance $n \sigma^2$ from the above equation. We use this to write
-\begin{align*}
-    \overline{Y}_n \stackrel{d}{\approx} N(n\mu, n\sigma^2). 
-\end{align*}
-This means that iid. random variables have an approximate normal distribution regardless of the distribution of $Y$. It then follows that an $F$-statistic will be asymptotically true even though $\varepsilon^2$ is not normally distributed. 
-
-Since $\varepsilon^2$ is unobserved we cannot calculate the OLS regression on $\varepsilon^2$ for $\mathbf{X}$, so instead we calculate the regressions using the estimates. Thus
-\begin{align}\label{eq:OLS_residual_hat_epsioln_i_anden}
-    \hat{\varepsilon}^2 = \delta_0 + \delta_1x_1 + \ldots + \delta_kx_k + w
+Let $Y = \{ Y_1, Y_2, \ldots, Y_n \}$ be a i.i.d.$\!$ random sample with mean $\mu$ and variance $\sigma^2 < \infty$. Then
+\begin{align} \label{eq:bakergud}
+    P\left(\dfrac{\overline{Y} - n\mu}{\sigma \sqrt{n}}\leq y\right) \rightarrow \Phi(y)
 \end{align}
-Where $\hat{\varepsilon}_i$ is an estimate for $\varepsilon_i$ for observation $i$. From this equation the $F$-statistics for the joint significance of $x_1, x_2, \ldots, x_k$ can be calculated to test for multicollinarity. 
+Where $\Phi(y)$ is the cdf of the standard normal distribution and $\overline{Y}$ is the mean of $Y$. 
+\end{theorem}
+From the central limit theorem it is possible to derive the distribution of $\overline{Y}$. We have 
+equation \eqref{eq:bakergud} and for large $n$ we use the central limit theorem to rewrite as
+\begin{align*}
+    Z_n = \dfrac{\overline{Y} - n\mu}{\sigma \sqrt{n}} \stackrel{d}{\approx} N(0,1). 
+\end{align*}
+Where $\stackrel{d}{\approx}$ denotes the approximate distribution. It is seen that $\overline{Y}$ has mean $n\mu$ and variance $n \sigma^2$ from the above equation. We use this to write
+\begin{align*}
+    \overline{Y} \stackrel{d}{\approx} N(n\mu, n\sigma^2). 
+\end{align*}
+This means that i.i.d. random variables have an approximately normal distribution regardless of the distribution of $Y$. Therefore an $F$-test for $\boldsymbol{\varepsilon \varepsilon^\top}$ is asymptotically true even though $\boldsymbol{\varepsilon \varepsilon^\top}$ is not normally distributed.  
+
+
+
+
+Since $\boldsymbol{\varepsilon \varepsilon^\top}$ is unobserved we cannot calculate the OLS regression on $\boldsymbol{\varepsilon \varepsilon^\top}$ for $\mathbf{X}$, so instead we calculate the regressions using the estimates. Thus
+\begin{align}\label{eq:OLS_residual_hat_epsioln_i_anden}
+    \hat{\boldsymbol{\varepsilon}}\hat{\boldsymbol{\varepsilon}}^\top = \delta_0\textbf{1} + \delta_1\textbf{x}_1 + \ldots + \delta_k\textbf{x}_k + \mathbf{w}
+\end{align}
+Where $\hat{\varepsilon}_i$ is an estimate for $\varepsilon_i$ and $\textbf{w}$ have mean 0. From this equation the $F$-statistics for the joint significance of $x_1, x_2, \ldots, x_k$ can be calculated to test for multicollinarity. 
 
 The $F$-statistics is calculated as
 \begin{align*}
-    F = \dfrac{\mathcal{R}^2_{\hat{\varepsilon}^2}/k}{(1-\mathcal{R}^2_{\hat{\varepsilon}^2}) / (n-k-1)}
+    F = \dfrac{R^2_{\hat{\boldsymbol{\varepsilon}}\hat{\boldsymbol{\varepsilon}}^\top}/k}{(1-R^2_{\hat{\boldsymbol{\varepsilon}}\hat{\boldsymbol{\varepsilon}}^\top}) / (n-k-1)}
 \end{align*}
 
-Which follows from \eqref{eq:udvidelse_til_F_stat}. Here $\mathcal{R}^2_{\hat{\varepsilon}^2}$ is the $R$-squared found from \eqref{eq:OLS_residual_hat_epsioln_i_anden} and $k$ is the number of independent variables in \eqref{eq:OLS_residual_hat_epsioln_i_anden}. 
+Which follows from \eqref{eq:udvidelse_til_F_stat}.
+Here $R^2_{\hat{\boldsymbol{\varepsilon}}\hat{\boldsymbol{\varepsilon}}^\top}$ is the $R$-squared found from \eqref{eq:OLS_residual_hat_epsioln_i_anden} and $k$ is the number of independent variables in \eqref{eq:OLS_residual_hat_epsioln_i_anden}. 
 
-This procedure is known as the \textbf{Breush-Pegan Test for heteroskedasticity}. We summarise the steps as follows
+We summarise the steps in this procedure as follows
 
-\textbf{The Breusch-Pegan Test for Heteroskedasticity}
+\textbf{Test for Heteroskedasticity}
 \begin{enumerate}[label=(\roman*)]
     \item Estimate the linear regression model \eqref{eq:multiple_linear_regression_model} by OLS and obtain the squared OLS residuals $\hat{\varepsilon}^2$. 
-    \item Make the regression on \eqref{eq:OLS_residual_hat_epsioln_i_anden} and calculate the $\mathcal{R}^2_{\hat{\varepsilon}^2}$. 
-    \item Perform the $F$-statistics. If the p-value is below the significance level, reject the null hypothesis. 
+    \item Make the regression on \eqref{eq:OLS_residual_hat_epsioln_i_anden} and calculate the $R^2_{\hat{\boldsymbol{\varepsilon}}\hat{\boldsymbol{\varepsilon}}^\top}$. 
+    \item Perform the $F$-statistics. If the $p$-value is below the significance level, reject the null hypothesis. 
 \end{enumerate}
 
-This means that if the $p$-value if sufficiently small for the $F$-statistics, then heteroskedasticity is present. 
+This means that if the $p$-value if sufficiently small for the $F$-statistic, then heteroskedasticity is present. 
 
-\begin{example}[Test for Heteroskedasticity]
+% \begin{example}[Test for Heteroskedasticity]
 
-Først laver vi vores test for homoskedasticitet vha. teorien fra project (Breusch-Pegan Test): 
-
-
-$Storbyer2 <- na.omit(Storbyer)
-lin.model <- lm(Kontantpris ~ Boligtilstand + Boligareal + Liggetid + Opfoerelsesaar + Altan + OmbygningSket + By, data = Storbyer2); lin.model
-summary(lin.model)$
-
-$resi <- residuals(lin.model); resi$
+% Først laver vi vores test for homoskedasticitet vha. teorien fra project (Breusch-Pegan Test): 
 
 
-$var_lin.model <- lm(resi^2 ~ Boligtilstand + Boligareal + Liggetid + Opfoerelsesaar + Altan + OmbygningSket + By, data = Storbyer2); var_lin.model
-summary(var_lin.model)$
+% $Storbyer2 <- na.omit(Storbyer)
+% lin.model <- lm(Kontantpris ~ Boligtilstand + Boligareal + Liggetid + Opfoerelsesaar + Altan + OmbygningSket + By, data = Storbyer2); lin.model
+% summary(lin.model)$
+
+% $resi <- residuals(lin.model); resi$
 
 
-Vi sammenligner med R's indbyggede test (Breusch-Pegan Test)
-
-bptest(lin.model)
-
-
-Vi ser at vi får samme p-værdi ved begge test. Da denne p-værdi er mindre end 0.05 forkaster vi nulhypotesen som er at der findes homoskedasticitet i dataet. Dvs. at der heteroskedasticitet tilstede i dataet. 
-
-I forbindelse med at kunne bruge vores OLS vil vi lave roboste standard errors som så kan bruges til at lave robuste t/- og F teste med således vi stadig kan bruge og vurdere OLS. 
-
-\end{example}
-
-\section{Correct for Heteroskedasticity}
-To sum up \hetero will in general cause OLS standard errors to be faulty as well as the related statistical tests. In this section we wish to correct for these mistakes, so the related statistical tests are valid when testing our model. 
+% $var_lin.model <- lm(resi^2 ~ Boligtilstand + Boligareal + Liggetid + Opfoerelsesaar + Altan + OmbygningSket + By, data = Storbyer2); var_lin.model
+% summary(var_lin.model)$
 
 
-% Fra White: 
-% When heteroskedastiticy is present linear models are still consistent however their parameter estimates are inefficent and their covariance matrix estimates are inconsistent, i.e. \Var(\betahat | \mathbf{X}). This leads to wrongfull conclusions when hypotheses tests as t/- and F-tests are used on the model, when heteroskedasticity is present. 
+% Vi sammenligner med R's indbyggede test (Breusch-Pegan Test)
 
-% The inefficiency in the parameter estimates is caused by the inconsistency of the variance matrix of the OLS parameter estimates. For this reason we wish to introduce covariance matrix estimates, i.e. \Var(\betahat | \mathbf{X}), which are consistent when heteroskedasticity is present. 
-
-% Recall our model given as
-% \begin{align*}
-% y_i = \mathbf{X}_\betahat_0 + \varepsilon_i. 
-% \end{align*}
-% Where $(\mathbf{X}_i, \varepsilon_i)$ are \textbf{independent but not necessarily idetically distributed (i.n.i.d)} for observation $i$. This assumption means that we assume only $\mathbf{X}_i$ and $\varepsilon_i$ are uncorrelated, so the Gauss Markov assumption stating $E[\varepsilon|\mathbf{X}_i] = 0$ holds true and heteroskedasticity of the form $E[\varepsilon__i^2] = g(\mathbf{X}_i)$, where $g$ is a known function.
-
-% We state the following assumption
-
-% \begin{Assumption}[]
-% \begin{itemize}
-% \item There exist positive finite constants $\delta$ and $\Delta$ such that $E[ |\varepsilon^2_i |^{1 + \delta} ] < \Delta$ and $E[ |\mathbf{X}_{ij}\mathbf{X}_ik|^{1 + \delta}] < \Delta$ for all $i$ and $j,k = 1, \ldots, K$\\
-% \item $\overline{M}_n = n^{-1}\nsum E[\mathbf{X}^{\top}_i \mathbf{X}_i]$ is nonsingular for $n$ sufficiently large, such that $\overline{M}_n > \delta > 0$
-% \end{itemize}
-% \end{Assumption}
-
-% The first part of the assumption ensures that all the error variances and the variances of $\betahat$ are bounded by the same constant, i.e. they are uniformly bounded. 
-% The second part ensures that the elements of inverse are uniformly bounded and that the average $\Var(\betahat | \mathbf{X})$ will for sufficiently large $n$ be nonsingular. 
+% bptest(lin.model)
 
 
+% Vi ser at vi får samme p-værdi ved begge test. Da denne p-værdi er mindre end 0.05 forkaster vi nulhypotesen som er at der findes homoskedasticitet i dataet. Dvs. at der heteroskedasticitet tilstede i dataet. 
 
-If our model contains heteroskedasticity, then the error will not be constant. Thus for our model, $\mathbf{y}_i = \betabold \mathbf{X} + \varepsilon_i$, the variance of the error term is given as
+% I forbindelse med at kunne bruge vores OLS vil vi lave roboste standard errors som så kan bruges til at lave robuste t/- og F teste med således vi stadig kan bruge og vurdere OLS. 
+
+% \end{example}
+
+\subsection{Correct for Heteroskedasticity}
+To sum up, \hetero will in general cause OLS standard errors to be faulty as well as the related statistical tests. In this section we wish to correct for these mistakes, so the related statistical tests are valid when testing our model. 
+
+If our model contains heteroskedasticity, then the errors will not be constant. Thus for our model, $\mathbf{y}_i = \betabold \mathbf{X} + \varepsilon_i$, the variance of the error term is given as
 \begin{align*}
     \var(\varepsilon_i | \mathbf{X}) = \sigma^2_i. 
 \end{align*}
 Where the subscript $i$ indicates that the error term varies with the explanatory variables. 
 
-In order to find standard errors which are applicable in $t$-tests and $F$-tests when heteroskedasticity are present, we must first find a new way to find the variances of the parameters, $\Var(\batahat)$. It can be shown that a valid estimator of $\Var(\batahat)$ is
+In order to find standard errors which are applicable in $t$-tests when heteroskedasticity is present, we must have a valid expression for $\var(\betahat)$, which is found using \eqref{eq:conditional_variance_of_epsilon}. 
+\begin{align*}
+   \var(\betahat|\mathbf{X}) &= (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\left[ \var(\boldsymbol{\varepsilon} | \mathbf{X}) \right] \mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\\
+   &= (\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top \sigma^2 \Sigma \mathbf{X}(\mathbf{X}^\top \mathbf{X})^{-1}\\
+   &= \sigma^2 (\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top \Sigma \mathbf{X} (\mathbf{X}^\top \mathbf{X})^{-1}
+\end{align*}
+Where $\Sigma$ is a covariance matrix different from the identity matrix so $\var(\boldsymbol{\varepsilon}) = \sigma^2 \Sigma$. It can be shown that a valid estimator of $\var(\betahat)$ is
 \begin{align}\label{eq:estimat_varians_beta_hetero}
-    \hat{\var(\betahat)} = \dfrac{\nsum \hat{r^2_{ij}} \hat{\varepsilon}_i^2}{SSR_j^2}. 
+    \widehat{\var(\betahat)} = \dfrac{\nsum \hat{r}^2_{ij} \hat{\boldsymbol{\varepsilon}}\hat{\boldsymbol{\varepsilon}}^\top}{SSR_j^2}. 
 \end{align}
-Where $\hat{r^2_{ij}}$ is the i'th residual found by regression $x_j$ on all other independent variables, $SSR_j$ is fund by regressing $x_j$ on all other independent variables. 
-The standard errors of $\betahat$ is then obtained by taking the square root of \eqref{eq:estimat_varians_beta_hetero} and we call these standard errors for \textbf{heteroskedastic robust standard errors}. When the heteroskedastic robust standard errors are found it is possible to construct valid $t$-tests and $F$-tests in the presence of heteroskedasticity. 
-Recall the general $t$-test in \eqref{eq:t_test1} and the general F-test in \eqref{eq:F_statistic}. When heteroskedasticity is present a valid $t$-statistics is obtained using the square root of \eqref{eq:estimat_varians_beta_hetero} as the standard error. 
+Where $\hat{r^2_{ij}}$ is the $i$'th residual found by regressing $x_j$ on all other independent variables, $SSR_j$ is found by regressing $x_j$ on all other independent variables. 
+The standard errors of $\betahat$ are then obtained by taking the square root of \eqref{eq:estimat_varians_beta_hetero} and we call these standard errors for \textbf{heteroskedastic robust standard errors}. When the heteroskedastic robust standard errors are found it is possible to construct valid $t$-tests in the presence of heteroskedasticity. 
+Recall the general $t$-test in \eqref{eq:t_test1}. When heteroskedasticity is present a valid $t$-statistics is obtained using the square root of \eqref{eq:estimat_varians_beta_hetero} as the standard error. 
 
-An heteroskedastic robust $F$-statistic is also called a heteroskedastic Wald-Statistic. The heteroskedastic $F$-statistic builds on the Wald-Statistic. 
+A heteroskedastic robust $F$-statistic is also called a heteroskedastic Wald-Statistic. The heteroskedastic $F$-statistic builds on the Wald-Statistic. 
 
-In the F-statistics we wish to test if the regressions coefficients can be written as a linear combination. Our null-hypothesis is
+In the F-statistics we wish to test if the regressions coefficients can be written as a linear combination to see if our restrictions hold true. Our null-hypothesis is
 \begin{align*}
     \mathrm{H}_0 : \mathbf{R}\betabold = \mathbf{r}. 
 \end{align*}
-Where $\mathbf{r}$ is a $q \times 1$ vector, $\betabold$ is a $(k+1) \times 1$ vector and $\mathbf{R}$ is a $q \times (k+1)$ matrix which has full column rank, $rank(\mathbf{R}) = q$ and therefore $q < k+1$. The representation of $\mathbf{R}$ is determined by the hypothesis wished to be examined. 
+Where $\mathbf{r}$ is a $q \times 1$ vector, $\betabold$ is a $(k+1) \times 1$ vector and $\mathbf{R}$ is a $q \times (k+1)$ matrix which has full row rank, $rank(\mathbf{R}) = q$ and therefore $q < k+1$. The representation of $\mathbf{R}$ is determined by the hypothesis wished to be examined. 
 
-For an example consider the general linear model $\mathbf{y} = \betabold_0 + \betabold_{i,1} + \betabold_{i,2} + \betabold_{i,3} + \varepsilon_i$. We wish to test if $\betabold_2 = \betabold_3$ and if $\betabold_3 = 0$. These two equations are the hypothesis and thus $q = 2$. We represent in matrix form as
+For an example consider the general linear model $\mathbf{y} = \betabold_0 + \betabold_{i,1} + \betabold_{i,2} + \betabold_{i,3} + \varepsilon_i$. We wish to test if $\betabold_2 = \betabold_3$ and if $\betabold_3 = 0$. These two equations are the hypothesis and thus $q = 2$. We represent this in matrix form as
 \begin{align*}
     \mathbf{R} = \begin{bmatrix}0 & 1 & -1 & 0\\
     0 & 0 & 0 & 1\end{bmatrix}, \mathbf{r} = \begin{bmatrix}0\\0\end{bmatrix}
@@ -915,13 +1027,52 @@ For an example consider the general linear model $\mathbf{y} = \betabold_0 + \be
 The F-statistics defined as
 \begin{align*}
     F &\equiv \dfrac{(\mathbf{R}\betahat - \mathbf{r})^\top  [\mathbf{R}(\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{R}^\top]^{-1}  (\mathbf{R}\betahat- \mathbf{r}) / q}{s^2}\\
-    &= (\mathbf{R}\betahat - \mathbf{r})^\top  [\mathbf{R}\widehat{\var(\betahat | \mathbf{X})}\mathbf{R}^\top]^{-1}  (\mathbf{R}\betahat- \mathbf{r}) / q
 \end{align*}
 is $F_{q, n - (k+1)}$ distributed. This can be proven by showing that the distribution conditional on $\mathbf{X}$ is $F_{q, n - (k+1)}$. 
-\begin{proof}
-Recall from \eqref{eq:sigma_square_of_Y} that $s^2(\textbf{y}) = \dfrac{1}{(n-k-1)}\sum_{i=1}^n \hat{\varepsilon}_i^2$
 
-\end{proof}
+However if the errors have differing variance then this F-statistic will fail to be valid.  Recall that in the presence of heteroskedasticity OLS estimators, $\betahat$, will still be unbiased and consistent however they will fail to be efficient and the standard errors estimated with OLS will prove to be faulty to which they cannot be used in hypotheses testing because they are biased and inconsistent. 
+Instead the heteroskedastic-robust Wald Statistic is used, where the Wald statistic is given as
+\begin{align*}
+    W = (\mathbf{R}\betahat - \mathbf{r})^\top (\mathbf{R} \widehat{\var(\betahat|\mathbf{X}})(\mathbf{R}\betahat - \mathbf{r}))
+\end{align*}
+This statistic is approximately $\chi^2_q$-distributed. If it is divided by $q$ it becomes an approximate $F$-statistic with $(q,q-k-1)$ degrees of freedom. Thus
+\begin{align*}
+    F = (\mathbf{R}\betahat - \mathbf{r})^\top (\mathbf{R} \widehat{\var(\betahat|\mathbf{X}})(\mathbf{R}\betahat - \mathbf{r}))/q
+\end{align*}
+
+In the case of heteroskedasticity these tests are preferable. These tests also work is the case of homoskedasticity, but the usual OLS standard errors are still preferable because in the case of homoskedasticity $t$-tests will have exact $t$-distributions. 
+
+
+We have conducted tests for heteroskedasticity for the models chosen in sections regarding $F$-tests and cross validation. We present the result here. 
+
+The $F$-tests for Copenhagen is the model 
+\begin{align*}
+    log(price) ~ log(size) + cond + balcony + year.sale
+\end{align*}
+We tested for heteroskedasticity and found a $p$-value $< 0.05$ close to $0$. 
+It is important to note that this test examines if the function has complete homoskedasticity, meaning their is no trace of heteroskedasticity. To have complete homoskedastiticy is quite rare in reality and thus even though we can conclude heteroskedasticity is present it is often desirable to graphically investigate the heteroskedasticity. 
+We made a scatterplot of the residuals to see if they appear to follow a normal distribution as seen in figure \ref{fig:F_chp_resu}. 
+
+
+\begin{figure}[H]
+        \centering
+      \includegraphics[width = 1 \textwidth]{figures/QQNORMDENHER.pdf}
+      \caption{Plot of Residuals for the $F$-test for Copenhagen. $p$-value $< 2.2e-16$}
+      \label{fig:F_chp_resu}
+\end{figure}
+ 
+the residuals seem to follow the normal distribution quite close, wherefore we conclude that even though it is not complete homoskedastic it tends to be closer to homoskedasticity rather than heteroskedasticity. 
+We therefore conclude the amount of heteroskedasticity is without substantial meaning in our tests and thus our earlier theory regarding BLUE and hypotheses testing is valid. To support this statement we will conduct both the hetero robust and usual $t$ and $F$-test for this model.
+
+
+
+    
+
+
+
+
+
+
 
 
 
@@ -960,7 +1111,7 @@ Recall from \eqref{eq:sigma_square_of_Y} that $s^2(\textbf{y}) = \dfrac{1}{(n-k-
 
 
 
-\section{Prediction}
+\section{Prediction}\label{sec:prediction}
 It is often wanted to deduce information about future observations based on the existing fitted regression model. 
 In our case this is predicting future apartment prices. 
 Due to this, prediction intervals are introduced as an estimate of an interval that contains a future observation with a certain probability with respect to already observed data.
@@ -1008,3 +1159,8 @@ and by substituting $\textbf{Y}$ with the observation $\textbf{y}$ we obtain the
 This is the interval of which we expect future observations to be with probability $(1-\alpha)$ given our assumptions are correct.
 If we compare the $(1-\alpha)\%$-prediction interval in \eqref{eq:predict_interval} to the $(1-\alpha)\%$-confidence interval in \eqref{eq:t_statistic} it is clear that the $(1-\alpha)\%$-prediction interval is the largest.
 This is caused by prediction intervals contain both the uncertainty in estimating the ``true'' mean and the the random variation of the individual values.
+
+\subsection{Application of Prediction}\label{subsec:app_of_prediction}
+
+
+\section{Error Diagnostics}

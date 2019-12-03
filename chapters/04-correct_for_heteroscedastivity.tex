@@ -54,7 +54,9 @@ This differs from the $R$-squared found by regression on $y$ with $x_1, \ldots, 
 Consider the example $y = \betahat_0 + \betahat_1 x_1 + \betahat_2 x_2 + \varepsilon$, here $R_1$-squared is found by making a regression of $x_1$ on $x_2$. 
 As always an $R_1$-squared value close to one means that $x_2$ explains much of the variation in $x_1$, so a value close to $1$ means that $x_1$ and $x_2$ are highly correlated.
 $R_j$-squared tests how much of the variation in one of the independent variables is explained from the remaining independent variables.
-The best estimator for $\betahat_j$ is found with a low value of $R_j$-squared, thus a smaller relationship between the explanatory variables is desired when retrieving $\var(\betahat_j)$. Note $R$-squared cannot equal $0$ due to assumption \ref{as:no_perfect_collinearity}. 
+In the case of multiple regression with more than 2 independent variables, this is known as multicollinearity.
+The best estimator for $\betahat_j$ is found with a low value of $R_j$-squared, thus a smaller relationship between the explanatory variables, less multicollinearity, is desired when retrieving $\var(\betahat_j)$.
+Note $R$-squared cannot equal $0$ due to assumption \ref{as:no_perfect_collinearity}. 
 
 From \eqref{eq:slope_variance_OLS_estimator} it is possible to find the standard deviation of $\betahat_j$, which is the square root of \ref{eq:slope_variance_OLS_estimator}, which is
 \begin{align}\label{eq:standard_deviation}

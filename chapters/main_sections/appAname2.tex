@@ -1,0 +1,169 @@
+\chapter{CV-models} \label{aap:cv}
+In this appendix the models found with 5-fold cross-validation in section ?? is listed for each city.
+
+\textbf{Copenhagen}
+\begin{lstlisting}
+Call:
+lm(formula = log(price) ~ log(size) + year.sale + year.construct, 
+    data = Copenhagen)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.70933 -0.09737 -0.00030  0.09631  0.69210 
+
+Coefficients:
+                                  Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                       10.67202    0.06334 168.487  < 2e-16 ***
+log(size)                          0.89186    0.01327  67.204  < 2e-16 ***
+year.sale2005                      0.22534    0.02009  11.218  < 2e-16 ***
+year.sale2006                      0.42628    0.02092  20.373  < 2e-16 ***
+year.sale2007                      0.29848    0.02286  13.055  < 2e-16 ***
+year.sale2008                      0.17525    0.02584   6.783 1.88e-11 ***
+year.sale2009                      0.06482    0.02623   2.471 0.013611 *  
+year.sale2010                      0.12680    0.02557   4.959 8.17e-07 ***
+year.sale2011                      0.10254    0.02455   4.177 3.17e-05 ***
+year.sale2012                      0.11628    0.02318   5.016 6.10e-07 ***
+year.sale2013                      0.30482    0.02255  13.515  < 2e-16 ***
+year.sale2014                      0.40929    0.02194  18.652  < 2e-16 ***
+year.sale2015                      0.50363    0.02088  24.115  < 2e-16 ***
+year.construct(1.81e+03,1.82e+03] -0.08753    0.03929  -2.228 0.026104 *  
+year.construct(1.82e+03,1.83e+03] -0.29259    0.07308  -4.004 6.64e-05 ***
+year.construct(1.83e+03,1.84e+03] -0.02665    0.04747  -0.561 0.574660    
+year.construct(1.84e+03,1.85e+03] -0.12234    0.03238  -3.778 0.000166 ***
+year.construct(1.85e+03,1.86e+03] -0.08303    0.02972  -2.794 0.005298 ** 
+year.construct(1.86e+03,1.87e+03] -0.07632    0.03921  -1.947 0.051820 .  
+year.construct(1.87e+03,1.88e+03] -0.07715    0.02514  -3.069 0.002196 ** 
+year.construct(1.88e+03,1.89e+03] -0.10961    0.02318  -4.729 2.53e-06 ***
+year.construct(1.89e+03,1.9e+03]  -0.02855    0.03396  -0.841 0.400716    
+year.construct(1.9e+03,1.91e+03]  -0.13705    0.02134  -6.423 1.95e-10 ***
+year.construct(1.91e+03,1.92e+03] -0.04546    0.03357  -1.354 0.175950    
+year.construct(1.92e+03,1.93e+03]  0.09411    0.11327   0.831 0.406239    
+year.construct(1.93e+03,1.94e+03] -0.09781    0.02330  -4.198 2.90e-05 ***
+year.construct(1.94e+03,1.95e+03] -0.19918    0.04212  -4.728 2.54e-06 ***
+year.construct(1.95e+03,1.96e+03] -0.08909    0.02196  -4.058 5.29e-05 ***
+year.construct(1.96e+03,1.97e+03] -0.08301    0.03783  -2.194 0.028414 *  
+year.construct(1.97e+03,1.98e+03] -0.15679    0.03210  -4.884 1.19e-06 ***
+year.construct(1.99e+03,2e+03]     0.03332    0.04369   0.763 0.445821    
+year.construct(2e+03,2.01e+03]     0.05996    0.02508   2.390 0.016992 *  
+year.construct(2.01e+03,2.02e+03] -0.12524    0.02646  -4.734 2.48e-06 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.1575 on 1149 degrees of freedom
+Multiple R-squared:  0.8839,	Adjusted R-squared:  0.8806 
+F-statistic: 273.3 on 32 and 1149 DF,  p-value: < 2.2e-16
+\end{lstlisting}
+
+\textbf{Aarhus}
+\begin{lstlisting}
+Call:
+lm(formula = log(price) ~ log(size) + year.sale, data = Aarhus)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.13513 -0.09763  0.00488  0.12220  0.72716 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   10.10847    0.08617 117.309  < 2e-16 ***
+log(size)      0.94524    0.01945  48.604  < 2e-16 ***
+year.sale2005  0.25688    0.02714   9.463  < 2e-16 ***
+year.sale2006  0.41951    0.02921  14.362  < 2e-16 ***
+year.sale2007  0.26118    0.03174   8.230 8.22e-16 ***
+year.sale2008  0.24536    0.03582   6.849 1.54e-11 ***
+year.sale2009  0.15408    0.03267   4.716 2.87e-06 ***
+year.sale2010  0.23930    0.03857   6.204 9.08e-10 ***
+year.sale2011  0.23146    0.03782   6.120 1.51e-09 ***
+year.sale2012  0.24320    0.03329   7.306 7.01e-13 ***
+year.sale2013  0.31213    0.03249   9.608  < 2e-16 ***
+year.sale2014  0.34240    0.03169  10.804  < 2e-16 ***
+year.sale2015  0.38396    0.02850  13.473  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.1864 on 754 degrees of freedom
+Multiple R-squared:  0.7785,	Adjusted R-squared:  0.775 
+F-statistic: 220.9 on 12 and 754 DF,  p-value: < 2.2e-16
+\end{lstlisting}
+
+\textbf{Odense}
+\begin{lstlisting}
+Call:
+lm(formula = log(price) ~ log(size) + year.sale, data = Odense)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.57979 -0.09826 -0.00145  0.10240  1.27003 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)    9.32799    0.11904  78.360  < 2e-16 ***
+log(size)      0.98660    0.02724  36.223  < 2e-16 ***
+year.sale2005  0.28754    0.02833  10.148  < 2e-16 ***
+year.sale2006  0.44535    0.03042  14.642  < 2e-16 ***
+year.sale2007  0.42291    0.03141  13.465  < 2e-16 ***
+year.sale2008  0.39849    0.03635  10.962  < 2e-16 ***
+year.sale2009  0.27208    0.03833   7.098 4.14e-12 ***
+year.sale2010  0.26217    0.05157   5.084 5.17e-07 ***
+year.sale2011  0.26042    0.04553   5.720 1.80e-08 ***
+year.sale2012  0.27153    0.03880   6.999 7.95e-12 ***
+year.sale2013  0.35179    0.03423  10.277  < 2e-16 ***
+year.sale2014  0.34938    0.03285  10.636  < 2e-16 ***
+year.sale2015  0.47120    0.03400  13.860  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.1767 on 523 degrees of freedom
+Multiple R-squared:  0.7595,	Adjusted R-squared:  0.754 
+F-statistic: 137.7 on 12 and 523 DF,  p-value: < 2.2e-16
+\end{lstlisting}
+
+\textbf{Aalborg}
+\begin{lstlisting}
+Call:
+lm(formula = log(price) ~ log(size) + year.construct + year.sale, 
+    data = Aalborg)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.80850 -0.08962  0.01062  0.09367  0.47347 
+
+Coefficients:
+                                  Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                       10.17893    0.21614  47.095  < 2e-16 ***
+log(size)                          0.87444    0.02700  32.390  < 2e-16 ***
+year.construct(1.84e+03,1.85e+03] -0.55224    0.20763  -2.660 0.008161 ** 
+year.construct(1.86e+03,1.87e+03] -0.18479    0.20816  -0.888 0.375251    
+year.construct(1.87e+03,1.88e+03] -0.12302    0.20815  -0.591 0.554876    
+year.construct(1.88e+03,1.89e+03] -0.27923    0.17633  -1.584 0.114153    
+year.construct(1.89e+03,1.9e+03]  -0.29896    0.17194  -1.739 0.082916 .  
+year.construct(1.9e+03,1.91e+03]  -0.28081    0.17325  -1.621 0.105907    
+year.construct(1.91e+03,1.92e+03] -0.31412    0.17184  -1.828 0.068366 .  
+year.construct(1.92e+03,1.93e+03] -0.33543    0.17197  -1.950 0.051870 .  
+year.construct(1.93e+03,1.94e+03] -0.35404    0.17146  -2.065 0.039633 *  
+year.construct(1.94e+03,1.95e+03] -0.37031    0.17324  -2.138 0.033203 *  
+year.construct(1.95e+03,1.96e+03] -0.37620    0.17233  -2.183 0.029659 *  
+year.construct(1.96e+03,1.97e+03] -0.64733    0.17100  -3.785 0.000179 ***
+year.construct(1.97e+03,1.98e+03] -0.45953    0.17191  -2.673 0.007849 ** 
+year.construct(1.98e+03,1.99e+03] -0.24584    0.17540  -1.402 0.161866    
+year.construct(1.99e+03,2e+03]     0.48572    0.24008   2.023 0.043775 *  
+year.construct(2e+03,2.01e+03]    -0.04879    0.17551  -0.278 0.781193    
+year.construct(2.01e+03,2.02e+03]  0.31018    0.19689   1.575 0.116017    
+year.sale2005                      0.06948    0.03379   2.056 0.040450 *  
+year.sale2006                      0.25236    0.03522   7.166 4.19e-12 ***
+year.sale2007                      0.37123    0.03887   9.550  < 2e-16 ***
+year.sale2008                      0.30068    0.04857   6.190 1.59e-09 ***
+year.sale2009                      0.14502    0.04319   3.358 0.000866 ***
+year.sale2010                      0.24305    0.03924   6.194 1.56e-09 ***
+year.sale2011                      0.22337    0.04173   5.353 1.52e-07 ***
+year.sale2012                      0.22843    0.04064   5.621 3.74e-08 ***
+year.sale2013                      0.29654    0.03943   7.520 4.16e-13 ***
+year.sale2014                      0.32049    0.03891   8.236 3.08e-15 ***
+year.sale2015                      0.43486    0.03819  11.387  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.1665 on 371 degrees of freedom
+Multiple R-squared:  0.8367,	Adjusted R-squared:  0.824 
+F-statistic: 65.56 on 29 and 371 DF,  p-value: < 2.2e-16
+\end{lstlisting}

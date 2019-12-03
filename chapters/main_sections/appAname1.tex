@@ -1,0 +1,364 @@
+\chapter{F-models}
+
+This appendix contains the models obtained after using the F-test to check significans for the parameters in the model. 
+The models given are therefore the ones that contain all the significant parameters.
+Since each city has its own model this has been split up into 4 subsection. 
+
+\subsubsection{Copenhagen}
+Summary of the model
+
+\begin{lstlisting}
+    Call:
+lm(formula = log(price) ~ log(size) + cond + selling.period + 
+    year.construct + balcony + year.sale, data = cities.data)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.67476 -0.08563  0.00055  0.08519  0.63973 
+
+Coefficients:
+                                    Estimate Std. Error t value
+(Intercept)                        1.072e+01  6.365e-02 168.373
+log(size)                          8.622e-01  1.263e-02  68.275
+condMiddel                         8.216e-02  2.023e-02   4.062
+condGod                            1.424e-01  2.137e-02   6.664
+selling.period                    -1.096e-04  4.518e-05  -2.425
+year.construct(1.81e+03,1.82e+03] -7.749e-02  3.674e-02  -2.109
+year.construct(1.82e+03,1.83e+03] -2.545e-01  6.798e-02  -3.744
+year.construct(1.83e+03,1.84e+03] -3.514e-03  4.427e-02  -0.079
+year.construct(1.84e+03,1.85e+03] -1.165e-01  3.009e-02  -3.873
+year.construct(1.85e+03,1.86e+03] -8.699e-02  2.761e-02  -3.151
+year.construct(1.86e+03,1.87e+03] -1.078e-01  3.650e-02  -2.954
+year.construct(1.87e+03,1.88e+03] -7.944e-02  2.339e-02  -3.396
+year.construct(1.88e+03,1.89e+03] -1.100e-01  2.157e-02  -5.099
+year.construct(1.89e+03,1.9e+03]  -4.308e-02  3.157e-02  -1.365
+year.construct(1.9e+03,1.91e+03]  -1.557e-01  1.996e-02  -7.803
+year.construct(1.91e+03,1.92e+03] -7.576e-02  3.128e-02  -2.422
+year.construct(1.92e+03,1.93e+03]  1.269e-01  1.052e-01   1.206
+year.construct(1.93e+03,1.94e+03] -1.642e-01  2.250e-02  -7.299
+year.construct(1.94e+03,1.95e+03] -2.154e-01  3.957e-02  -5.444
+year.construct(1.95e+03,1.96e+03] -1.678e-01  2.167e-02  -7.744
+year.construct(1.96e+03,1.97e+03] -1.497e-01  3.563e-02  -4.202
+year.construct(1.97e+03,1.98e+03] -2.317e-01  3.061e-02  -7.569
+year.construct(1.99e+03,2e+03]     4.215e-03  4.064e-02   0.104
+year.construct(2e+03,2.01e+03]    -5.265e-02  2.483e-02  -2.120
+year.construct(2.01e+03,2.02e+03] -2.324e-01  2.631e-02  -8.833
+balcony                            1.160e-01  1.160e-02  10.000
+year.sale2005                      2.257e-01  1.869e-02  12.078
+year.sale2006                      4.141e-01  1.953e-02  21.199
+year.sale2007                      3.046e-01  2.139e-02  14.237
+year.sale2008                      1.747e-01  2.405e-02   7.263
+year.sale2009                      4.845e-02  2.449e-02   1.978
+year.sale2010                      1.037e-01  2.397e-02   4.327
+year.sale2011                      9.749e-02  2.295e-02   4.248
+year.sale2012                      1.067e-01  2.161e-02   4.937
+year.sale2013                      2.800e-01  2.117e-02  13.226
+year.sale2014                      3.750e-01  2.080e-02  18.031
+year.sale2015                      4.755e-01  1.958e-02  24.288
+                                  Pr(>|t|)    
+(Intercept)                        < 2e-16 ***
+log(size)                          < 2e-16 ***
+condMiddel                        5.20e-05 ***
+condGod                           4.13e-11 ***
+selling.period                    0.015466 *  
+year.construct(1.81e+03,1.82e+03] 0.035131 *  
+year.construct(1.82e+03,1.83e+03] 0.000190 ***
+year.construct(1.83e+03,1.84e+03] 0.936748    
+year.construct(1.84e+03,1.85e+03] 0.000114 ***
+year.construct(1.85e+03,1.86e+03] 0.001670 ** 
+year.construct(1.86e+03,1.87e+03] 0.003198 ** 
+year.construct(1.87e+03,1.88e+03] 0.000708 ***
+year.construct(1.88e+03,1.89e+03] 3.99e-07 ***
+year.construct(1.89e+03,1.9e+03]  0.172669    
+year.construct(1.9e+03,1.91e+03]  1.35e-14 ***
+year.construct(1.91e+03,1.92e+03] 0.015591 *  
+year.construct(1.92e+03,1.93e+03] 0.228208    
+year.construct(1.93e+03,1.94e+03] 5.39e-13 ***
+year.construct(1.94e+03,1.95e+03] 6.36e-08 ***
+year.construct(1.95e+03,1.96e+03] 2.10e-14 ***
+year.construct(1.96e+03,1.97e+03] 2.86e-05 ***
+year.construct(1.97e+03,1.98e+03] 7.69e-14 ***
+year.construct(1.99e+03,2e+03]    0.917410    
+year.construct(2e+03,2.01e+03]    0.034191 *  
+year.construct(2.01e+03,2.02e+03]  < 2e-16 ***
+balcony                            < 2e-16 ***
+year.sale2005                      < 2e-16 ***
+year.sale2006                      < 2e-16 ***
+year.sale2007                      < 2e-16 ***
+year.sale2008                     6.96e-13 ***
+year.sale2009                     0.048112 *  
+year.sale2010                     1.65e-05 ***
+year.sale2011                     2.33e-05 ***
+year.sale2012                     9.11e-07 ***
+year.sale2013                      < 2e-16 ***
+year.sale2014                      < 2e-16 ***
+year.sale2015                      < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.1462 on 1145 degrees of freedom
+Multiple R-squared:  0.9002,	Adjusted R-squared:  0.8971 
+F-statistic:   287 on 36 and 1145 DF,  p-value: < 2.2e-16
+\end{lstlisting}
+
+\subsubsection{Aarhus}
+Summary of the model
+\begin{lstlisting}
+    Call:
+lm(formula = log(price) ~ log(size) + cond + year.construct + 
+    balcony + year.sale, data = cities.data)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.01393 -0.09165  0.00280  0.09082  0.64937 
+
+Coefficients:
+                                  Estimate Std. Error t value Pr(>|t|)
+(Intercept)                       10.35749    0.19208  53.924  < 2e-16
+log(size)                          0.87144    0.01894  46.000  < 2e-16
+condMiddel                         0.11228    0.03739   3.003 0.002763
+condGod                            0.19052    0.03812   4.997 7.27e-07
+year.construct(1.85e+03,1.86e+03] -0.13903    0.20317  -0.684 0.493999
+year.construct(1.86e+03,1.87e+03] -0.01362    0.18124  -0.075 0.940136
+year.construct(1.87e+03,1.88e+03]  0.12628    0.17698   0.714 0.475762
+year.construct(1.88e+03,1.89e+03] -0.04199    0.16848  -0.249 0.803246
+year.construct(1.89e+03,1.9e+03]  -0.08940    0.16618  -0.538 0.590737
+year.construct(1.9e+03,1.91e+03]  -0.03367    0.16680  -0.202 0.840100
+year.construct(1.91e+03,1.92e+03]  0.02339    0.16715   0.140 0.888754
+year.construct(1.92e+03,1.93e+03] -0.01575    0.16685  -0.094 0.924802
+year.construct(1.93e+03,1.94e+03] -0.09491    0.16624  -0.571 0.568232
+year.construct(1.94e+03,1.95e+03] -0.15989    0.16762  -0.954 0.340456
+year.construct(1.95e+03,1.96e+03] -0.19027    0.16765  -1.135 0.256779
+year.construct(1.96e+03,1.97e+03] -0.24036    0.16697  -1.440 0.150411
+year.construct(1.97e+03,1.98e+03] -0.39086    0.19214  -2.034 0.042282
+year.construct(1.98e+03,1.99e+03] -0.12286    0.17005  -0.722 0.470230
+year.construct(1.99e+03,2e+03]    -0.23849    0.18102  -1.317 0.188088
+year.construct(2e+03,2.01e+03]    -0.02002    0.16803  -0.119 0.905206
+year.construct(2.01e+03,2.02e+03] -0.03727    0.16738  -0.223 0.823830
+balcony                            0.04718    0.01342   3.516 0.000465
+year.sale2005                      0.23032    0.02430   9.480  < 2e-16
+year.sale2006                      0.40877    0.02596  15.746  < 2e-16
+year.sale2007                      0.24574    0.02820   8.714  < 2e-16
+year.sale2008                      0.22644    0.03202   7.071 3.59e-12
+year.sale2009                      0.15690    0.02899   5.413 8.40e-08
+year.sale2010                      0.22776    0.03483   6.540 1.15e-10
+year.sale2011                      0.23698    0.03394   6.982 6.51e-12
+year.sale2012                      0.23598    0.02955   7.985 5.41e-15
+year.sale2013                      0.30728    0.02903  10.585  < 2e-16
+year.sale2014                      0.35190    0.02840  12.391  < 2e-16
+year.sale2015                      0.36290    0.02686  13.512  < 2e-16
+                                     
+(Intercept)                       ***
+log(size)                         ***
+condMiddel                        ** 
+condGod                           ***
+year.construct(1.85e+03,1.86e+03]    
+year.construct(1.86e+03,1.87e+03]    
+year.construct(1.87e+03,1.88e+03]    
+year.construct(1.88e+03,1.89e+03]    
+year.construct(1.89e+03,1.9e+03]     
+year.construct(1.9e+03,1.91e+03]     
+year.construct(1.91e+03,1.92e+03]    
+year.construct(1.92e+03,1.93e+03]    
+year.construct(1.93e+03,1.94e+03]    
+year.construct(1.94e+03,1.95e+03]    
+year.construct(1.95e+03,1.96e+03]    
+year.construct(1.96e+03,1.97e+03]    
+year.construct(1.97e+03,1.98e+03] *  
+year.construct(1.98e+03,1.99e+03]    
+year.construct(1.99e+03,2e+03]       
+year.construct(2e+03,2.01e+03]       
+year.construct(2.01e+03,2.02e+03]    
+balcony                           ***
+year.sale2005                     ***
+year.sale2006                     ***
+year.sale2007                     ***
+year.sale2008                     ***
+year.sale2009                     ***
+year.sale2010                     ***
+year.sale2011                     ***
+year.sale2012                     ***
+year.sale2013                     ***
+year.sale2014                     ***
+year.sale2015                     ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.1641 on 734 degrees of freedom
+Multiple R-squared:  0.8329,	Adjusted R-squared:  0.8256 
+F-statistic: 114.3 on 32 and 734 DF,  p-value: < 2.2e-16
+\end{lstlisting}
+
+
+\subsubsection{Odense}
+Summary of the model
+
+\begin{lstlisting}
+Call:
+lm(formula = log(price) ~ log(size) + cond + year.construct + 
+    balcony + year.sale, data = cities.data)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.49002 -0.07971  0.00202  0.07876  0.83377 
+
+Coefficients:
+                                  Estimate Std. Error t value Pr(>|t|)
+(Intercept)                        9.93076    0.20530  48.373  < 2e-16
+log(size)                          0.87256    0.02501  34.887  < 2e-16
+condMiddel                         0.12296    0.08836   1.392  0.16467
+condGod                            0.15606    0.08890   1.755  0.07979
+year.construct(1.83e+03,1.84e+03] -0.39114    0.21180  -1.847  0.06538
+year.construct(1.84e+03,1.85e+03]  0.21605    0.17319   1.247  0.21281
+year.construct(1.85e+03,1.86e+03] -0.16749    0.21207  -0.790  0.43003
+year.construct(1.86e+03,1.87e+03]  0.02892    0.21203   0.136  0.89155
+year.construct(1.87e+03,1.88e+03] -0.36166    0.16101  -2.246  0.02513
+year.construct(1.88e+03,1.89e+03] -0.21870    0.15233  -1.436  0.15171
+year.construct(1.89e+03,1.9e+03]  -0.21973    0.15116  -1.454  0.14667
+year.construct(1.9e+03,1.91e+03]  -0.26447    0.15180  -1.742  0.08207
+year.construct(1.91e+03,1.92e+03] -0.31675    0.15111  -2.096  0.03657
+year.construct(1.92e+03,1.93e+03] -0.25154    0.15165  -1.659  0.09781
+year.construct(1.93e+03,1.94e+03] -0.30493    0.15019  -2.030  0.04285
+year.construct(1.94e+03,1.95e+03] -0.40684    0.15542  -2.618  0.00912
+year.construct(1.95e+03,1.96e+03] -0.31988    0.15480  -2.066  0.03930
+year.construct(1.96e+03,1.97e+03] -0.34205    0.16726  -2.045  0.04137
+year.construct(1.98e+03,1.99e+03] -0.20403    0.15174  -1.345  0.17936
+year.construct(1.99e+03,2e+03]    -0.11065    0.18297  -0.605  0.54561
+year.construct(2e+03,2.01e+03]     0.16423    0.15460   1.062  0.28862
+balcony                            0.04978    0.01594   3.124  0.00189
+year.sale2005                      0.21518    0.02474   8.699  < 2e-16
+year.sale2006                      0.44935    0.02606  17.245  < 2e-16
+year.sale2007                      0.43433    0.02778  15.637  < 2e-16
+year.sale2008                      0.40183    0.03141  12.794  < 2e-16
+year.sale2009                      0.29296    0.03430   8.541  < 2e-16
+year.sale2010                      0.28759    0.04521   6.361 4.51e-10
+year.sale2011                      0.25425    0.03956   6.427 3.03e-10
+year.sale2012                      0.28786    0.03480   8.271 1.19e-15
+year.sale2013                      0.32232    0.03143  10.255  < 2e-16
+year.sale2014                      0.35646    0.02980  11.963  < 2e-16
+year.sale2015                      0.46538    0.03107  14.976  < 2e-16
+                                     
+(Intercept)                       ***
+log(size)                         ***
+condMiddel                           
+condGod                           .  
+year.construct(1.83e+03,1.84e+03] .  
+year.construct(1.84e+03,1.85e+03]    
+year.construct(1.85e+03,1.86e+03]    
+year.construct(1.86e+03,1.87e+03]    
+year.construct(1.87e+03,1.88e+03] *  
+year.construct(1.88e+03,1.89e+03]    
+year.construct(1.89e+03,1.9e+03]     
+year.construct(1.9e+03,1.91e+03]  .  
+year.construct(1.91e+03,1.92e+03] *  
+year.construct(1.92e+03,1.93e+03] .  
+year.construct(1.93e+03,1.94e+03] *  
+year.construct(1.94e+03,1.95e+03] ** 
+year.construct(1.95e+03,1.96e+03] *  
+year.construct(1.96e+03,1.97e+03] *  
+year.construct(1.98e+03,1.99e+03]    
+year.construct(1.99e+03,2e+03]       
+year.construct(2e+03,2.01e+03]       
+balcony                           ** 
+year.sale2005                     ***
+year.sale2006                     ***
+year.sale2007                     ***
+year.sale2008                     ***
+year.sale2009                     ***
+year.sale2010                     ***
+year.sale2011                     ***
+year.sale2012                     ***
+year.sale2013                     ***
+year.sale2014                     ***
+year.sale2015                     ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.1477 on 503 degrees of freedom
+Multiple R-squared:  0.8384,	Adjusted R-squared:  0.8282 
+F-statistic: 81.58 on 32 and 503 DF,  p-value: < 2.2e-16
+\end{lstlisting}
+
+\subsubsection{Aalborg}
+
+Summary of the model
+
+\begin{lstlisting}
+    Coefficients:
+                                    Estimate Std. Error t value
+(Intercept)                        9.936e+00  2.049e-01  48.491
+log(size)                          8.706e-01  2.499e-02  34.844
+condMiddel                         1.328e-01  8.836e-02   1.503
+condGod                            1.634e-01  8.882e-02   1.840
+selling.period                    -9.507e-05  5.449e-05  -1.745
+year.construct(1.83e+03,1.84e+03] -3.904e-01  2.114e-01  -1.847
+year.construct(1.84e+03,1.85e+03]  2.105e-01  1.729e-01   1.218
+year.construct(1.85e+03,1.86e+03] -1.586e-01  2.117e-01  -0.749
+year.construct(1.86e+03,1.87e+03]  5.523e-02  2.121e-01   0.260
+year.construct(1.87e+03,1.88e+03] -3.602e-01  1.607e-01  -2.241
+year.construct(1.88e+03,1.89e+03] -2.080e-01  1.521e-01  -1.367
+year.construct(1.89e+03,1.9e+03]  -2.184e-01  1.509e-01  -1.448
+year.construct(1.9e+03,1.91e+03]  -2.625e-01  1.515e-01  -1.733
+year.construct(1.91e+03,1.92e+03] -3.104e-01  1.508e-01  -2.058
+year.construct(1.92e+03,1.93e+03] -2.447e-01  1.514e-01  -1.617
+year.construct(1.93e+03,1.94e+03] -3.028e-01  1.499e-01  -2.020
+year.construct(1.94e+03,1.95e+03] -4.039e-01  1.551e-01  -2.604
+year.construct(1.95e+03,1.96e+03] -3.168e-01  1.545e-01  -2.050
+year.construct(1.96e+03,1.97e+03] -3.407e-01  1.669e-01  -2.041
+year.construct(1.98e+03,1.99e+03] -2.040e-01  1.514e-01  -1.347
+year.construct(1.99e+03,2e+03]    -1.058e-01  1.826e-01  -0.579
+year.construct(2e+03,2.01e+03]     1.941e-01  1.552e-01   1.250
+balcony                            4.928e-02  1.591e-02   3.097
+year.sale2005                      2.151e-01  2.469e-02   8.713
+year.sale2006                      4.467e-01  2.605e-02  17.151
+year.sale2007                      4.335e-01  2.772e-02  15.637
+year.sale2008                      4.068e-01  3.147e-02  12.925
+year.sale2009                      3.027e-01  3.468e-02   8.728
+year.sale2010                      2.958e-01  4.536e-02   6.520
+year.sale2011                      2.590e-01  3.957e-02   6.544
+year.sale2012                      2.896e-01  3.475e-02   8.335
+year.sale2013                      3.239e-01  3.138e-02  10.322
+year.sale2014                      3.605e-01  2.983e-02  12.087
+year.sale2015                      4.640e-01  3.102e-02  14.957
+                                  Pr(>|t|)    
+(Intercept)                        < 2e-16 ***
+log(size)                          < 2e-16 ***
+condMiddel                         0.13343    
+condGod                            0.06633 .  
+selling.period                     0.08163 .  
+year.construct(1.83e+03,1.84e+03]  0.06531 .  
+year.construct(1.84e+03,1.85e+03]  0.22387    
+year.construct(1.85e+03,1.86e+03]  0.45409    
+year.construct(1.86e+03,1.87e+03]  0.79470    
+year.construct(1.87e+03,1.88e+03]  0.02543 *  
+year.construct(1.88e+03,1.89e+03]  0.17220    
+year.construct(1.89e+03,1.9e+03]   0.14831    
+year.construct(1.9e+03,1.91e+03]   0.08374 .  
+year.construct(1.91e+03,1.92e+03]  0.04013 *  
+year.construct(1.92e+03,1.93e+03]  0.10660    
+year.construct(1.93e+03,1.94e+03]  0.04389 *  
+year.construct(1.94e+03,1.95e+03]  0.00948 ** 
+year.construct(1.95e+03,1.96e+03]  0.04086 *  
+year.construct(1.96e+03,1.97e+03]  0.04177 *  
+year.construct(1.98e+03,1.99e+03]  0.17847    
+year.construct(1.99e+03,2e+03]     0.56271    
+year.construct(2e+03,2.01e+03]     0.21175    
+balcony                            0.00206 ** 
+year.sale2005                      < 2e-16 ***
+year.sale2006                      < 2e-16 ***
+year.sale2007                      < 2e-16 ***
+year.sale2008                      < 2e-16 ***
+year.sale2009                      < 2e-16 ***
+year.sale2010                     1.71e-10 ***
+year.sale2011                     1.48e-10 ***
+year.sale2012                     7.50e-16 ***
+year.sale2013                      < 2e-16 ***
+year.sale2014                      < 2e-16 ***
+year.sale2015                      < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.1474 on 502 degrees of freedom
+Multiple R-squared:  0.8394,	Adjusted R-squared:  0.8289 
+F-statistic: 79.52 on 33 and 502 DF,  p-value: < 2.2e-16
+\end{lstlisting}
