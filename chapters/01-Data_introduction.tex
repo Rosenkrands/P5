@@ -1,3 +1,32 @@
+\label{ch:introduction}
+
+One of the tasks associated with being a real estate agent is to determine how much property is worth in order to set a price that is not so high that the property will not receive any interest, but not so low that the full potential is not utilized.
+% \textbf{Housing prices depends on different factors.}
+The price of a house depend on many factors both internal and external.
+Internal factors could refer to the size, condition or layout.
+External factors could refer to the were the property is located, interest rates or economic growth.
+% \textbf{Different factors for different types of housing.}
+For different types of property only certain factors are applicable.
+Take for instance the apartment market where the size of the lot is a not applicable factor.
+To create a statistical model based on applicable factors, these factors must be measurable.
+An easily measurable factor is the size in $m^2$, as this is a objective measure which is universal.
+But there is other factors such as the condition, this is a non-universal factor.
+One person might find an apartment to be in great condition, whereas another might find the same apartment to be in poor condition.
+% \textbf{Factors must be measureable.}
+So this is one possible consideration to take into account when considering which factors to consider including in a statistical model.
+% \textbf{Apartments are more homogenous.}
+In relation to the above considerations one might split the housing market into different segments and consider these as separate markets.
+Take for instance the apartment market, some of the internal factors are size, condition, balcony and so on.
+Consider next the market for single family homes, this market is affected for instance by the additional internal factor lot size.
+This is an additional factor that blurs the widely used metric of price per square meter of living space.
+To illustrate suppose all else equal two identical homes on different sized lots, then one house might have a higher price per square meter as it sits on a larger lot which might be more expensive.
+Thus we have to control for lot size in our statistical model.
+But then the gardens might be of different condition, which we would have to control for as well.
+Because of these additional consideration which will have to be made regarding the market for single family homes, the market for apartment is inherently more homogeneous.
+In other words there are less factors to consider in the market for apartments.
+
+
+\section{Data Introduction}
 In this section we will explore the dataset from HOME that is to be analysed in this project.
 The dataset consists of information regarding property sales in the period from 2004 to 2016.
 It has 131.920 observations where the price as well as some additional information on the property in question has been recorded.
@@ -272,27 +301,8 @@ This means that they can take either the value 0 or 1, where 0 refers to the cas
     \caption{Count of observations per balcony and renovation.}
 \end{table}
 
-%How the observations are distributed between the cities can be seen %on figure \ref{fig:distributions_between_cities}.
-%\begin{figure}[H]
-%    \centering
-%    \includegraphics[width=0.9\textwidth]{figures/Data_introduction/distribution_between_cities.pdf}
-%    \caption{Distribution of observations and a boxplot of price between the cities.}
-%    \label{fig:distributions_between_cities}
-%\end{figure}
-%
-%Here it is seen that most observations are from Copenhagen, which is %to be expected as there are more property than in the other 3 cities.
-%We can also note the differences in the average price between the %cities indicating that, all else equal just knowing the city in which %the apartment is located tells something about its price.
+\section{Predictive Performance}
+\textbf{Predictive performance, essential for HOME.}
 
-%Another widely used measure of the price of a house is the price per %square meter.
-%In figure \ref{fig:price_per_square_meter} the relationship between %the selling price and size of apartments is illustrated.
-%The figure shows a clear positive relationship between the two %variables in all of the four cities.
-%\begin{figure}[H]
-%    \centering
-%    \includegraphics[width=\textwidth]{figures/Data_introduction/price_per_square_meter.pdf}
-%    \caption{Relationship between the selling price and size of apartments in the four cities.}
-%    \label{fig:price_per_square_meter}
-%\end{figure}
-%As mentioned the data set includes house sales in the period from %2004 to 2016.
-%Naturally there will be some fluctuations in the average price from %one year to another, just as a result of the economic cycle.
-%Especially the years during the housing crisis a fall in the average %selling price is expected.
-%Indeed it is also possible to see this trend in the data as figure %\ref{fig:house_price_year} suggest.
+\section{Statement of Intent}
+Here the statement of intent is supposed to go.

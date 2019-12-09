@@ -5,7 +5,7 @@ The first section however will motivate the method of ordinary least squares thr
 \subsection{Least Squares}
 The main idea behind the least squares method is to minimize the sum of squared residuals, also known as $SSR$.
 Residuals refers to the difference between the observed and fitted values.
-Given a set of data points in the plane how might one find the line that best fit the data. 
+Given a set of data points in the plane, how might one find the line that best fit the data. 
 One way is to choose the line that minimizes the sum of squared residuals.
 In figure \ref{fig:example_simple_linear_regression} an example of a simple linear regression can be seen. 
 The figure illustrates the log price plotted against the age of a property sold by Home in Aalborg within the year 2012.
@@ -17,7 +17,7 @@ The figure illustrates the log price plotted against the age of a property sold 
     \label{fig:example_simple_linear_regression}
 \end{figure}
 
-The dataset has observations $\{a_i, log(p_i)\}$ with $i = 1, \ldots, 130$. 
+The data set has observations $\{a_i, log(p_i)\}$ with $i = 1, \ldots, 130$. 
 The age of the property is seen as the independent variable and the log price as the dependent variable.
 We can assume, albeit naive considering figure \ref{fig:example_simple_linear_regression}, that there is a linear relationship between age and log price of the property in question.
 This can be formulated as
@@ -166,7 +166,7 @@ The notion of homoscedasticity and heteroscedasticity will therefore be introduc
 % In this section we wish to introduce \homo and \hetero. The section is based on \cite{Wooldridge2012}. First we define what \homo and \hetero is. 
 
 \begin{definition}[Homoskedasticity and heteroskedasticity]
-When the variance of the error term does not depend on the explanatory variables $\mathbf{X}$ and is constant, the errors is said to be homoscedastic, thus the errors should satisfy
+When the variance of the error term does not depend on the explanatory variables $\mathbf{X}$ and is constant, the errors are said to be homoscedastic, thus the errors should satisfy
 \begin{align*}
     \var(\varepsilon | \mathbf{X}) = \var(\varepsilon) = \sigma^2.
 \end{align*}
@@ -195,7 +195,7 @@ In the case of \hetero the variance changes as $\mathbf{X}$ changes. Typically t
 
 For an example you can consider a households income and its spending on luxury items. If the income is low most will be spend on necessity items such as food. If the income is high there is the possibility but not the guarantee of spending more on luxury items, thus there will be a greater variance in the consumption of luxury goods in the segment with higher household income. Heteroskedasticity can arise when variances of unobserved factors changes over different segments in the sample space. 
 
-It is desired to have \homo rather than \hetero because \hetero will cause problems in statistical tests and linear regression, which will be investigated further in the section \ref{sec:consequence_of_hetero}. 
+It is desired to have \homo rather than \hetero because \hetero will cause problems in statistical tests and linear regression, which will be investigated further in section \ref{sec:consequence_of_hetero}. 
 
 \subsection{OLS as the Best Linear Unbiased Estimator}
 Now that the ideas of homoscedasticity and heteroscedasticity have been introduced, the next Gauss-Markov assumption can be stated.
@@ -244,7 +244,7 @@ This is the motivation for the following theorem, better known as the Gauss-Mark
     \begin{align}\label{eq:betahat_y}
         \betahat &= (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{y}
     \end{align}
-    is the best linear unbiased estimator \cite[p. 811]{Wooldridge2012}.
+    is the best linear unbiased estimator for $\betabold$ \cite[p. 811]{Wooldridge2012}.
 \end{theorem}\label{th:gauss_markoc_theorem}
 \begin{proof}
     Any linear estimator $\betahat$ can be written as

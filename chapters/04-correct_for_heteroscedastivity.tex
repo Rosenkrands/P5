@@ -2,15 +2,16 @@
 \section{Consequences of Heteroscedasticity}\label{sec:consequence_of_hetero}
 In this section we wish to determine how \hetero will affect both OLS, \textit{t-statistics}, \textit{F-statistics} and \textit{confidence intervals}. 
 
-First we wish to determine if the estimator $\betahat$ is unbiased or biased in the presence of heteroskedasticity.  
+First we wish to determine if the estimator $\betahat$ is unbiased in the presence of heteroskedasticity.  
 
 Remember assumption \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity} and \ref{as:zero_conditional_mean}. If these hold, theorem \ref{th:unbiasedness_of_ols} proved that the OLS estimator $\betahat$ is unbiased for $\boldsymbol{\beta}$, which is the same as $E[\hat{\beta}_j] = \beta_j
 $ for $j = 1,2, \ldots, k$. 
-Because $\var(\boldsymbol{\varepsilon} | \mathbf{X})$ did no determine whether the OLS was biased or unbiased in theorem \ref{th:unbiasedness_of_ols} and its proof, the presence of \hetero will not cause $\betahat$ to be biased. 
+Because $\var(\boldsymbol{\varepsilon} | \mathbf{X})$ did not determine whether the OLS was biased or unbiased in theorem \ref{th:unbiasedness_of_ols} and its proof, the presence of \hetero will not cause $\betahat$ to be biased. 
 
-Next we wish to determine how our measure-of-fit test $R^2$ is influenced by \hetero. 
-$R^2$ measures how much of the variance in the dependent variable is explained by the independent variables. In our model it determines how much of the variance in $y$ is explained by the variables $\mathbf{x}_1, \mathbf{x}_2, \ldots, \mathbf{x}_k$. 
-Low values of $R^2$ makes predictions difficult because most of the variance in $y$ is caused by unobserved factors in $\varepsilon$.
+Next we wish to determine how our measure-of-fit test $R^2$ is influenced by heteroskedasticity.
+
+$R$-squared measures how much of the variance in the dependent variable is explained by the independent variables. In our model it determines how much of the variance in $y$ is explained by the independent variables $\mathbf{x}_1, \mathbf{x}_2, \ldots, \mathbf{x}_k$. 
+Low values of $R$-squared makes predictions difficult because most of the variance in $y$ is caused by unobserved factors in $\varepsilon$.
 Consider the expression for $R$-squared
 \begin{align*}
     R^2 = 1 - \dfrac{SSR}{SST}
@@ -23,7 +24,7 @@ and $SST$ is the total sum of squares given as
 \begin{align*}
     SST \equiv \nsum (y_i - \overline{y})^2. 
 \end{align*}
-The $R$-squared value is between $0$ and $1$. The closer the value is to one $1$ the more of the variance is accounted for in the explanatory variables, thus it is desireable to have an $R$-squared value close to $1$.
+The $R$-squared value is therefore between $0$ and $1$. The closer the value is to one $1$ the more of the variance is accounted for in the explanatory variables, thus it is desireable to have an $R$-squared value close to $1$.
 This coefficient of determination can be changed to the adjusted $R$-squared as
 \begin{align*}
     R^2_{Adj} &= 1 - \dfrac{SSR/(n - k - 1)}{SST/(n - 1)}\\
@@ -31,12 +32,14 @@ This coefficient of determination can be changed to the adjusted $R$-squared as
 \end{align*}
 This rewriting of the coefficient of determination adjusts for the number of predictors in the model. This adjusted $R$-squared increases if a predictor improves more than the penalty of removing one degree of freedom. 
 
-Both $SSR$ and $SST$ is the unconditional variance in $R$-squared, thus they are not influenced by the presence of heteroskedasticity. This can be seen as neither $SSR$ or $SST$ are dependant on the explanatory variables $\textbf{X}$.
+Both $SSR$ and $SST$ is the unconditional variance in $R$-squared, thus they are not influenced by the presence of heteroskedasticity. 
+This can be seen as neither $SSR$ or $SST$ are dependant on the explanatory variables $\textbf{X}$.
 
 This means that heteroskedasticity does not cause the OLS estimator to be biased and nor does it affect the $R$-squared coefficient. 
 It will however cause the variance of the OLS estimator, i.e. $\var(\betahat)$, to be biased, which will be explained next.  
 
-The \homo assumption is $\var(\boldsymbol{\varepsilon} | \mathbf{X}) = \sigma^2$. If assumption \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity}, \ref{as:zero_conditional_mean} and \ref{as:homoskedasticity_and_no_serial_correlation} hold the variance of the OLS estimator can be expressed as in theorem \ref{th:variance-covariance_of_the_ols_estimator}, which implies that the variance of $\betahat$ given the explanatory variables has an explicit form given as
+The \homo assumption is $\var(\boldsymbol{\varepsilon} | \mathbf{X}) = \sigma^2$. 
+If assumption \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity}, \ref{as:zero_conditional_mean} and \ref{as:homoskedasticity_and_no_serial_correlation} hold, then the variance of the OLS estimator can be expressed as in theorem \ref{th:variance-covariance_of_the_ols_estimator}, which implies that the variance of $\betahat$ given the explanatory variables has an explicit form given as
 \begin{align*}
     \var(\betahat | \mathbf{X}) = \sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}.
 \end{align*}
@@ -47,7 +50,8 @@ The variance of the slope coefficients can be defined as
 where $j = 1, \ldots, k$ and $SST_j = \nsum (x_{ij} - \overline{x}_j)^2$ is the total sample variation in $x_j$ and $R^2_j$ is found from a regression on $x_j$ with all other independent variables. 
 
 Equation \eqref{eq:slope_variance_OLS_estimator} depends on $\sigma^2$, $SST_j$ and $R^2_j$.
-Here $\sigma^2$ is an unknown variable, the larger $\sigma^2$ the larger are the variances for the OLS estimators. $SST_j$ is the total sample variation in $x_j$, the larger it is the smaller the variance of the OLS estimators so it is preferred to have as much sample variation as possible which can be obtained by increasing sample size. 
+Here $\sigma^2$ is an unknown variable, the larger $\sigma^2$ the larger the variances for the OLS estimators. 
+$SST_j$ is the total sample variation in $x_j$, the larger it is the smaller the variance of the OLS estimators so it is preferred to have as much sample variation as possible which can be obtained by increasing sample size. 
 Notice that $R_j$-squared is found with a regression involving only the independent variables in the original model, where $x_j$ is the dependent variable. 
 This differs from the $R$-squared found by regression on $y$ with $x_1, \ldots, x_k$ as the independent variables. 
 
