@@ -1,7 +1,7 @@
 In this chapter we wish to introduce different methods for modelling including hypothesis testing and cross-validation.
 In addition, methods for validation of the models will be introduced and applied on the constructed models.
 
-The chapter is based on \cite{Allison2012}, \cite{MadsenThyregod2011} and \cite{Wooldridge2012}.
+The chapter is based on \cite{Allison2012}, \cite{MadsenThyregod2011}, \cite{Hoeg2016}, \cite{Wooldridge2012} and \cite{Hastie2008}.
 
 \section{Modelling} \label{sec:modelling}
 Based on the theory presented in chapter \ref{ch:Multip_linear_regresssion} we want to design a model and determine its coefficients. 
@@ -9,7 +9,7 @@ This will be done using the HOME dataset presented in chapter \ref{ch:introducti
 As argued there, the purpose is to predict prices based on selected independent variables that we suspect have an impact on the price of apartments in the selected cities.
 The multiple regression model we will use in the following chapter is on the form
 \begin{align*}
-    \textit{price} &\sim \textit{cond} + \textit{size} + \textit{selling.period} + \textit{year.construct} + \textit{balcony} + \textit{renovation} + \textit{city} + \textit{year.sale}.
+    \log(\textit{price}) &\sim \textit{cond} + \textit{size} + \textit{selling.period} + \textit{year.construct} + \textit{balcony} + \textit{renovation} + \textit{city} + \textit{year.sale}.
 \end{align*}
 However the model is rather complex as it contains a lot of parameters.
 To combat this we wish to remove the least relevant parameters to simplify the model, but still keep as much explanatory value in the model as possible.
@@ -17,6 +17,11 @@ Choosing the order of which to remove the parameters is known as subset selectio
 One method is called backwards step wise selection. 
 The approach is to first remove the parameter that explains the least variation in the data, in order to remove the parameters in a strategic manner.
 More specifically it is a greedy algorithm that starts with the full model, and at each step removes the parameter which adds the least to the $R$-squared.
+
+This order and how much of the variation each parameter explains, is presented in table \ref{tbl:Parameter_SSE}.
+Because we want a simple model, that should only be used in conjunction with the evaluation of a real estate agent, we remove the parameters that explain least variation in the data. 
+Here we choose to remove 3 parameters: $year.construct$, $selling.period$ and $renovation$. 
+
 %\begin{align*}
 %    \textit{price} &\sim \beta_0 +  \beta_1\textit{cond} + \beta_2\textit{size} + \beta_3\textit{selling.period} + \beta_4\textit{year.construct}\\
 %    &\qquad + \beta_5\textit{balcony} + \beta_6\textit{renovation} + \beta_7\textit{city} + \beta_8\textit{year.sale}
@@ -43,21 +48,22 @@ More specifically it is a greedy algorithm that starts with the full model, and 
 % The question is therefore rather if they are worth the added complexity.
 % We observe that with a tolerance level of 2 decimals, \textit{renovation}, \textit{selling.period} and \textit{year.construction} have coefficient of determination equal to zero and this may warant removing them from the model.
 
-\begin{table}[]
+\begin{table}[H] 
 \begin{tabular}{@{}lllllllll@{}}
 \toprule
 \textbf{Par.} & year.construct & selling.period & renovation & balcony & cond & year.sale & log(size) & city   \\ \midrule
-\textbf{SSE} & 0.04           & 0.11           & 0.71       & 1.65    &      & 16.67     & 287.40    & 349.12 \\ \bottomrule
+\textbf{SSE} & 0.04           & 0.11           & 0.71       & 1.65    &   4.72   & 16.67     & 287.40    & 349.12 \\ \bottomrule
 \end{tabular}
+\caption{How much the explained sum of squares is reduced for each step in the backwards stepwise selection.}
+\label{tbl:Parameter_SSE}
 \end{table}
-
 Categorical variables like \textit{city} are potentially problematic, as these are accounted for by dummy variables, that add a different intercept for the model depending on which city is observed.
 In order for this to give an accurate estimate of the cities influence on price, the estimated coefficients for the other variables need to be similar for models made from data of the different cities. 
-To illustrate this we have plotted \textit{log(size)} against \textit{price} in figure \ref{fig:Forskellig_haeldning}, for each of the cities.
+To illustrate this we have plotted \textit{log(price)} against \textit{size} in figure \ref{fig:Forskellig_haeldning}, for each of the cities.
 \begin{figure}[H]
     \centering
     \includegraphics[width = 0.7\textwidth]{figures/Nanna/Forskellig_haeldning.pdf}
-    \caption{The lines represents linear regressions where \textit{price} and $\log(price)$ is treated as the dependent variable and size in square meters the dependent variable.}
+    \caption{The lines represent linear regressions where \textit{log(price)} is treated as the dependent variable and $size$ in square meters is the independent variable.}
     \label{fig:Forskellig_haeldning}
 \end{figure}
 Making linear models for each of these groups, we find that the difference in slope between the models is significant.
@@ -89,7 +95,7 @@ Copenhagen                                                                      
 \label{tab:my-table}
 \end{table}
 
-Adding \textit{city} as a parameter therefore decreases accuracy, and it might be wise to make separate models for each city. 
+Adding \textit{city} as a parameter therefore decreases accuracy, and it might be wise to make separate models for each of the cities. 
 Note that this example only considers the size, and not the other categorical variables.
 
 % Below in figure \ref{fig:Opfoerelsesaar_plot} is a plot of how the parameter \textit{year.construct} influences \textit{price}.
@@ -103,7 +109,7 @@ Note that this example only considers the size, and not the other categorical va
 %     \label{fig:Opfoerelsesaar_plot}
 % \end{figure}
 
-From the left side of figure \ref{fig:Forskellig_haeldning} we see that the observations are heteroskedastic and their variance increases as \textit{size} increases. 
+From figure \ref{fig:Forskellig_haeldning} we see that the observations are heteroskedastic and their variance increases as \textit{size} increases. 
 In order to satisfy the Gauss-Markov assumptions the observations need to have constant variance and we therefore need to transform the data, to remedy this. 
 The logarithm is a variance stabilizing function, so using this on both \textit{price} and \textit{size} we see that the residuals seem to be approximately normally distributed around the regression line, as illustrated in figure \ref{fig:Log_Model_plot}. 
 
@@ -138,11 +144,11 @@ In the same manner we conclude, that the variance of the price is less heteroske
 % Of note is the parameter $cond$ for Copenhagen, since this went from 0.001731 to 0.112, making it a much more useful parameter. 
 Further, we will use the following model as our full model, in the coming sections.
 \begin{align*}
-    \log(price) \sim \textit{cond} + \log(size)  + \textit{balcony} + year.sale.
+    \log(price) \sim \log(size) + year.sale + \textit{cond} +  \textit{balcony}.
 \end{align*}
 
 \subsection{Multicollinearity}
-As it was explained in section \ref{sec:consequence_of_hetero}, we desire as little multicolliearity as possible, as it increases the variance of the slope coefficients.
+As it was explained in section \ref{sec:consequence_of_hetero}, we desire as little multicollinearity as possible, as it increases the variance of the slope coefficients.
 One way to quantify multicollinearity is
 to use the variance inflation factor (VIF) which is defined as
 \begin{align*}
@@ -178,5 +184,5 @@ One should also be cautious how much weight is put on multicollinearity.
 
 It is clear that other things equal we want lower multicollinearity as this will reduce the variance of the slope coefficients given in \eqref{eq:slope_variance_OLS_estimator}.
 But multicollinearity, or VIF, is only one of three components in the slope coefficient variance.
-The other two being $\sigma^2$, the variance of the error term, and the total sample variation in $\textbf{x}_j$ given as $\text{SST}_j = \sum_{i=1}^n(\textbf{x}_{ij} - \overline{\textbf{x}}_j)$.
+The other two being $\sigma^2$, the variance of the error term, and the total sample variation in $\textbf{x}_j$ given as $\text{SST}_j = \sum_{i=1}^n(x_{ij} - \overline{x}_j)$.
 So before putting to much weight on a high VIF, one must also consider the other two factors with influence on the variance of the slope coefficients.

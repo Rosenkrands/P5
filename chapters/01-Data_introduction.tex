@@ -2,19 +2,21 @@
 
 One of the tasks associated with being a real estate agent is to determine how much property is worth in order to set a price that is not so high that the property will not receive any interest, but not so low that the full potential is not utilized.
 % \textbf{Housing prices depends on different factors.}
-The price of a house depend on many factors both internal and external.
+The price of a house depends on many factors both internal and external.
 Internal factors could refer to the size, condition or layout.
-External factors could refer to the were the property is located, interest rates or economic growth.
+External factors include where the property is located, interest rates or economic growth.
 % \textbf{Different factors for different types of housing.}
 For different types of property only certain factors are applicable.
-Take for instance the apartment market where the size of the lot is a not applicable factor.
+Take for instance the apartment market where the size of the lot is a not an applicable factor.
 To create a statistical model based on applicable factors, these factors must be measurable.
 An easily measurable factor is the size in $m^2$, as this is a objective measure which is universal.
-But there is other factors such as the condition, this is a non-universal factor.
+But there are other factors, such as the condition, that are subjective and therefore non-universal.
 One person might find an apartment to be in great condition, whereas another might find the same apartment to be in poor condition.
+In other words the subjective factors can be more unreliable as compared to the objective factors. 
 % \textbf{Factors must be measureable.}
-So this is one possible consideration to take into account when considering which factors to consider including in a statistical model.
+This is a precaution to take into account when considering which factors to include in a statistical model.
 % \textbf{Apartments are more homogenous.}
+
 In relation to the above considerations one might split the housing market into different segments and consider these as separate markets.
 Take for instance the apartment market, some of the internal factors are size, condition, balcony and so on.
 Consider next the market for single family homes, this market is affected for instance by the additional internal factor lot size.
@@ -24,7 +26,11 @@ Thus we have to control for lot size in our statistical model.
 But then the gardens might be of different condition, which we would have to control for as well.
 Because of these additional consideration which will have to be made regarding the market for single family homes, the market for apartment is inherently more homogeneous.
 In other words there are less factors to consider in the market for apartments.
+As an extension a statistical model for apartments would be less complex compared to a model that involves more inhomogeneous segments of the housing market.
 
+The authors of this project have been presented with a dataset from the danish real estate agency HOME, regarding house sales.
+Throughout the project relevant statistical theory will be introduced and utilized to create a statistical model based on this data.
+In the next section an introduction to the dataset will be presented.
 
 \section{Data Introduction}
 In this section we will explore the dataset from HOME that is to be analysed in this project.
@@ -66,8 +72,8 @@ The number of observations after the reduction is 3.086.
 
 \section{Partitioning the Dataset}
 In preparation for section \ref{sec:prediction} we will set aside the observations from sales in 2016.
-These observations can then be used to asses the predictive accuracy of the models that will be developed in the project.
-The number of sales in 2016 amounts to 200 observations, the distribution between cities can be found in table \ref{tbl:2016_obs_per_city}.
+These observations can then be used to asses the predictive accuracy of the models that will be developed in this project.
+The number of sales in 2016 amounts to 200 observations and the distribution between cities can be found in table \ref{tbl:2016_obs_per_city}.
 \begin{table}[H]
     \centering
     \begin{tabular}{lr}
@@ -302,7 +308,13 @@ This means that they can take either the value 0 or 1, where 0 refers to the cas
 \end{table}
 
 \section{Predictive Performance}
-\textbf{Predictive performance, essential for HOME.}
+For a statistical model of apartment prices to be useful for a real estate agency it will have to be able, with high accuracy, to predict apartment prices.
+If such a statistical model were to be created it could automate the appraisal process for apartments.
+Because all the real estate agent would need is some internal and external factors to give the statistical model, which would then give an appraisal of the apartment.
+This could reduce the expenses for the real estate agent and also reduce the time the seller would have to wait for an appraisal.
 
 \section{Statement of Intent}
-Here the statement of intent is supposed to go.
+
+\begin{center}
+    \textit{How can cross-validation and F-tests be used to test a statistical model, and how can the predictive performance be measured for said model?}
+\end{center}
