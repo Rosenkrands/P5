@@ -19,7 +19,7 @@ The approach is to first remove the parameter that explains the least variation 
 More specifically it is a greedy algorithm that starts with the full model, and at each step removes the parameter which adds the least to the $R$-squared.
 
 This order and how much of the variation each parameter explains, is presented in table \ref{tbl:Parameter_SSE}.
-Because we want a simple model, that should only be used in conjunction with the evaluation of a real estate agent, we remove the parameters that explain least variation in the data. 
+Because we want a simple model, that should only be used in conjunction with the evaluation of a real estate agent, we remove the parameters that explain least variation in the data. The measurement variation explained is known as $SSE = SST-SSR$. 
 Here we choose to remove 3 parameters: $year.construct$, $selling.period$ and $renovation$. 
 
 %\begin{align*}
@@ -62,7 +62,7 @@ In order for this to give an accurate estimate of the cities influence on price,
 To illustrate this we have plotted \textit{log(price)} against \textit{size} in figure \ref{fig:Forskellig_haeldning}, for each of the cities.
 \begin{figure}[H]
     \centering
-    \includegraphics[width = 0.7\textwidth]{figures/Nanna/Forskellig_haeldning.pdf}
+    \includegraphics[width = 1\textwidth]{figures/Nanna/Forskellig_haeldning.pdf}
     \caption{The lines represent linear regressions where \textit{log(price)} is treated as the dependent variable and $size$ in square meters is the independent variable.}
     \label{fig:Forskellig_haeldning}
 \end{figure}
@@ -115,7 +115,7 @@ The logarithm is a variance stabilizing function, so using this on both \textit{
 
 \begin{figure}[H] 
     \centering
-    \includegraphics[width = 0.7\textwidth]{figures/Nanna/Plot_forskellig_haeldning.pdf}
+    \includegraphics[width = 1\textwidth]{figures/Nanna/Plot_forskellig_haeldning.pdf}
     \caption{Simple linear regression model with $\log(price)$ as dependent variable and $\log(size)$ as the independent variable.}
     \label{fig:Log_Model_plot}
 \end{figure}

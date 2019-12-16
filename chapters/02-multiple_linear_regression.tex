@@ -1,14 +1,15 @@
-In this chapter we wish to introduce methods to create a model with parameters that best describe a given dataset.
-First the multiple linear regression model will be introduced and next 
 
-This chapter is based on \cite{Wooldridge2012}.
+In this chapter we wish to introduce methods to create a model with parameters that best describe a given dataset.
+First the multiple linear regression model will be introduced.
+
+This chapter is based on \cite{MadsenThyregod2011} and \cite{Wooldridge2012}.
 
 \section{The Multiple Linear Regression Model}
 This project will use multiple linear regression to create a model for pricing apartments. The multiple linear regression model will therefore be introduced. The multiple linear regression model with $k+1$ parameters for observation $y_i$ is
 \begin{align}\label{eq:multiple_linear_regression}
   y_i = \beta_0 + \beta_1 x_{i1} + \ldots + \beta_k x_{ik} + \varepsilon_i.
 \end{align}
-Here $\beta_0$ is the intercept and $\beta_1, \ldots, \beta_k$ are the coefficients for the explanatory variables $\textbf{x}_i = (x_{i1}, \ldots, x_{ik})$ and $\varepsilon_i$ is the unobserved error term.
+Here $\beta_0, \ldots, \beta_k$ are the coefficients for the explanatory variables $\textbf{x}_i = (1, x_{i1}, \ldots, x_{ik})$ and $\varepsilon_i$ is the unobserved error term.
 
 With multiple data points $y_i$ for $i = 1, \ldots, n$ the model can be represented using matrix notation
 \begin{align}\label{eq:multiple_linear_regression_model}
@@ -31,7 +32,7 @@ Writing the matrices out in full, we get
     \varepsilon_1 \\ \varepsilon_2 \\ \vdots \\ \varepsilon_n \\
   \end{bmatrix}.
 \end{align}
-Note that the first column  in $\boldsymbol{X}$ consists of all 1's, since $\beta_{0}$ is the intercept and therefore has coefficient $1$. $\textbf{X}$ is often referred to as the design matrix. 
+Note that the first column in $\mathbf{X}$ consists of all 1's, since $\beta_{0}$ is the intercept and therefore has coefficient $1$. $\textbf{X}$ is often referred to as the design matrix. 
 
 When $\textbf{y}$, $\textbf{X}$ and the distribution of $\boldsymbol{\varepsilon}$ are known, it is possible to estimate the unknown parameters $\boldsymbol{\beta}$. 
 In order to determine these parameters, $\boldsymbol{\beta}$, we will use the ordinary least squares (OLS) estimate, though there are other methods of estimating parameters for this model.

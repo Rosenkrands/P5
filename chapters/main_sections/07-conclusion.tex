@@ -1,1 +1,62 @@
 \chapter{Conclusion}\label{ch:conclusion}
+Throughout this project we have explored a dataset from HOME consisting of sales price and various descriptive variables of approximately $130.000$ observations. Our goal was to obtain crucial knowledge that allows us to answer the questions proposed in the statement of intent in section \ref{sec:statement_of_intent}, which will be answered here. We repeat the statement of intent below 
+
+\textit{Under which conditions is the Maximum-Likelihood estimator equal to the Ordinary-Least-Squares estimator?
+How can $F$-tests and cross-validation be used to formulate a statistical model based on the HOME dataset?
+What are the characteristics of the two methods in the context of prediction?}
+
+In chapter \ref{ch:likelihood_theory} we covered basic theory regarding likelihood theory such as unbiased estimators and uniformly mean square errors. This chapter defines the best linear unbiased estimator to be the one with the least variance and is linear in its parameters and unbiased. This estimator is abbreviated as BLUE and it is desired to obtain the BLUE when shaping a model to describe a dataset because of the low variance. 
+In addition the Cramer-Rao inequality was introduced in theorem \ref{th:cramerrao_inequality}, which states the lower bound of an unbiased estimators variance is given as
+\begin{align*} 
+    \var \Big[ \boldsymbol{\hat{\beta}}(\textbf{Y})\Big] \geq \textit{\textbf{i}}^{-1}(\boldsymbol{\beta}).
+\end{align*}
+Based on this theory it is possible to establish conditions under which the BLUE is obtained. These where found in chapter \ref{ch:Multip_linear_regresssion} as
+
+% Casper Conclusions from multiple regression
+%% Under the Gauss-Markov assumptions the OLS is the BLUE
+In theorem \ref{th:gauss_markoc_theorem} it is proven that under assumptions \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity}, \ref{as:zero_conditional_mean} and \ref{as:homoskedasticity_and_no_serial_correlation}, the OLS estimator is BLUE, since it is the unbiased estimator with the least variance.
+Next we found the MLE for $\sigma^2$ to be biased, as it does not account for the difference in degrees of freedom between the error term and the residuals.
+Our estimate for the variance of the residuals is therefore adjusted to remedy this and thus becomes
+\begin{align*} \label{eq:sigma_hat_2_n-k-1}
+    s^2 = \frac{SSR(\betahat)}{n - k - 1}.
+\end{align*}
+The assumption of homoskedasticity, assumption \ref{as:homoskedasticity_and_no_serial_correlation}, is necessary in order for the standard error to be a feasible estimator for the standard deviation.
+This means that if this assumption was not met, the error terms would not be normally distributed.
+This would then violate assumption \ref{as:normality_of_errors}, and thereby make the results using it inapplicable. 
+
+
+% Kasper Conclusions from modelling and hypothesis test
+%% There are different methods to test the relevance of parameters
+In chapter \ref{ch:hypothesis_testing} both $t$- and $F$-test was introduced and used to test hypotheses regarding the model found at the beginning of the chapter.
+Using $t$-test we found that there is a statistically significant relationship between $\log(price)$ and $\log(size)$ in all four cities.
+For the other variables we obtained varying results for the different cities. 
+Going further we used $F$-test to determine whether or not model reductions could be justified for each of the four cities.
+Unlike $t$-test, the $F$-test can be used to test hypothesis involving exclusion of multiple parameters.
+Then 5-fold cross-validation was used to again determine if model reductions could be justified.
+From the two methods we obtained different results for two of the cities as seen in table \ref{tab:different_models}.
+\begin{table}[H]
+    \centering
+    \begin{tabular}{l|ll}
+    \toprule
+    \textbf{City} & \textbf{F} & \textbf{CV} \\
+    \midrule
+    Copenhagen  & $\log(size) + year.sale + cond + balcony$ & $\log(size) + year.sale + cond$\\
+    Aarhus      & $\log(size) + year.sale + cond$           & $\log(size) + year.sale + cond$\\
+    Odense      & $\log(size) + year.sale + balcony$        & $\log(size)$\\
+    Aalborg     & $\log(size) + year.sale$                  & $\log(size) + year.sale$\\
+    \bottomrule
+    \end{tabular}
+    \caption{Models obtained from the different methods.}
+    \label{tab:different_models}
+\end{table}
+%% We cannot conclude which is superior but we obtain better predictive performance using F-test
+Using the models obtained from both methods to predict 2016 apartment prices, we found a slightly better mean predictive performance using the $F$-test models across the four cities.
+Even though we found that the $F$-test models on average performed better that the cross-validation models, we cannot conclude that this is true in general.
+
+As argued in chapter \ref{ch:discussion}, a biased estimator obtained using either ridge- or lasso regression might have obtained better predictive performance compared to those obtained from OLS. 
+Both methods introduce bias with the purpose of lowering variance.
+Therefore subtracting the OLS with either ridge- or lasso regression in this project might would have lead to models with better performance out-of-sample.
+
+Additionally from the choice of $K=n$ number of folds in cross-validation instead of $K=5$, we expect that for larger $K$ bias will fall but the variance will increase.
+Therefore this method might would have provided less biased performance statistics but with increased variance.
+The application of $K=n$ yielded results that differ from those found from $K=5$ but in order to determine which application gives most valid models or gives models that perform best out-of-sample requires further analysis. 

@@ -53,7 +53,7 @@ and the $p$-value is
 \begin{align}\label{eq:t_test_pvalue}
     p(\textbf{y},\beta_{0j})=P\Big(|t_j(\textbf{Y};\beta_{0j})|\geq |t_j(\textbf{y};\beta_{0j})|\Big).
 \end{align}
-The p-value is the probability that, if the null hypothesis were true, sampling variation would produce an estimate that is further away from the hypothesised parameter value than our data estimates.  
+The $p$-value is the probability that, if the null hypothesis were true, sampling variation would produce an estimate that is further away from the hypothesised parameter value than our data estimates.  
 Thus it would lie in the tails of the $pdf$ of the $t$-distribution seen in figure \ref{fig:t_distribution}.
 Meaning that a low $p$-value is evidence against $\mathcal{H}_0$.
 
@@ -225,7 +225,7 @@ The $95\%$-significance level, means that we evaluate the inverse $cdf$ in $0.02
 This is illustrated in figure \ref{fig:CDF_inverse} where the intersection of the dotted lines gives the critical $t$-values.
 \begin{figure}[H]
     \centering
-    \includegraphics[width = 0.5\textwidth]{figures/Nanna/Inverse_CDF.pdf}
+    \includegraphics[width = 0.6\textwidth]{figures/Nanna/Inverse_CDF.pdf}
     \caption{The inverse $cdf$ in which we obtain the critic values for $\mathcal{H}_0$ of the chosen $95\%$-significance level.}
     \label{fig:CDF_inverse}
 \end{figure}
@@ -296,7 +296,7 @@ In order to test models with more than one parameter, we therefore introduce the
 % \end{align*}
 % \end{example}
 
-\subsection{F-Test}\label{sec:Ftest}
+\subsection{\textit{F}-Test}\label{sec:Ftest}
 Suppose we want to test if a multiple regression model has redundant explanatory variables.
 In terms of hypothesis testing this is the null hypothesis: A set of variables has no statistically significant effect on $\textbf{y}$, once another set of variables has been controlled for.
 
@@ -373,18 +373,19 @@ Note this is only the case for multiple regression.
 \end{theorem}
 
 \begin{proof}
-    Under $\mathcal{H}_1$: $\hat{\boldsymbol{\mu}}_1 = \textbf{H}_1 \textbf{y}$ and $\hat{\sigma}_1^2 = \frac{\| \textbf{y} - \textbf{H}_1 \textbf{y} \|^2}{n}$, the log-likelihood 
+    Under $\mathcal{H}_1$: $\boldsymbol{\mu}_1 = \textbf{H}_1 \textbf{y} \in \Omega_1$ and $\hat{\sigma}_1^2 = \frac{\| \textbf{y} - \textbf{H}_1 \textbf{y} \|^2}{n}$, the log-likelihood 
     function for the normal distribution is
     \begin{align*}
-        l(\textbf{y};\hat{\boldsymbol{\mu}}_1, \hat{\sigma}_1^2) &= -\frac{n}{2} log(\hat{\sigma}_1^2) - \frac{1}{2 \hat{\sigma}_1^2} \| \textbf{y} - \textbf{H}_1 \textbf{y} \|^2 \\
+        l(\textbf{y};\boldsymbol{\mu}_1, \hat{\sigma}_1^2) &= -\frac{n}{2} log(\hat{\sigma}_1^2) - \frac{1}{2 \hat{\sigma}_1^2} \| \textbf{y} - \textbf{H}_1 \textbf{y} \|^2 \\
         &= -\frac{n}{2} log(\hat{\sigma}_1^2) - \frac{n}{2},
     \end{align*}
-    and similarly for $\mathcal{H}_0$. Therefore the likelihood ratio can be written as
+    and similarly for $\mathcal{H}_0:$ $\boldsymbol{\mu}_0 = \textbf{H}_0 \textbf{y} \in \Omega_0$. 
+    Therefore the likelihood ratio can be written as
     \begin{align*}
-        \lambda(\textbf{y}) &= \exp \left( l(\textbf{y};\hat{\boldsymbol{\mu}}_0, \hat{\sigma}_0^2) - l(\textbf{y};\hat{\boldsymbol{\mu}}_1, \hat{\sigma}_1^2) \right) \\
+        \lambda(\textbf{y}) &= \exp \left( l(\textbf{y};\boldsymbol{\mu}_0, \hat{\sigma}_0^2) - l(\textbf{y};\boldsymbol{\mu}_1, \hat{\sigma}_1^2) \right) \\
         &= \exp \left( -\frac{n}{2} \Big( log(\hat{\sigma}_0^2) - log(\hat{\sigma}_1^2)\Big) \right) \\
         &= \left( \frac{\| \textbf{y} - \textbf{H}_1 \textbf{y} \|^2}{\| \textbf{y} - \textbf{H}_0 \textbf{y} \|^2} \right)^{\frac{n}{2}} \\
-        &= \left( \frac{\| \textbf{y} - \textbf{H}_1 \textbf{y} \|^2}{\| \textbf{y} - \textbf{H}_1 \textbf{y} \|^2 + \| \textbf{H}_1 y - \textbf{H}_0 \textbf{y} \|^2} \right)^{\frac{n}{2}}.
+        &= \left( \frac{\| \textbf{y} - \textbf{H}_1 \textbf{y} \|^2}{\| \textbf{y} - \textbf{H}_1 \textbf{y} \|^2 + \| \textbf{H}_1 \textbf{y} - \textbf{H}_0 \textbf{y} \|^2} \right)^{\frac{n}{2}}.
     \end{align*}
     The last equation holds because $\textbf{y} - \textbf{H}_1 \textbf{y}$ is orthogonal to $\Omega_1$ and $(\textbf{H}_1 \textbf{y} - \textbf{H}_0 \textbf{y}) \in \Omega_1$. 
     Dividing by the numerator and using \eqref{eq:F_statistic}, the above equation becomes
@@ -392,7 +393,7 @@ Note this is only the case for multiple regression.
         \lambda(\textbf{y}) &= \left( \frac{1}{1 + \frac{\| \textbf{H}_1 \textbf{y} - \textbf{H}_0 \textbf{y} \|^2}{\| \textbf{y} - \textbf{H}_1 \textbf{y} \|^2}} \right)^{\frac{n}{2}} \\
         &= \left( \frac{1}{1 + \frac{q}{n-k-1}F(\textbf{y})}  \right)^{\frac{n}{2}}.
     \end{align*}
-    The likelihood ratio is therefore a function of $F$, and since it is in the denominator, $\lambda(\textbf{y})$ is a decreasing function of $F(\textbf{y})$. We again see that large values of $F$ are critical, since small values of $\lambda(\textbf{y})$ are critical.
+    The likelihood ratio is therefore a function of the $F$-statistic, and since it is in the denominator, $\lambda(\textbf{y})$ is a decreasing function of $F(\textbf{y})$. We again see that large values of $F$ are critical, since small values of $\lambda(\textbf{y})$ are critical.
     
     The fact that $F$ is $F$-distributed is seen from
     \begin{align*}
@@ -433,17 +434,17 @@ Note this is only the case for multiple regression.
         (\textbf{I} - \textbf{H}_{-1})\textbf{H}\textbf{y} = 
         (\textbf{I} - \textbf{H}_{-1})\textbf{x}_1\hat{\beta}_1(\textbf{y})
     \end{align*}
-    since $(\textbf{I} - \textbf{H}_{-1})\textbf{X}_{-1} = 0$.
+    since $(\textbf{I} - \textbf{H}_{-1})\textbf{X}_{-1} = \textbf{0}$.
     Hence, as $\textbf{I} - \textbf{H}_{-1}$ is symmetric and idempotent,
     \begin{align*}
         \|\textbf{H}\textbf{y} - \textbf{H}_{-1}\textbf{y}\|^2 = \hat{\beta}_1(\textbf{y})^2\textbf{x}_1^\top(\textbf{I} - \textbf{H}_{-1})\textbf{x}_1.
     \end{align*}
-    In appendix \ref{ch:block_matrix_inversion} it is verified that $\textbf{x}_1^\top(\textbf{I} - \textbf{H}_{-1})\textbf{x}_1 = 1/d_1$.
+    Using theorem \ref{th:block_matrix_inversion} it can be shown that $\textbf{x}_1^\top(\textbf{I} - \textbf{H}_{-1})\textbf{x}_1 = 1/d_1$.
     Consequently,
     \begin{align*}
         F(\textbf{y}) = \frac{\hat{\beta}(\textbf{y})^2/d_1}{\hat{\sigma}^2(\textbf{y})} = t_1(\textbf{y};0)^2
     \end{align*}
-    and so the $t$-test in theorem (specify which) is equivalent to the $F$-test, in the case of $df=1$, which in turn is equivalent to the likelihood ratio test.
+    and so the $t$-test in theorem \ref{th:t_distribution} is equivalent to the $F$-test, in the case of $df=1$, which in turn is equivalent to the likelihood ratio test.
     
     Consider next the general case where $\beta_{01}$ is any fixed number: Let $\textbf{Z} = \textbf{Y} - \textbf{x}_1\beta_{01}$ and
     \begin{align*}
@@ -505,21 +506,21 @@ This is found using the quantile function
 \begin{lstlisting}
 upper = qf(0.95, df1 = dfmod1, df2 = dfmod0)
 \end{lstlisting}
-The $pdf$ and associated critical value are now plotted
+The $pdf$ and associated critical value are now plotted in figure \ref{fig:f_dist}.
     
-\begin{lstlisting}
-ggplot(aes(x = x, y = pdf), data = dist_df) +
-geom_line()
-# Mark significance level
-geom_area(data=dist[which(dist$x > upper),], aes(x=x, y=pdf), 
-fill = "red", alpha = 0.6)
-\end{lstlisting}
+% \begin{lstlisting}
+% ggplot(aes(x = x, y = pdf), data = dist_df) +
+% geom_line()
+% # Mark significance level
+% geom_area(data=dist[which(dist$x > upper),], aes(x=x, y=pdf), 
+% fill = "red", alpha = 0.6)
+% \end{lstlisting}
     
 \begin{figure}[H]
     \centering
-  \includegraphics[width = 0.5 \textwidth]{figures/Fdistsign.pdf}
+  \includegraphics[width = 0.7 \textwidth]{figures/Nanna/Fdistsign.pdf}
   \caption{Pdf for F-distribution with significance level}
-  \label{fig:my_label}
+  \label{fig:f_dist}
 \end{figure}
     
 The significance level is illustrated by the area under the curve marked with red, and has area equal to the significance level.
@@ -839,9 +840,9 @@ Since the $t$-distribution converges toward the normal distribution for large da
 
 \subsection{Application of Studentized Residuals} \label{sub:residuals}
 
-In this application we want to verify the earlier stated assumption \ref{as:normality_of_errors} about the errors for the models obtained from the $F$-test and from the 5-fold cross-validation. 
+In this application we want to verify the earlier stated assumption \ref{as:normality_of_errors} about the errors of the models obtained from the $F$-test and from the 5-fold cross-validation. 
 Since the error term is unobserved, the investigation is performed on the residuals of the models.
-Odense is the illustrated case in figure \ref{fig:studentized_res_plot}, since only Aarhus and Odense have different results from the $F$-test compared to cross-validation.
+Copenhagen is the illustrated case in figure \ref{fig:studentized_res_plot}, but Aarhus and Odense also have different results from the $F$-test compared to cross-validation.
 
 Both models seem to comply well with assumption \ref{as:normality_of_errors}, and are almost exactly the same.
 Both have more data located at the left tail of the distribution, as compared to the normal distribution. 
@@ -856,15 +857,15 @@ As a result, we expect that the 95\% prediction interval and the 95\% confidence
   \label{fig:studentized_res_plot}
 \end{figure}
 
-For Aarhus the model obtained from cross-validations seems to satisfy the stated assumptions slightly better than the model obtained from the $F$-test. 
-For Odense and Aalborg the residuals are approximately normal distributed. 
-However, the residuals of the model for Aalborg differs the most from a normal distribution, as illustrated in figure \ref{fig:studentized_res_plot_Aalborg}.
+For Odense the residuals are approximately normal distributed and there is no noteworthy difference in the residuals of the two models.
+This is a general result for the remaining cities as the residuals is almost the same for the models from $F$-test compared to those found by cross-validation and they are approximately normal distributed.
+However, the residuals of the models for Aarhus and Aalborg differ the most from a normal distribution, as illustrated for Aalborg in figure \ref{fig:studentized_res_plot_Aalborg}.
 Therefore, we expect the Aalborg model to have slightly inferior predictive performance compared to the other models.
 
 \begin{figure}[H]
     \centering
   \includegraphics[width = 0.95 \textwidth]{figures/Nanna/NormalAal.pdf}
-  \caption{QQ-plot and histogram plot for the studentized residuals using observation from Aalborg.}
+  \caption{QQ-plot and histogram plot for the studentized residuals of the models for Aalborg.}
   \label{fig:studentized_res_plot_Aalborg}
 \end{figure}
 
@@ -1380,7 +1381,7 @@ Here the $post.crisis$ coefficient may not be representative for the general lev
 \section{Error Diagnostics}
 In this section prediction errors of the obtained models from $F$-test and cross-validation are investigated. The investigation covers both included and previously excluded variables. We want to clarify if the errors are systematic in any way.
 
-For Copenhagen we obtained the same model from $F$-test and cross-validation.
+In this section we focus on the errors obtained from the model for Copenhagen from cross-validation.
 In figure \ref{fig:error_cont} the prediction errors of the model and the continuous predictors are plotted in scatterplots. 
 Overall, the model seems to underpredict the prices on the 2016 data. 
 This indicates, that the prices were generally increased in the year 2016 compared to the weighted average of the remaining years in $post.crisis$. 

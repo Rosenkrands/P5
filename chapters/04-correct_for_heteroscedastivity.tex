@@ -53,25 +53,25 @@ $SST_j$ is the total sample variation in $x_j$, the larger it is the smaller the
 Notice that $R_j$-squared is found with a regression involving only the independent variables in the original model, where $x_j$ is the dependent variable. 
 This differs from the $R$-squared found by regression on $y$ with $x_1, \ldots, x_k$ as the independent variables. 
 
-Consider the example $y = \betahat_0 + \betahat_1 x_1 + \betahat_2 x_2 + \varepsilon$, here $R_1$-squared is found by making a regression of $x_1$ on $x_2$. 
+Consider the example $y = \hat{\beta}_0 + \hat{\beta}_1 x_1 + \hat{\beta}_2 x_2 + \varepsilon$, here $R_1$-squared is found by making a regression of $x_1$ on $x_2$. 
 As always an $R_1$-squared value close to one means that $x_2$ explains much of the variation in $x_1$, so a value close to $1$ means that $x_1$ and $x_2$ are highly correlated.
 $R_j$-squared tests how much of the variation in one of the independent variables is explained from the remaining independent variables.
 In the case of multiple regression with more than 2 independent variables, this is known as multicollinearity.
-The best estimator for $\betahat_j$ is found with a low value of $R_j$-squared, thus a smaller relationship between the explanatory variables, less multicollinearity, is desired when retrieving $\var(\betahat_j)$.
+The best estimator for $\hat{\beta}_j$ is found with a low value of $R_j$-squared, thus a smaller relationship between the explanatory variables, less multicollinearity, is desired when retrieving $\var(\hat{\beta}_j)$.
 Note $R$-squared cannot equal $0$ due to assumption \ref{as:no_perfect_collinearity}. 
 
-From \eqref{eq:slope_variance_OLS_estimator} it is possible to find the standard deviation of $\betahat_j$, which is the square root of \ref{eq:slope_variance_OLS_estimator}, which is
+From \eqref{eq:slope_variance_OLS_estimator} it is possible to find the standard deviation of $\hat{\beta}_j$, which is the square root of \ref{eq:slope_variance_OLS_estimator}, which is
 \begin{align}\label{eq:standard_deviation}
-    sd(\betahat_j) = \dfrac{\sigma}{\left(SST_j(1- R_j^2)\right)^{1/2}}
+    sd(\hat{\beta}_j) = \dfrac{\sigma}{\left(SST_j(1- R_j^2)\right)^{1/2}}
 \end{align}
 The standard deviation, $\sigma$, is replaced by its estimate to obtain the standard error
 \begin{align}\label{eq:standad_error}
-    se(\betahat_j) = \dfrac{s}{\big(SST_j(1- R_j^2)\big)^{1/2}}
+    se(\hat{\beta}_j) = \dfrac{s}{\big(SST_j(1- R_j^2)\big)^{1/2}}
 \end{align}
 Note that the standard deviation measures the dispersion a dataset has from the mean, whereas the standard errors measures how far the sample mean of the data is likely to be from the true sample space mean. 
 
-Since \eqref{eq:standad_error} is obtained from \eqref{eq:slope_variance_OLS_estimator}, which relies on \homo the standard error will not be a feasible estimator of the standard deviation in \eqref{eq:standard_deviation} in the presence of heteroskedasticity. This means that \hetero will cause bias in the $\var(\betahat_j)$ which invalidates the assumption of the error term $\varepsilon$.
-Therefore if the assumption of homoskedasticity is violated, the variance of the slope coefficients will be biased. Because of the hetero assumption the error terms will not be normally distributed and thus \textit{confidence intervals}, \textit{t-statistics} and \textit{F-statistics} will no longer follow a normal distribution and thus their results will be invalid when \hetero is present. These statistics will be introduced next.
+Since \eqref{eq:standad_error} is obtained from \eqref{eq:slope_variance_OLS_estimator}, which relies on \homo the standard error will not be a feasible estimator of the standard deviation in \eqref{eq:standard_deviation} in the presence of heteroskedasticity. This means that \hetero will cause bias in $\var(\hat{\beta}_j)$ which invalidates the assumption of the error term $\varepsilon$.
+Therefore if the assumption of homoskedasticity is violated, the variance of the slope coefficients will be biased. When assumption \ref{as:homoskedasticity_and_no_serial_correlation} is violated the error terms will not be normally distributed and thus \textit{confidence intervals}, \textit{t-statistics} and \textit{F-statistics} will no longer follow a normal distribution and thus their results will be invalid when \hetero is present. These statistics will be introduced next.
 
 During this chapter we have found that under the Gauss-Markov assumptions;
 \begin{enumerate}
