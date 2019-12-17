@@ -24,16 +24,26 @@ and $SST$ is the total sum of squares given as
 \end{align*}
 The $R$-squared value is therefore between $0$ and $1$. The closer the value is to one $1$ the more of the variance is accounted for in the explanatory variables, thus it is desirable to have an $R$-squared value close to $1$.
 This coefficient of determination can be changed to the adjusted $R$-squared as
-\begin{align*}
+\begin{align}\label{eq:r_adjusted}
     R^2_{Adj} &= 1 - \dfrac{SSR/(n - k - 1)}{SST/(n - 1)}\\
       &= 1 - \dfrac{s^2}{SST/(n-1)}.
-\end{align*}
+\end{align}
 This rewriting of the coefficient of determination adjusts for the number of predictors in the model. This adjusted $R$-squared increases if a predictor improves more than the penalty of removing one degree of freedom. 
 
-Both $SSR$ and $SST$ is the unconditional variance in $R$-squared, thus they are not influenced by the presence of heteroskedasticity. 
-This can be seen as neither $SSR$ or $SST$ are dependent on the explanatory variables $\textbf{X}$.
+%Both $SSR$ and $SST$ is the unconditional variance in $R$-squared, thus they are not influenced by the presence of heteroskedasticity. 
+%This can be seen as neither $SSR$ or $SST$ are dependent on the explanatory variables $\textbf{X}$.
 
-This means that heteroskedasticity does not cause the OLS estimator to be biased and nor does it affect the $R$-squared coefficient. 
+The numerator in \eqref{eq:r_adjusted} is the estimate of the unconditional population variance of $\boldsymbol{\varepsilon}$ and the denominator is the estimate of the unconditional population variance of $\textbf{y}$. 
+For example assume that $\var(\varepsilon_i | x_1, \ldots, x_k) = k \cdot x_i$. Then the estimate of the unconditional population variance of $\varepsilon_i$ is 
+\begin{align}
+     \var(\varepsilon_i) &= E[\var(\varepsilon_i | x_1, \ldots, x_k)] + \var(E[\varepsilon_i | x_1, \ldots, x_k]) \label{eq:lowoftotalvariance}\\
+    &= E[k \cdot x_i] + \var(0) \nonumber \\
+    &= k \cdot E[x_i] \nonumber
+\end{align}
+where \eqref{eq:lowoftotalvariance} is from the law of total variance. 
+Because the last equality is a constant, heteroskedasticity will not cause the estimate of the unconditional population variance to be invalid, and thus R-squared is unaffected by heteroskedasticty \cite{Esben2019}.
+
+This means that heteroskedasticity does not cause the OLS estimator to be biased and nor does it affect the $R$-squared coefficient.
 It will however cause the variance of the OLS estimator, i.e. $\var(\betahat)$, to be biased, which will be explained next.  
 
 The \homo assumption is $\var(\boldsymbol{\varepsilon} | \mathbf{X}) = \sigma^2$. 

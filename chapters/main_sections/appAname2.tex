@@ -4,78 +4,72 @@ In this appendix the models found with 5-fold cross-validation in section \ref{s
 \textbf{Copenhagen}
 \begin{lstlisting}
 Call:
-lm(formula = log(price) ~ log(size) + year.sale + cond + balcony, 
-    data = Copenhagen)
+lm(formula = log(price) ~ log(size) + year.sale + cond, data = Copenhagen)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--0.74480 -0.12409  0.00156  0.12493  0.58816 
+-0.78589 -0.12346 -0.00088  0.12760  0.60058 
 
 Coefficients:
                      Estimate Std. Error t value Pr(>|t|)    
-(Intercept)          10.61184    0.06643 159.735  < 2e-16 ***
-log(size)             0.90411    0.01416  63.831  < 2e-16 ***
-year.salecrisis      -0.05896    0.01401  -4.208 2.77e-05 ***
-year.salepost.crisis  0.18153    0.01432  12.673  < 2e-16 ***
-condmedium            0.09355    0.02570   3.641 0.000284 ***
-condhigh              0.18310    0.02677   6.839 1.28e-11 ***
-balcony               0.06922    0.01198   5.778 9.66e-09 ***
+(Intercept)          10.56313    0.06680 158.135  < 2e-16 ***
+log(size)             0.91611    0.01420  64.503  < 2e-16 ***
+year.salecrisis      -0.05466    0.01418  -3.854 0.000123 ***
+year.salepost.crisis  0.20061    0.01413  14.199  < 2e-16 ***
+condmedium            0.10958    0.02590   4.232 2.50e-05 ***
+condhigh              0.20881    0.02676   7.803 1.33e-14 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 0.1895 on 1175 degrees of freedom
-Multiple R-squared:  0.828,	Adjusted R-squared:  0.8271 
-F-statistic: 942.9 on 6 and 1175 DF,  p-value: < 2.2e-16
+Residual standard error: 0.1921 on 1176 degrees of freedom
+Multiple R-squared:  0.8231,	Adjusted R-squared:  0.8224 
+F-statistic:  1095 on 5 and 1176 DF,  p-value: < 2.2e-16
 \end{lstlisting}
 
 \textbf{Aarhus}
 \begin{lstlisting}
 Call:
-lm(formula = log(price) ~ log(size) + year.sale + cond + balcony, 
-    data = Aarhus)
+lm(formula = log(price) ~ log(size) + year.sale + cond, data = Aarhus)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--0.96570 -0.11597  0.01053  0.13057  0.75489 
+-0.96792 -0.11615  0.00491  0.13255  0.74922 
 
 Coefficients:
-                       Estimate Std. Error t value Pr(>|t|)    
-(Intercept)          10.4193220  0.0995168 104.699  < 2e-16 ***
-log(size)             0.8853445  0.0216290  40.933  < 2e-16 ***
-year.salecrisis      -0.0006018  0.0173468  -0.035  0.97234    
-year.salepost.crisis  0.1293053  0.0189563   6.821 1.84e-11 ***
-condmedium            0.1270325  0.0457777   2.775  0.00566 ** 
-condhigh              0.2238151  0.0463279   4.831 1.64e-06 ***
-balcony               0.0160463  0.0152944   1.049  0.29444    
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          1.041e+01  9.877e-02 105.361  < 2e-16 ***
+log(size)            8.896e-01  2.125e-02  41.864  < 2e-16 ***
+year.salecrisis      3.695e-04  1.732e-02   0.021  0.98299    
+year.salepost.crisis 1.319e-01  1.879e-02   7.020 4.91e-12 ***
+condmedium           1.288e-01  4.575e-02   2.815  0.00501 ** 
+condhigh             2.268e-01  4.625e-02   4.904 1.15e-06 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 0.2043 on 760 degrees of freedom
-Multiple R-squared:  0.7318,	Adjusted R-squared:  0.7297 
-F-statistic: 345.6 on 6 and 760 DF,  p-value: < 2.2e-16
+Residual standard error: 0.2043 on 761 degrees of freedom
+Multiple R-squared:  0.7314,	Adjusted R-squared:  0.7296 
+F-statistic: 414.4 on 5 and 761 DF,  p-value: < 2.2e-16
 \end{lstlisting}
 
 \textbf{Odense}
 \begin{lstlisting}
 Call:
-lm(formula = log(price) ~ log(size) + year.sale, data = Odense)
+lm(formula = log(price) ~ log(size), data = Odense)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--0.67405 -0.14027  0.00112  0.13105  1.23356 
+-0.74817 -0.13845  0.01767  0.14871  1.31054 
 
 Coefficients:
-                     Estimate Std. Error t value Pr(>|t|)    
-(Intercept)           9.51945    0.14457  65.845  < 2e-16 ***
-log(size)             0.99717    0.03314  30.086  < 2e-16 ***
-year.salecrisis       0.10359    0.02167   4.781 2.26e-06 ***
-year.salepost.crisis  0.15269    0.02376   6.427 2.90e-10 ***
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  9.67050    0.14848   65.13   <2e-16 ***
+log(size)    0.97912    0.03437   28.49   <2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 0.2159 on 532 degrees of freedom
-Multiple R-squared:  0.6351,	Adjusted R-squared:  0.6331 
-F-statistic: 308.7 on 3 and 532 DF,  p-value: < 2.2e-16
+Residual standard error: 0.2247 on 534 degrees of freedom
+Multiple R-squared:  0.6031,	Adjusted R-squared:  0.6024 
+F-statistic: 811.5 on 1 and 534 DF,  p-value: < 2.2e-16
 \end{lstlisting}
 
 \textbf{Aalborg}

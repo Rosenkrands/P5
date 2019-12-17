@@ -1,5 +1,5 @@
 \chapter{Conclusion}\label{ch:conclusion}
-Throughout this project we have explored a dataset from HOME consisting of sales price and various descriptive variables of approximately $130.000$ observations. Our goal was to obtain crucial knowledge that allows us to answer the questions proposed in the statement of intent in section \ref{sec:statement_of_intent}, which will be answered here. We repeat the statement of intent below 
+Throughout this project we have explored a dataset from HOME consisting of sales price and various other descriptive variables of approximately $130.000$ observations. Our goal was to obtain crucial knowledge that allows us to answer the questions proposed in the statement of intent in section \ref{sec:statement_of_intent}, which will be answered here. We repeat the statement of intent below. 
 
 \textit{Under which conditions is the Maximum-Likelihood estimator equal to the Ordinary-Least-Squares estimator?
 How can $F$-tests and cross-validation be used to formulate a statistical model based on the HOME dataset?
@@ -10,11 +10,13 @@ In addition the Cramer-Rao inequality was introduced in theorem \ref{th:cramerra
 \begin{align*} 
     \var \Big[ \boldsymbol{\hat{\beta}}(\textbf{Y})\Big] \geq \textit{\textbf{i}}^{-1}(\boldsymbol{\beta}).
 \end{align*}
-Based on this theory it is possible to establish conditions under which the BLUE is obtained. These where found in chapter \ref{ch:Multip_linear_regresssion} as
+Based on this theory it is possible to establish conditions under which the BLUE is obtained. 
+These were found in chapter \ref{ch:Multip_linear_regresssion} as
 
 % Casper Conclusions from multiple regression
 %% Under the Gauss-Markov assumptions the OLS is the BLUE
-In theorem \ref{th:gauss_markoc_theorem} it is proven that under assumptions \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity}, \ref{as:zero_conditional_mean} and \ref{as:homoskedasticity_and_no_serial_correlation}, the OLS estimator is BLUE, since it is the unbiased estimator with the least variance.
+In theorem \ref{th:gauss_markoc_theorem} it is proven that under assumptions \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity}, \ref{as:zero_conditional_mean} and \ref{as:homoskedasticity_and_no_serial_correlation}, the OLS estimator is equal to the ML estimator.
+Furthermore the estimator is BLUE, since it is the unbiased estimator with the least variance.
 Next we found the MLE for $\sigma^2$ to be biased, as it does not account for the difference in degrees of freedom between the error term and the residuals.
 Our estimate for the variance of the residuals is therefore adjusted to remedy this and thus becomes
 \begin{align*} \label{eq:sigma_hat_2_n-k-1}
@@ -51,12 +53,12 @@ From the two methods we obtained different results for two of the cities as seen
 \end{table}
 %% We cannot conclude which is superior but we obtain better predictive performance using F-test
 Using the models obtained from both methods to predict 2016 apartment prices, we found a slightly better mean predictive performance using the $F$-test models across the four cities.
-Even though we found that the $F$-test models on average performed better that the cross-validation models, we cannot conclude that this is true in general.
+Even though we found that the $F$-test models on average performed better than the cross-validation models, we cannot conclude that this is true in general.
 
 As argued in chapter \ref{ch:discussion}, a biased estimator obtained using either ridge- or lasso regression might have obtained better predictive performance compared to those obtained from OLS. 
 Both methods introduce bias with the purpose of lowering variance.
-Therefore subtracting the OLS with either ridge- or lasso regression in this project might would have lead to models with better performance out-of-sample.
+Therefore subtracting the OLS with either ridge- or lasso regression in this project might have lead to models with better performance out-of-sample.
 
 Additionally from the choice of $K=n$ number of folds in cross-validation instead of $K=5$, we expect that for larger $K$ bias will fall but the variance will increase.
-Therefore this method might would have provided less biased performance statistics but with increased variance.
-The application of $K=n$ yielded results that differ from those found from $K=5$ but in order to determine which application gives most valid models or gives models that perform best out-of-sample requires further analysis. 
+Therefore this method might have provided less biased performance statistics but with increased variance.
+The application of $K=n$ yielded results that differ from those found from $K=5$, but in order to determine which application gives most valid models or gives models that perform best out-of-sample requires further analysis. 
