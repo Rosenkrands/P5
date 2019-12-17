@@ -457,9 +457,10 @@ Note this is only the case for multiple regression.
     \end{align*}
     Combining these facts we obtain
     \begin{align*}
-        F(\textbf{z}) =
-        \frac{\hat{\tilde{\boldsymbol{\beta}}}(\textbf{z})^2/d_1}{s^2(\textbf{z})} = 
-        \frac{(\betahat(\textbf{y}) - \beta_{01})^2/d_1}{s^2(\textbf{y})}
+        F(\textbf{z}) &=
+        \frac{\hat{\tilde{\beta_1}}(\textbf{z})^2/d_1}{s^2(\textbf{z})} = 
+        \frac{(\hat{\beta}_1(\textbf{y}) - \beta_{01})^2/d_1}{s^2(\textbf{y})} =
+         \frac{\hat{\beta}_1(\textbf{y}) - \beta_{01}}{\sqrt{d_1s^2(\textbf{y})}}
     \end{align*}
     which completes the proof.
 \end{proof}
