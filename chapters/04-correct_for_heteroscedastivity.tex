@@ -80,8 +80,13 @@ The standard deviation, $\sigma$, is replaced by its estimate to obtain the stan
 \end{align}
 Note that the standard deviation measures the dispersion a dataset has from the mean, whereas the standard errors measures how far the sample mean of the data is likely to be from the true sample space mean. 
 
-Since \eqref{eq:standad_error} is obtained from \eqref{eq:slope_variance_OLS_estimator}, which relies on \homo the standard error will not be a feasible estimator of the standard deviation in \eqref{eq:standard_deviation} in the presence of heteroskedasticity. This means that \hetero will cause bias in $\var(\hat{\beta}_j)$ which invalidates the assumption of the error term $\varepsilon$.
-Therefore if the assumption of homoskedasticity is violated, the variance of the slope coefficients will be biased. When assumption \ref{as:homoskedasticity_and_no_serial_correlation} is violated the error terms will not be normally distributed and thus \textit{confidence intervals}, \textit{t-statistics} and \textit{F-statistics} will no longer follow a normal distribution and thus their results will be invalid when \hetero is present. These statistics will be introduced next.
+Since \eqref{eq:standad_error} is obtained from \eqref{eq:slope_variance_OLS_estimator}, which relies on \homo the standard error will not be a feasible estimator of the standard deviation in \eqref{eq:standard_deviation} in the presence of heteroskedasticity. 
+This means that \hetero will cause bias in $\var(\hat{\beta}_j)$ which invalidates the assumption of the error term $\varepsilon$.
+Therefore if the assumption of homoskedasticity is violated, the variance of the slope coefficients will be biased. 
+Because the $t$-test and $F$-test are based upon $\var(\hat{\beta}_j)$ they will no longer be valid. 
+% the error terms will not be normally distributed and thus
+As a result \textit{confidence intervals}, \textit{t-statistics} and \textit{F-statistics} will be invalid when \hetero is present. 
+These statistics will be introduced next.
 
 During this chapter we have found that under the Gauss-Markov assumptions;
 \begin{enumerate}

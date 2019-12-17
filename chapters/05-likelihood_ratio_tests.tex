@@ -31,13 +31,13 @@ In figure \ref{fig:t_distribution} the $pdf$ of the $t$-distribution is plotted 
 
 Clearly, as the degrees of freedom increases, the $t$-distribution approaches the standard normal distribution, so $t(n) \rightarrow N(0,1)$ for $n\rightarrow \infty$. This also follows from the Central Limit Theorem, presented later in this chapter in theorem \ref{th:Central_limit_theorem}. 
 
-Recall that OLS produces unbiased estimates c.f.$\!$ theorem \ref{th:unbiasedness_of_ols}, let $d_j=(\textbf{X}^\top\textbf{X})^{-1}_{jj}$ denote the $j$'th diagonal element of $(\textbf{X}^\top \textbf{X})^{-1}$, let $\hat{\beta}_j(\textbf{y})$ denote the $j$'th coordinate of the OLS estimate $\hat{\beta}(\textbf{y})$ and $\hat{\sigma}^2(\textbf{y})$ denote the usual estimate for $\sigma^2$ as in \eqref{eq:sigma_hat_2_n-k-1}.
+Recall that OLS produces unbiased estimates c.f.$\!$ theorem \ref{th:unbiasedness_of_ols}, let $d_j=(\textbf{X}^\top\textbf{X})^{-1}_{jj}$ denote the $j$'th diagonal element of $(\textbf{X}^\top \textbf{X})^{-1}$, let $\hat{\beta}_j(\textbf{y})$ denote the $j$'th coordinate of the OLS estimate $\betahat(\textbf{y})$ and $s^2(\textbf{y})$ denote the unbiased estimate for $\sigma^2$ found in \eqref{eq:unbiased_variance_estimate}.
 
 \begin{definition} [$t$-statistic] \label{def:t-test}
     Let $\beta_{0j}$ be given and consider the hypothesis $\mathcal{H}_0 \ : \ \beta_j=\beta_{0j}$. 
     The $t$-statistic for $\mathcal{H}_0$ is then given by
 \begin{align}\label{eq:t_test1}
-   t_j(\textbf{y};\beta_{0j}) = \frac{\hat{\beta}_j - \beta_{0j}}{\sqrt{d_j\hat{\sigma}^2(\textbf{y})}} \quad \text{for} \quad j=0,\ldots,k
+   t_j(\textbf{y};\beta_{0j}) = \frac{\hat{\beta}_j - \beta_{0j}}{\sqrt{d_j s^2(\textbf{y})}} \quad \text{for} \quad j=0,\ldots,k
 \end{align}
 where large values of $|t_j(\textbf{y};\beta_{0j})|$ are critical for $\mathcal{H}_0$.
 \end{definition}
@@ -59,7 +59,7 @@ Meaning that a low $p$-value is evidence against $\mathcal{H}_0$.
 
 Furthermore, for $0<\alpha<1$, using the $t$-test at level $\alpha$, the limits of a ($1-\alpha$)-confidence interval for $\beta_j$ is
 \begin{align} \label{eq:t_statistic}
-    \hat{\beta}_{j}(\textbf{y}) \pm t_{1-\alpha/2}(n-k-1)\sqrt{d_j\hat{\sigma}^2(\textbf{y})}
+    \hat{\beta}_{j}(\textbf{y}) \pm t_{1-\alpha/2}(n-k-1)\sqrt{d_j s^2(\textbf{y})}
 \end{align}
 which corresponds to the cases where we accept the hypothesis that $\beta_j$ takes a specific value.
 \end{theorem}
@@ -78,7 +78,7 @@ and standardizing is done by dividing by the standard deviation, so
 \begin{align*}
     (\hat{\beta}_j(\textbf{Y})-\beta_j)/\sqrt{d_j\sigma^2} \sim N(0,1).
 \end{align*}
-The distribution of $s^2$ comes from \eqref{eq:sigma_hat_2_n-k-1}, so
+The distribution of $s^2$ comes from \eqref{eq:eq:unbiased_variance_estimate}, so
 \begin{align} \label{eq:sigma_square_of_Y}
     s^2(\textbf{y}) = \dfrac{1}{(n-k-1)}\sum_{i=1}^n \hat{\varepsilon}_i^2
 \end{align}
@@ -401,7 +401,7 @@ Note this is only the case for multiple regression.
         &= \frac{\| (\textbf{H}_1 - \textbf{H}_0) \textbf{Y} \|^2/q}{\| (\textbf{I} - \textbf{H}_1) Y \|^2/(n-k-1)} \\
         &\sim \frac{\chi^2(q)/q}{\chi^2(n-k-1)/(n-k-1)}, \\
     \end{align*}
-    cf. definition \ref{def:F-distribution}. Here the last equation holds because $\textbf{H}_1 - \textbf{H}_0$ and $\textbf{I} - \textbf{H}_1$ are projections and therefore follow a $\chi^2$ distribution.
+    c.f.$\!$ definition \ref{def:F-distribution}. Here the last equation holds because $\textbf{H}_1 - \textbf{H}_0$ and $\textbf{I} - \textbf{H}_1$ are projections and therefore follow a $\chi^2$ distribution.
 \end{proof}
 
 \begin{theorem}
@@ -409,7 +409,7 @@ Note this is only the case for multiple regression.
 \end{theorem}
 \begin{proof}
     Without loss of generality assume that $j = 1$.
-    Let $\betabold_{-1} = (\beta_2, \ldots, \beta_k)^\top$, so $\betabold = (\beta_1, \beta_{-1}^\top)^\top$.
+    Let $\betabold_{-1} = (\beta_2, \ldots, \beta_k)^\top$, so $\betabold = (\beta_1, \betabold_{-1}^\top)^\top$.
     Denote by $\textbf{x}_1$, the first column of $\textbf{X}$, and by $\textbf{X}_{-1}$, the remaining columns of $\textbf{X}$, such that $\textbf{X} = \left[\textbf{x}_1 \ \textbf{X}_{-1}\right]$.
     
     Consider first the case $\beta_{01} = 0$: Then $\textbf{X}_{-1}$ is the design matrix for $\mathcal{H}_0$.
@@ -420,7 +420,7 @@ Note this is only the case for multiple regression.
     respectively.
     The MLE for the mean vector under the original model is $\textbf{H}\textbf{y}$, the MLE for the mean vector under $\mathcal{H}_0$ is $\textbf{H}_{-1}\textbf{y}$, and the $F$-statistic for $\mathcal{H}_0$ is
     \begin{align*}
-        F(\textbf{y}) = \frac{\|\textbf{H}\textbf{y} - \textbf{H}_{-1}\textbf{y}\|^2/(k-(k-1))}{\hat{\sigma}^2(\textbf{y})}
+        F(\textbf{y}) = \frac{\|\textbf{H}\textbf{y} - \textbf{H}_{-1}\textbf{y}\|^2/(k-(k-1))}{s^2(\textbf{y})}
     \end{align*}
     where large values of $F(\textbf{y})$ are critical for $\mathcal{H}_0$.
     We have
@@ -442,30 +442,29 @@ Note this is only the case for multiple regression.
     Using theorem \ref{th:block_matrix_inversion} it can be shown that $\textbf{x}_1^\top(\textbf{I} - \textbf{H}_{-1})\textbf{x}_1 = 1/d_1$.
     Consequently,
     \begin{align*}
-        F(\textbf{y}) = \frac{\hat{\beta}(\textbf{y})^2/d_1}{\hat{\sigma}^2(\textbf{y})} = t_1(\textbf{y};0)^2
+         F(\textbf{y}) = \frac{\hat{\beta}_1(\textbf{y})^2/d_1}{s^2(\textbf{y})} =  t_1(\textbf{y};0)^2
     \end{align*}
-    and so the $t$-test in theorem \ref{th:t_distribution} is equivalent to the $F$-test, in the case of $df=1$, which in turn is equivalent to the likelihood ratio test.
+    and so the $F$-test is equivalent to the $t$-test in theorem \ref{th:t_distribution}, in the case of $df_0 - df_1=1$, which in turn is equivalent to the likelihood ratio test.
     
     Consider next the general case where $\beta_{01}$ is any fixed number: Let $\textbf{Z} = \textbf{Y} - \textbf{x}_1\beta_{01}$ and
     \begin{align*}
         \Tilde{\betabold} = (\beta_1 - \beta_{01}, \beta_2, \ldots, \beta_k)^\top = \betabold - (\beta_{01}, 0, \ldots, 0)^\top.
     \end{align*}
-    Since $\textbf{Z} \sim N_n(\textbf{X}\Tilde{\boldsymbol{\beta}}, \sigma^2\textbf{I}_n)$ and $\{ (\beta_1 - \beta_{01}, \beta_2, \ldots, \beta_k)^\top \ : \ \beta_1 \in \mathbb{R}, \ldots, \beta_k \in \mathbb{R} \} = \mathbb{R}^k$, we see that $\textbf{Z}$ corresponds to $\textbf{Y}$ in the first case.
-    It is easily seen that
+    Since $\textbf{Z} \sim N_n(\textbf{X}\Tilde{\boldsymbol{\beta}}, \sigma^2\textbf{I}_n)$ and $\{ (\beta_1 - \beta_{01}, \beta_2, \ldots, \beta_k)^\top \: : \: \beta_1 \in \mathbb{R}, \ldots, \beta_k \in \mathbb{R} \} = \mathbb{R}^k$, we see that $\textbf{Z}$ corresponds to $\textbf{Y}$ in the first case.
+    From the invariance property of the ML estimator we conclude that
     \begin{align*}
-        \hat{\sigma}^2(\textbf{Z}) = \hat{\sigma}^2(\textbf{Y}), \quad \hat{\tilde{\boldsymbol{\beta}}}(\textbf{Z}) = \hat{\boldsymbol{\beta}}(\textbf{Y}) - (\beta_{01}, 0, \ldots, 0)^\top,
+        s^2(\textbf{Z}) = s^2(\textbf{Y}), \quad \hat{\tilde{\boldsymbol{\beta}}}(\textbf{Z}) = \hat{\boldsymbol{\beta}}(\textbf{Y}) - (\beta_{01}, 0, \ldots, 0)^\top.
     \end{align*}
-    since the MLE is invariant under reparametrizations and under one-to-one transformations of the data.
     Combining these facts we obtain
     \begin{align*}
         F(\textbf{z}) =
-        \frac{\hat{\tilde{\boldsymbol{\beta}}}(\textbf{Z})^2/d_1}{\hat{\sigma}^2(\textbf{z})} = 
-        \frac{(\betahat(\textbf{y}) - \beta_{01})^2/d_1}{\hat{\sigma}^2(\textbf{y})}
+        \frac{\hat{\tilde{\boldsymbol{\beta}}}(\textbf{z})^2/d_1}{s^2(\textbf{z})} = 
+        \frac{(\betahat(\textbf{y}) - \beta_{01})^2/d_1}{s^2(\textbf{y})}
     \end{align*}
     which completes the proof.
 \end{proof}
 
-Note that the $F$-test and $t$-test are only equivalent for simple linear regression, that is $df = 1$, since the $t$-statistic only checks significance for one parameter.
+Note that the $F$-test and $t$-test are only equivalent for simple linear regression, that is $df_0 - df_1 = 1$, since the $t$-statistic only checks significance for one parameter.
 
 In practice it can be useful to express the $F$-statistic as a function of $R$-squared instead of $SSR$, as it can become large, making computation slower, whereas $R$-squared is always between $0$ and $1$. In addition many programs often report $R$-squared and not $SSR$.
 
@@ -744,9 +743,9 @@ By assumption \ref{as:normality_of_errors} the residuals have variance
     Var(r_i(\textbf{Y})) &= \sigma^2(1 - h_{ii}),
 \end{align*}
 where $h_{ii}$ is the $i$'th diagonal element in $\textbf{H}$. The second equation follows, since the first equation is just the variance-covariance matrix for the residuals, which has variances in the diagonal.
-Rewriting \eqref{eq:sigma_hat_2_n-k-1} using projection matrices gives the following estimate for the parameter variance
+Rewriting \eqref{eq:unbiased_variance_estimate} using projection matrices gives the following estimate for the parameter variance
 \begin{align*}
-    \hat{\sigma}^2(\textbf{Y}) &= \frac{\| \textbf{Y} - \textbf{X} \betahat (\textbf{y}) \|^2 }{n-k-1} = \frac{\| \textbf{Y} - \textbf{H} \textbf{Y} \|^2}{n-k-1} .
+    s^2(\textbf{Y}) &= \frac{\| \textbf{Y} - \textbf{X} \betahat (\textbf{y}) \|^2 }{n-k-1} = \frac{\| \textbf{Y} - \textbf{H} \textbf{Y} \|^2}{n-k-1} .
 \end{align*}
 Residuals can be used to identify outliers, which is the observations that do not fit the general pattern of the data.
 These data points can have a large effect on the estimated variance and it would therefore be useful to have a way to measure how much variance an observation adds.

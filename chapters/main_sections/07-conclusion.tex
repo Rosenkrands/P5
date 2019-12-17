@@ -5,27 +5,37 @@ Throughout this project we have explored a dataset from HOME consisting of sales
 How can $F$-tests and cross-validation be used to formulate a statistical model based on the HOME dataset?
 What are the characteristics of the two methods in the context of prediction?}
 
-In chapter \ref{ch:likelihood_theory} we covered basic theory regarding likelihood theory such as unbiased estimators and uniformly mean square errors. This chapter defines the best linear unbiased estimator to be the one with the least variance and is linear in its parameters and unbiased. This estimator is abbreviated as BLUE and it is desired to obtain the BLUE when shaping a model to describe a dataset because of the low variance. 
+In chapter \ref{ch:likelihood_theory} we covered basic theory regarding likelihood theory such as properties of estimators. 
+This chapter defines the best linear unbiased estimator as the unbiased estimator, with the least variance, that are linear in its parameters.
+This estimator is abbreviated as BLUE and it is desired to obtain the BLUE when shaping a model to describe a dataset because all else equal we seek the estimator with the least variance. 
 In addition the Cramer-Rao inequality was introduced in theorem \ref{th:cramerrao_inequality}, which states the lower bound of an unbiased estimators variance is given as
 \begin{align*} 
     \var \Big[ \boldsymbol{\hat{\beta}}(\textbf{Y})\Big] \geq \textit{\textbf{i}}^{-1}(\boldsymbol{\beta}).
 \end{align*}
 Based on this theory it is possible to establish conditions under which the BLUE is obtained. 
-These were found in chapter \ref{ch:Multip_linear_regresssion} as
+These were found in chapter \ref{ch:Multip_linear_regresssion} as assumptions \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity}, \ref{as:zero_conditional_mean} and \ref{as:homoskedasticity_and_no_serial_correlation}.
+These are summarized below.
+\begin{itemize}
+    \item Linear in parameters
+    \item No perfect collinearity
+    \item Zero conditional mean
+    \item Homoskedasticity and no serial correlation
+\end{itemize}
 
 % Casper Conclusions from multiple regression
 %% Under the Gauss-Markov assumptions the OLS is the BLUE
 In theorem \ref{th:gauss_markoc_theorem} it is proven that under assumptions \ref{as:linear_in_the_parameters}, \ref{as:no_perfect_collinearity}, \ref{as:zero_conditional_mean} and \ref{as:homoskedasticity_and_no_serial_correlation}, the OLS estimator is equal to the ML estimator.
-Furthermore the estimator is BLUE, since it is the unbiased estimator with the least variance.
+Furthermore this estimator is BLUE, since it is the unbiased estimator with the least variance.
 Next we found the MLE for $\sigma^2$ to be biased, as it does not account for the difference in degrees of freedom between the error term and the residuals.
 Our estimate for the variance of the residuals is therefore adjusted to remedy this and thus becomes
 \begin{align*} \label{eq:sigma_hat_2_n-k-1}
     s^2 = \frac{SSR(\betahat)}{n - k - 1}.
 \end{align*}
 The assumption of homoskedasticity, assumption \ref{as:homoskedasticity_and_no_serial_correlation}, is necessary in order for the standard error to be a feasible estimator for the standard deviation.
-This means that if this assumption was not met, the error terms would not be normally distributed.
-This would then violate assumption \ref{as:normality_of_errors}, and thereby make the results using it inapplicable. 
-
+% This means that if this assumption was not met, the error terms would not be normally distributed.
+% This would then violate assumption \ref{as:normality_of_errors}, and thereby make the results using it inapplicable.
+Therefore if this assumption is violated, the variance of the slope coefficients will be biased.
+Because the $t$-test and $F$-test are based upon $\var(\hat{\beta}_j)$ they will no longer be valid. 
 
 % Kasper Conclusions from modelling and hypothesis test
 %% There are different methods to test the relevance of parameters
@@ -35,10 +45,10 @@ For the other variables we obtained varying results for the different cities.
 Going further we used $F$-test to determine whether or not model reductions could be justified for each of the four cities.
 Unlike $t$-test, the $F$-test can be used to test hypothesis involving exclusion of multiple parameters.
 Then 5-fold cross-validation was used to again determine if model reductions could be justified.
-From the two methods we obtained different results for two of the cities as seen in table \ref{tab:different_models}.
+From the two methods, $F$-test and cross-validation, we obtained different results for two of the cities as seen in table \ref{tab:different_models}.
 \begin{table}[H]
     \centering
-    \begin{tabular}{l|ll}
+    \begin{tabular}{r|ll}
     \toprule
     \textbf{City} & \textbf{F} & \textbf{CV} \\
     \midrule
@@ -50,14 +60,15 @@ From the two methods we obtained different results for two of the cities as seen
     \end{tabular}
     \caption{Models obtained from the different methods.}
     \label{tab:different_models}
-\end{table}
+\end{table} 
+In general we obtained more complex models from the $F$-test, which we expect to be less biased and have a tendency to be overfitted. 
 %% We cannot conclude which is superior but we obtain better predictive performance using F-test
 Using the models obtained from both methods to predict 2016 apartment prices, we found a slightly better mean predictive performance using the $F$-test models across the four cities.
 Even though we found that the $F$-test models on average performed better than the cross-validation models, we cannot conclude that this is true in general.
 
-As argued in chapter \ref{ch:discussion}, a biased estimator obtained using either ridge- or lasso regression might have obtained better predictive performance compared to those obtained from OLS. 
-Both methods introduce bias with the purpose of lowering variance.
-Therefore subtracting the OLS with either ridge- or lasso regression in this project might have lead to models with better performance out-of-sample.
+% As argued in chapter \ref{ch:discussion}, a biased estimator obtained using either ridge- or lasso regression might have obtained better predictive performance compared to those obtained from OLS. 
+% Both methods introduce bias with the purpose of lowering variance.
+% Therefore substituting OLS with either ridge- or lasso regression in this project might have lead to models with better performance out-of-sample.
 
 Additionally from the choice of $K=n$ number of folds in cross-validation instead of $K=5$, we expect that for larger $K$ bias will fall but the variance will increase.
 Therefore this method might have provided less biased performance statistics but with increased variance.
