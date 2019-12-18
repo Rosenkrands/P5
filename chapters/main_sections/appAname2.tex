@@ -1,7 +1,180 @@
 \chapter{CV-models} \label{aap:cv}
 In this appendix the models found with 5-fold cross-validation in section \ref{sec:CV} is listed for each city.
+First we present the R-code.
 
-\textbf{Copenhagen}
+\textbf{R-code used for cross-validation} \\
+The R-codes used for each city for $K=5$ and $K=n$ are almost the same, therefore we only present the code used for Copenhagen and $K=5$.
+\begin{lstlisting}
+set.seed(1)
+
+#We create data set for Copenhagen
+Copenhagen <- filter(cities.data,city=="Copenhagen")
+
+cities.data$selling.period
+Copenhagen$selling.period <- as.integer(Copenhagen$selling.period)
+
+#Model before running cross validation
+linreg <- lm(log(price) ~ log(size) + cond + balcony + year.sale, data = Copenhagen)
+summary(linreg)
+
+#Forward selection
+lin_reg <- lm(log(price) ~ 1, data=Copenhagen)
+biggest <- formula(lm(log(price)~log(size) + cond + balcony + year.sale, Copenhagen))
+biggest
+fwd.model <- step(lin_reg, direction='forward', scope=biggest, data = Copenhagen)
+
+#We create 5 random samples of our dataset, contaning 1/5 of the observations each
+#Create 5 equally size folds
+library(caret)
+library(psych)
+
+data_ctrl <- trainControl(method = "cv", number = 5, returnData = T, 
+savePredictions = "final")
+data_ctrl
+  
+#We run CV for regression with 1 variable
+model_caret1 <- train(log(price) ~ log(size), data = Copenhagen, 
+trControl = data_ctrl, method = "lm", na.action = na.pass)
+model_caret1$finalModel
+#We can also examine model predictions for each fold.
+model_caret1$resample
+
+#Furthermore, we can find the standard deviation around the R-squared value by
+#examining the R-squared from each fold.
+sd(model_caret1$resample$Rsquared)
+RMSE1_sd <- sd(model_caret1$resample$RMSE)
+#Residual mean square error
+RMSE1_CV <- mean(model_caret1$resample[,1]); RMSE1_CV  
+
+#We run CV for regression with 2 variable
+model_caret2 <- train(log(price) ~ log(size) + year.sale, data = Copenhagen,
+trControl = data_ctrl, method = "lm", na.action = na.pass)
+model_caret2
+model_caret2$finalModel
+#We can also examine model predictions for each fold.
+model_caret2$resample
+#Furthermore, we can find the standard deviation around the R-squared value by
+#examining the R-squared from each fold.
+sd(model_caret2$resample$Rsquared)
+RMSE2_sd <- sd(model_caret2$resample$RMSE)
+#Residual mean square error
+RMSE2_CV <- mean(model_caret2$resample[,1]); RMSE2_CV 
+
+#We run CV for regression with 3 variable
+model_caret3 <- train(log(price) ~ log(size) + year.sale+ cond, data = Copenhagen,
+trControl = data_ctrl, method = "lm", na.action = na.pass)
+model_caret3
+model_caret3$finalModel
+#We can also examine model predictions for each fold.
+model_caret3$resample
+#Furthermore, we can find the standard deviation around the R-squared value by
+#examining the R-squared from each fold.
+sd(model_caret3$resample$Rsquared)
+RMSE3_sd <- sd(model_caret3$resample$RMSE)
+#Residual mean square error
+RMSE3_CV <- mean(model_caret3$resample[,1]); RMSE3_CV 
+
+#We run CV for regression with 4 variable
+model_caret4 <- train(log(price) ~ log(size)+ year.sale + cond + balcony, 
+    data = Copenhagen, trControl = data_ctrl, method = "lm", na.action = na.pass)
+model_caret4
+model_caret4$finalModel
+#We can also examine model predictions for each fold.
+model_caret4$resample
+#Furthermore, we can find the standard deviation around the R-squared 
+#value by examining the R-squared from each fold.
+sd(model_caret4$resample$Rsquared)
+RMSE4_sd <- sd(model_caret4$resample$RMSE)
+#Residual mean square error
+RMSE4_CV <- mean(model_caret4$resample[,1]); RMSE4_CV 
+
+
+#We plot
+x <- c(1,2,3,4)
+#Fold 1
+y_RMSE1 <- c(model_caret1$resample[1,1], model_caret2$resample[1,1], 
+    model_caret3$resample[1,1], model_caret4$resample[1,1])
+
+data_fold1 <- data.frame(cbind(x, y_RMSE1))
+
+fold1_plot <- ggplot(data = data_fold1) + 
+  geom_point(aes(x,y_RMSE1), size = 0.9) + 
+  geom_line(aes(x,y_RMSE1), color = "#F8766D") + 
+  labs(y="RMSE", x = "") +
+  ggtitle("Fold 1") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+#Fold 2
+y_RMSE2 <- c(model_caret1$resample[2,1], model_caret2$resample[2,1],
+    model_caret3$resample[2,1], model_caret4$resample[2,1])
+
+data_fold2 <- data.frame(cbind(x, y_RMSE2))
+
+fold2_plot <- ggplot(data = data_fold2) + 
+  geom_point(aes(x,y_RMSE2), size = 0.9) + 
+  geom_line(aes(x,y_RMSE2), color = "#F8766D") + 
+  labs(y="", x = "") +
+  ggtitle("Fold 2") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+#Fold 3
+y_RMSE3 <- c(model_caret1$resample[3,1], model_caret2$resample[3,1], 
+    model_caret3$resample[3,1], model_caret4$resample[3,1])
+
+data_fold3 <- data.frame(cbind(x, y_RMSE3))
+
+fold3_plot <- ggplot(data = data_fold3) + 
+  geom_point(aes(x,y_RMSE3), size = 0.9) + 
+  geom_line(aes(x,y_RMSE3), color = "#F8766D") + 
+  labs(y="", x = "") +
+  ggtitle("Fold 3") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+#Fold 4
+y_RMSE4 <- c(model_caret1$resample[4,1], model_caret2$resample[4,1], 
+    model_caret3$resample[4,1], model_caret4$resample[4,1])
+
+data_fold4 <- data.frame(cbind(x, y_RMSE4))
+
+fold4_plot <- ggplot(data = data_fold4) + 
+  geom_point(aes(x,y_RMSE4), size = 0.9) + 
+  geom_line(aes(x,y_RMSE4), color = "#F8766D") + 
+  labs(y="RMSE", x = "Number of predictors") +
+  ggtitle("Fold 4") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+#Fold 5
+y_RMSE5 <- c(model_caret1$resample[5,1], model_caret2$resample[5,1], 
+    model_caret3$resample[5,1], model_caret4$resample[5,1])
+
+data_fold5 <- data.frame(cbind(x, y_RMSE5))
+
+fold5_plot <- ggplot(data = data_fold5) + 
+  geom_point(aes(x,y_RMSE5), size = 0.9) + 
+  geom_line(aes(x,y_RMSE5), color = "#F8766D") + 
+  labs(y="", x = "Number of predictors") +
+  ggtitle("Fold 5") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+#Mean of the 5 folds
+y_RMSE_mean <- (y_RMSE1 + y_RMSE2 + y_RMSE3 + y_RMSE4 + y_RMSE5)/5
+
+y_RMSE_sd <-  c(RMSE1_sd/sqrt(5),RMSE2_sd/sqrt(5),
+    RMSE3_sd/sqrt(5),RMSE4_sd/sqrt(5))
+data_fold_mean <- data.frame(cbind(x, y_RMSE_mean, y_RMSE_sd))
+
+fold_mean_plot_copenhagen <- ggplot(data = data_fold_mean) + 
+  geom_point(aes(x,y_RMSE_mean), size = 0.9) + 
+  geom_line(aes(x,y_RMSE_mean), color = "#F8766D") + 
+  labs(y="", x = "Number of predictors") +
+  ggtitle("Mean") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  geom_errorbar(aes(x = x, ymin = y_RMSE_mean - y_RMSE_sd, 
+    ymax = y_RMSE_mean + y_RMSE_sd), width = 0.15)
+
+\end{lstlisting}
+
+\textbf{Copenhagen} \\
 \begin{lstlisting}
 Call:
 lm(formula = log(price) ~ log(size) + year.sale + cond, data = Copenhagen)
@@ -19,7 +192,7 @@ year.salepost.crisis  0.20061    0.01413  14.199  < 2e-16 ***
 condmedium            0.10958    0.02590   4.232 2.50e-05 ***
 condhigh              0.20881    0.02676   7.803 1.33e-14 ***
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 0.1921 on 1176 degrees of freedom
 Multiple R-squared:  0.8231,	Adjusted R-squared:  0.8224 
@@ -44,7 +217,7 @@ year.salepost.crisis 1.319e-01  1.879e-02   7.020 4.91e-12 ***
 condmedium           1.288e-01  4.575e-02   2.815  0.00501 ** 
 condhigh             2.268e-01  4.625e-02   4.904 1.15e-06 ***
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 0.2043 on 761 degrees of freedom
 Multiple R-squared:  0.7314,	Adjusted R-squared:  0.7296 
@@ -65,7 +238,7 @@ Coefficients:
 (Intercept)  9.67050    0.14848   65.13   <2e-16 ***
 log(size)    0.97912    0.03437   28.49   <2e-16 ***
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 0.2247 on 534 degrees of freedom
 Multiple R-squared:  0.6031,	Adjusted R-squared:  0.6024 
@@ -88,7 +261,7 @@ log(size)             0.91435    0.03626  25.217  < 2e-16 ***
 year.salecrisis       0.13368    0.02746   4.868 1.63e-06 ***
 year.salepost.crisis  0.24190    0.03108   7.783 6.21e-14 ***
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 0.2389 on 397 degrees of freedom
 Multiple R-squared:  0.6403,	Adjusted R-squared:  0.6375 

@@ -57,12 +57,13 @@ Here we choose to remove 3 parameters: $year.construct$, $selling.period$ and $r
 \caption{How much the explained sum of squares is reduced for each step in the backwards stepwise selection.}
 \label{tbl:Parameter_SSE}
 \end{table}
+\newpage
 Categorical variables like \textit{city} are potentially problematic, as these are accounted for by dummy variables, that add a different intercept for the model depending on which city is observed.
 In order for this to give an accurate estimate of the cities influence on price, the estimated coefficients for the other variables need to be similar for models made from data of the different cities. 
 To illustrate this we have plotted \textit{log(price)} against \textit{size} in figure \ref{fig:Forskellig_haeldning}, for each of the cities.
 \begin{figure}[H]
     \centering
-    \includegraphics[width = 1\textwidth]{figures/Nanna/Forskellig_haeldning.pdf}
+    \includegraphics[width = 1\textwidth]{figures/Nanna/Forskellig_haelding.pdf}
     \caption{The lines represent linear regressions where \textit{log(price)} is treated as the dependent variable and $size$ in square meters is the independent variable.}
     \label{fig:Forskellig_haeldning}
 \end{figure}

@@ -265,13 +265,13 @@ This is the motivation for the following theorem, better known as the Gauss-Mark
        E(\betatilde|\mathbf{X}) &= E( \mathbf{A}^\top\mathbf{X}\boldsymbol{\beta} + \mathbf{A}^\top\boldsymbol{\varepsilon}|\mathbf{X} )\nonumber \\
         &=  \mathbf{A}^\top\mathbf{X}\boldsymbol{\beta} + E( \mathbf{A}^\top\boldsymbol{\varepsilon}|\mathbf{X} )\nonumber \\
         &=\mathbf{A}^\top\mathbf{X}\boldsymbol{\beta} +  \mathbf{A}^\top E( \boldsymbol{\varepsilon}|\mathbf{X} )\nonumber \\
-        &=\mathbf{A}^\top\mathbf{X}\boldsymbol{\beta}\label{eq:expectation_of_any_linear_unbiased_estimator}
+        &=\mathbf{A}^\top\mathbf{X}\boldsymbol{\beta}\label{eq:expectation_of_any_linear_unbiased_estimator}.
     \end{align}
     For the linear estimator to be unbiased it must be that \eqref{eq:expectation_of_any_linear_unbiased_estimator} is equal to the right side of \eqref{eq:condition_of_unbiasedness}, as below
     \begin{align}\label{eq:unbiasedness_identity}
-        \mathbf{A}^\top\mathbf{X}\boldsymbol{\beta} = \boldsymbol{\beta}
+        \mathbf{A}^\top\mathbf{X}\boldsymbol{\beta} = \boldsymbol{\beta}.
     \end{align}
-    The relation in \eqref{eq:unbiasedness_identity} holds if and only if $\mathbf{A}^\top\mathbf{X} = \mathbf{I}_{k + 1}$, which furthermore implies that $(\mathbf{A}^\top\mathbf{X})^\top = \mathbf{X}^\top\mathbf{A} = \mathbf{I}_{k + 1}$.
+    The relation in \eqref{eq:unbiasedness_identity} holds if and only if $\mathbf{A}^\top\mathbf{X} = \mathbf{I}_{k + 1}$, which furthermore implies that $$(\mathbf{A}^\top\mathbf{X})^\top = \mathbf{X}^\top\mathbf{A} = \mathbf{I}_{k + 1}.$$
     The variance of $\betatilde$ conditional on $\mathbf{X}$ is given by
     \begin{align}
         \var(\betatilde|\mathbf{X}) &= \var(\mathbf{A}^\top\mathbf{X}\boldsymbol{\beta} + \mathbf{A}^\top\boldsymbol{\varepsilon}|\mathbf{X}) \nonumber\\
@@ -281,7 +281,7 @@ This is the motivation for the following theorem, better known as the Gauss-Mark
     \end{align}
     From assumption \ref{as:homoskedasticity_and_no_serial_correlation} and \eqref{eq:variance_of_betatilde_conditional_on_x} we conclude that
     \begin{align}
-        \var(\betatilde|\mathbf{X}) = \sigma^2\mathbf{A}^\top\mathbf{A}
+        \var(\betatilde|\mathbf{X}) = \sigma^2\mathbf{A}^\top\mathbf{A}.
     \end{align}
     Knowing the variance of any linear unbiased estimator we can now subtract the known variance of the OLS estimator, which was found in theorem \ref{th:variance-covariance_of_the_ols_estimator}
     \begin{align}

@@ -73,3 +73,8 @@ Even though we found that the $F$-test models on average performed better than t
 Additionally from the choice of $K=n$ number of folds in cross-validation instead of $K=5$, we expect that for larger $K$ bias will fall but the variance will increase.
 Therefore this method might have provided less biased performance statistics but with increased variance.
 The application of $K=n$ yielded results that differ from those found from $K=5$, but in order to determine which application gives most valid models or gives models that perform best out-of-sample requires further analysis. 
+
+% Noget med ikke så god predict/forecast.
+As seen in section \ref{subsec:app_of_prediction}, 95\% of our models predicted prices fall within the prediction interval, but the interval itself is quite large.
+Therefore the model might not be useful as a stand-alone tool to determine apartment prices, but could be used to get a general idea of price level. 
+Furthermore the model under-predicts the apartment prices from our validation set, which suggest that the model lacks or misinterprets one or more important explanatory variables.

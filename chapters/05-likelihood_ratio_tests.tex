@@ -78,7 +78,7 @@ and standardizing is done by dividing by the standard deviation, so
 \begin{align*}
     (\hat{\beta}_j(\textbf{Y})-\beta_j)/\sqrt{d_j\sigma^2} \sim N(0,1).
 \end{align*}
-The distribution of $s^2$ comes from \eqref{eq:eq:unbiased_variance_estimate}, so
+The distribution of $s^2$ comes from \eqref{eq:unbiased_variance_estimate}, so
 \begin{align} \label{eq:sigma_square_of_Y}
     s^2(\textbf{y}) = \dfrac{1}{(n-k-1)}\sum_{i=1}^n \hat{\varepsilon}_i^2
 \end{align}
@@ -107,7 +107,7 @@ For clarity we take out the term $E(\epsilonhat \textbf{y}^\top )$ and calculate
 \begin{align*}
     E \left[ \epsilonhat \textbf{y}^\top \right] &= E \left[ \epsilonhat (\epsilonhat^\top + \betahat^\top \textbf{X}^\top) \right] \\
     &= E \left[ \epsilonhat \epsilonhat^\top + \epsilonhat \betahat^\top \textbf{X}^\top \right] \\
-    &= E[\epsilonhat \epsilonhat^\top]
+    &= E[\epsilonhat \epsilonhat^\top].
 \end{align*}
 This is equal to the variance of $\epsilonhat$ since $\var(\epsilonhat) = E(\epsilonhat \epsilonhat^\top) - E(\epsilonhat)E(\epsilonhat)^\top$, where $E(\epsilonhat)=\textbf{0}$.
 This is by assumption \ref{as:normality_of_errors} equal to $\sigma^2 \textbf{I}_n$.
@@ -119,12 +119,12 @@ because
 \begin{align*}
     (\textbf{I}-\textbf{H})\textbf{X} &= (\textbf{I}-\textbf{X}(\textbf{X}^\top \textbf{X})^{-1}\textbf{X}^\top)\textbf{X} \\
     &= \textbf{X} - \textbf{X} (\textbf{X}^\top \textbf{X})^{-1} (\textbf{X}^\top \textbf{X}) \\
-    &= \textbf{X} - \textbf{X} = \textbf{0}
+    &= \textbf{X} - \textbf{X} = \textbf{0}.
 \end{align*}
 Therefore the covariance and by extension correlation is
 \begin{align*}
     \cov (\betahat, \textbf{r}(\textbf{y})) &= E(\betahat\textbf{r}(\textbf{y})^\top) - E(\betahat) E(\textbf{r}(\textbf{y}))^\top \\
-    &= \textbf{0} - E(\betahat) \cdot \textbf{0}
+    &= \textbf{0} - E(\betahat) \cdot \textbf{0}.
 \end{align*}
 Assuming that they are multivariate normally distributed, this means that $\betahat$ and $s^2(\textbf{Y})$ are independent, since $s^2(\textbf{Y})$ is just a constant times $SSR$ c.f.$\!$ \eqref{eq:sigma_square_of_Y}.
 
@@ -216,8 +216,8 @@ In the figure it is clear, that we are far into the tail of the null distributio
 This indicates, that our observed $\hat{\beta}_1$ is more extreme than what is reasonably expected if the null hypothesis were true.
 \begin{figure}[H]
     \centering
-    \includegraphics[width = 0.6  \textwidth]{figures/Nanna/t_distribution123.pdf}
-    \caption{5 \% rejection rule for $\mathcal{H}_1:\beta_1\neq0$ with 1180 degrees of freedom. The $t$ value of the observed value $\hat{\beta}_1=0.96832$ is far out in the tail to the right.}
+    \includegraphics[width = 0.75 \textwidth]{figures/Nanna/pdf.pdf}
+    \caption{5 \% rejection rule for $\mathcal{H}_1:\beta_1\neq0$ with 1180 degrees of freedom. The $t$-value of the observed value $\hat{\beta}_1=0.96832$ is far out in the tail to the right.}
     \label{fig:t_distributionplot1}
 \end{figure}
 The critical $t$-values for $\mathcal{H}_0$ is found by the inverse of the $cdf$ where we obtain the $t$-values of chosen probabilities. 
@@ -225,7 +225,7 @@ The $95\%$-significance level, means that we evaluate the inverse $cdf$ in $0.02
 This is illustrated in figure \ref{fig:CDF_inverse} where the intersection of the dotted lines gives the critical $t$-values.
 \begin{figure}[H]
     \centering
-    \includegraphics[width = 0.6\textwidth]{figures/Nanna/Inverse_CDF.pdf}
+    \includegraphics[width = 0.75\textwidth]{figures/Nanna/cdf.pdf}
     \caption{The inverse $cdf$ in which we obtain the critic values for $\mathcal{H}_0$ of the chosen $95\%$-significance level.}
     \label{fig:CDF_inverse}
 \end{figure}
@@ -450,7 +450,7 @@ Note this is only the case for multiple regression.
     \begin{align*}
         \Tilde{\betabold} = (\beta_1 - \beta_{01}, \beta_2, \ldots, \beta_k)^\top = \betabold - (\beta_{01}, 0, \ldots, 0)^\top.
     \end{align*}
-    Since $\textbf{Z} \sim N_n(\textbf{X}\Tilde{\boldsymbol{\beta}}, \sigma^2\textbf{I}_n)$ and $\{ (\beta_1 - \beta_{01}, \beta_2, \ldots, \beta_k)^\top \: : \: \beta_1 \in \mathbb{R}, \ldots, \beta_k \in \mathbb{R} \} = \mathbb{R}^k$, we see that $\textbf{Z}$ corresponds to $\textbf{Y}$ in the first case.
+    Since $\textbf{Z} \sim N_n(\textbf{X}\Tilde{\boldsymbol{\beta}}, \sigma^2\textbf{I}_n)$ and $\{ (\beta_1 - \beta_{01}, \beta_2, \ldots, \beta_k)^\top \: : \: \beta_1 \in \mathbb{R}, \ldots, \beta_k \in \mathbb{R} \} \in \mathbb{R}^k$, we see that $\textbf{Z}$ corresponds to $\textbf{Y}$ in the first case.
     From the invariance property of the ML estimator we conclude that
     \begin{align*}
         s^2(\textbf{Z}) = s^2(\textbf{Y}), \quad \hat{\tilde{\boldsymbol{\beta}}}(\textbf{Z}) = \hat{\boldsymbol{\beta}}(\textbf{Y}) - (\beta_{01}, 0, \ldots, 0)^\top.
@@ -542,7 +542,7 @@ Fstat <- ((RSS_model0 - RSS_model1)/(dfmod0 - dfmod1))/
 The associated $p$-value is then
 \begin{lstlisting}
 p <- pf(q = Fstat, df1 = dfmod0, df2 = dfmod1, lower.tail = F)
-<2.2e^{-16}
+<2.2e-16
 \end{lstlisting}
 or effectively zero. We therefore conclude that the additional parameters are statistically significant.
 It may seem as though any parameter would be significant, but this is because of our initial filtering and large dataset.
@@ -561,6 +561,7 @@ In order to avoid testing all possible combination it would be beneficial, to de
 % The approach is to first remove the parameter that explains the least variation in the data, in order to remove the parameters in a strategic manner.
 % More specifically it is a greedy algorithm that starts with the full model, and at each step removes the parameter which adds the least to the $R$-squared.
 
+\newpage
 Backwards selection is used to chose the order of which to remove the parameters.
 In table \ref{tbl:backward_order_of_parameters} the order of parameters removal is listed for each of the cities.
     
@@ -686,7 +687,7 @@ In the case of Copenhagen observe that a model with four parameters has the lowe
 In this case the optimal number of parameters, according to the rule, is three.
 
 This procedure is performed for the remaining three cities. Note in table \ref{tbl:order_of_parameters} the order of the selected parameters from the execution of the forward-selection-algorithm differs between the cities. 
-In figure \ref{fig:CrossValidationSamlet} is the meanplot for each city, in which we conclude from the 5-fold cross-validation, that the optimal number of parameters is three for Aarhus, one for Odense and two forAalborg.
+In figure \ref{fig:CrossValidationSamlet} is the meanplot for each city, in which we conclude from the 5-fold cross-validation, that the optimal number of parameters is three for Aarhus, one for Odense and two for Aalborg.
 
 \begin{figure}[H]
     \centering
@@ -700,10 +701,10 @@ The final models obtained from the result of performing 5-fold cross-validation 
     log(price)_{Cph.CV} &\sim log(size) + year.sale + cond \\
     log(price)_{Aar.CV} &\sim log(size) + year.sale + cond\\
     log(price)_{Ode.CV} &\sim log(size) \\
-    log(price)_{Aal.CV} &\sim log(size) + year.sale \\
+    log(price)_{Aal.CV} &\sim log(size) + year.sale 
 \end{align*}
 Due to the later purpose of testing the model on out-of-sample performance regarding predicting prices for houses sold in 2016, it is interesting to investigate the out-of-sample performance on the selected models from CV.
-If the errors fulfil the earlier stated assumptions regarding normally distributed errors with mean zero and \homo, when we expect the model to perform well out-of-sample. In figure \ref{fig:cv_normal_homo} the errors obtained from the CV of Copenhagen are presented.
+If the errors fulfil the earlier stated assumptions regarding normally distributed errors with mean zero and homoskedasticity, when we expect the model to perform well out-of-sample. In figure \ref{fig:cv_normal_homo} the errors obtained from the CV of Copenhagen are presented.
 
 \begin{figure}[H]
 \centering
@@ -719,7 +720,7 @@ If the errors fulfil the earlier stated assumptions regarding normally distribut
     \caption{Testing for \hetero}
     \label{fig:cv_homo}
 \end{subfigure}
-\caption{Examination of the prediction errors from the 5-fold cross validation.}
+\caption{Examination of the prediction errors from the 5-fold cross-validation.}
 \label{fig:cv_normal_homo}
 \end{figure}
 
@@ -746,10 +747,10 @@ By assumption \ref{as:normality_of_errors} the residuals have variance
 where $h_{ii}$ is the $i$'th diagonal element in $\textbf{H}$. The second equation follows, since the first equation is just the variance-covariance matrix for the residuals, which has variances in the diagonal.
 Rewriting \eqref{eq:unbiased_variance_estimate} using projection matrices gives the following estimate for the parameter variance
 \begin{align*}
-    s^2(\textbf{Y}) &= \frac{\| \textbf{Y} - \textbf{X} \betahat (\textbf{y}) \|^2 }{n-k-1} = \frac{\| \textbf{Y} - \textbf{H} \textbf{Y} \|^2}{n-k-1} .
+    s^2(\textbf{Y}) &= \frac{\| \textbf{Y} - \textbf{X} \betahat (\textbf{Y}) \|^2 }{n-k-1} = \frac{\| \textbf{Y} - \textbf{H} \textbf{Y} \|^2}{n-k-1} .
 \end{align*}
 Residuals can be used to identify outliers, which is the observations that do not fit the general pattern of the data.
-These data points can have a large effect on the estimated variance and it would therefore be useful to have a way to measure how much variance an observation adds.
+These data points can have a large effect on the estimated variance and it would therefore be useful to have a way to measure how much variance an observation adds.\\
 We use the notation $-i$, which refers to the removal of the $i$'th row e.g.
 \begin{align*}
     \textbf{y}_{-i} = (y_1, \ldots, y_{i-1}, y_{i+1}, \ldots, y_n)^\top.
@@ -780,7 +781,7 @@ If this value in deemed to high, it should be investigated and could potentially
     \end{align*}
     which has the distribution
     \begin{align*}
-        \frac{N(0,1)}{\sqrt{\chi^2(n-k-2)/(n-k-2)}} = t(n-k-2)
+        \frac{N(0,1)}{\sqrt{\chi^2(n-k-2)/(n-k-2)}} = t(n-k-2).
     \end{align*}
     Therefore we just need to prove that they are independent.
     Using the definition of the residual $r_1(\textbf{Y}) = Y_1 -  (\textbf{HY})_1$ and the projection matrix
@@ -793,7 +794,7 @@ If this value in deemed to high, it should be investigated and could potentially
         \begin{bmatrix}
             Y_1 - \textbf{x}_1^\top (\textbf{X}^\top \textbf{X})^{-1} \textbf{X}^\top \textbf{Y} \\
             \textbf{Y}_{-1} - \textbf{X}_{-1} (\textbf{X}_{-1}^\top \textbf{X}_{-1})^{-1} \textbf{X}_{-1}^\top \textbf{Y}_{-1}
-        \end{bmatrix}
+        \end{bmatrix}.
     \end{align*}
     This can be written as the matrix-vector product
     \begin{align*}
@@ -856,15 +857,14 @@ As a result, we expect that the 95\% prediction interval and the 95\% confidence
   \caption{QQ-plot and histogram plot for the studentized residuals for the F-model and CV-model respectively for Copenhagen.}
   \label{fig:studentized_res_plot}
 \end{figure}
-
+\newpage
 For Odense the residuals are approximately normal distributed and there is no noteworthy difference in the residuals of the two models.
 This is a general result for the remaining cities as the residuals is almost the same for the models from $F$-test compared to those found by cross-validation and they are approximately normal distributed.
 However, the residuals of the models for Aarhus and Aalborg differ the most from a normal distribution, as illustrated for Aalborg in figure \ref{fig:studentized_res_plot_Aalborg}.
 Therefore, we expect the Aalborg model to have slightly inferior predictive performance compared to the other models.
-
 \begin{figure}[H]
     \centering
-  \includegraphics[width = 0.95 \textwidth]{figures/Nanna/NormalAal.pdf}
+  \includegraphics[width = 0.9 \textwidth]{figures/Nanna/NormalAal.pdf}
   \caption{QQ-plot and histogram plot for the studentized residuals of the models for Aalborg.}
   \label{fig:studentized_res_plot_Aalborg}
 \end{figure}
@@ -1073,13 +1073,13 @@ It is important to note that this test examines if the function has complete hom
 \centering
 \begin{subfigure}[b]{0.5\textwidth}
     \centering
-    \includegraphics[width = \textwidth]{figures/denheryesyeysyes.pdf}
+    \includegraphics[width = 1 \textwidth]{figures/denheryesyeysyes.pdf}
     \caption{Testing for normality}
     \label{fig:F_chp_resu}
 \end{subfigure}%
 \begin{subfigure}[b]{0.5\textwidth}
 \centering
-    \includegraphics[width = \textwidth]{figures/RplotDenHerHejhej.pdf}
+    \includegraphics[width = 1 \textwidth]{figures/RplotDenHerHejhej.pdf}
     \caption{Testing for \hetero}
     \label{fig:F_chp_hetero}
 \end{subfigure}
@@ -1191,7 +1191,7 @@ p_value_wald
 [1]    0
 \end{lstlisting}
 
-Recall the application of the $F$-test from \ref{sec:app_F_test}, where the $F$-statistic was $43.67925$ and the $p$-value was smaller than $2.2e^-16$. The $F$-statistic is much lower with the hetero robust $F$-test but the $p$-values from both tests reach the same conclusion on the null hypothesis. 
+Recall the application of the $F$-test from \ref{sec:app_F_test}, where the $F$-statistic was $43.67925$ and the $p$-value was smaller than $2.2e-16$. The $F$-statistic is much lower with the hetero robust $F$-test but the $p$-values from both tests reach the same conclusion on the null hypothesis. 
 
 
 

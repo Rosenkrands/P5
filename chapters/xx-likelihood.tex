@@ -81,8 +81,8 @@ Since $\boldsymbol{\hat{\beta}}(\textbf{Y})$ is unbiased, we see that
 \end{align}
 Furthermore, we see that
 \begin{align}
-    E\Big[ \frac{\partial \log f_\textbf{Y}(\textbf{Y};\boldsymbol{\beta})}{\partial \boldsymbol{\beta}}\Big] &= \int \frac{\partial \log f_\textbf{Y}(\textbf{y};\boldsymbol{\beta})}{\partial \boldsymbol{\beta}}f_\textbf{Y}(\textbf{y};\boldsymbol{\beta}) \text{d\textbf{y}} \nonumber \\
-    &=\int  \frac{\partia\textbf{l}}{\partial \boldsymbol{\beta}}f_\textbf{Y}\textbf{(}\textbf{y};\boldsymbol{\beta}) \text{d\textbf{y}} \nonumber \\
+    E\Big[ \frac{\partial \log f_\textbf{Y}(\textbf{Y};\boldsymbol{\beta})}{\partial \boldsymbol{\beta}}\Big] &= \int \frac{\partial \log f_\textbf{Y}(\textbf{y};\boldsymbol{\beta})}{\partial\boldsymbol{\beta}}f_\textbf{Y}(\textbf{y};\boldsymbol{\beta}) \text{d\textbf{y}} \nonumber \\
+    &=\int  \frac{\partial\textbf{l}}{\partial \boldsymbol{\beta}}f_\textbf{Y}\textbf{(}\textbf{y};\boldsymbol{\beta}) \text{d\textbf{y}} \nonumber \\
     &=\frac{\partial}{\partial \boldsymbol{\beta}} \int f_\textbf{Y}(\textbf{y};\boldsymbol{\beta}) \text{d\textbf{y}} \nonumber \\
     &= \textbf{0}_{1 \times k} \label{eq:cramerraoe3stjerner}.
 \end{align}
@@ -114,9 +114,10 @@ A way to estimate parameters for a statistical model is using the likelihood fun
 We will often use the log-likelihood function instead of the likelihood function. 
 This is purely for convenience, as taking the logarithm both simplifies the normal distribution and changes products to sums, making the log-likelihood easier to work with. Firstly the likelihood function will be defined.
 
+\newpage
 \begin{definition} [Likelihood Function]
 \label{def:likelihood_function}
-Given the data $\textbf{y}$ for a parametric model with density function $f_\textbf{Y}(\textbf{y})$ and parameter space $\Theta^k$. 
+Given the data $\textbf{y}$ for a parametric model with density function $f_\textbf{Y}(\textbf{y})$ and parameter space $\Theta^k$.\\
 A likelihood function for $\boldsymbol{\beta}$ is any function of the form 
 \begin{align*}
     L(\boldsymbol{\beta}; \textbf{y}) = c(y_1, y_2, \ldots, y_n)f_\textbf{Y}(y_1, y_2, \ldots, y_n; \boldsymbol{\beta}), 
@@ -164,8 +165,8 @@ Then the following vector of first order partial derivatives of the log-likeliho
     \begin{pmatrix}
         \frac{\partial}{\partial \beta_1}\ell (\boldsymbol{\beta}; \textbf{y}) \\
         \vdots \\
-        \frac{\partial}{\partial \beta_k}\ell (\boldsymbol{\beta}; \textbf{y}).
-    \end{pmatrix}
+        \frac{\partial}{\partial \beta_k}\ell (\boldsymbol{\beta}; \textbf{y})
+    \end{pmatrix}.
 \end{align*}
 \end{definition}
 \begin{example}
@@ -184,7 +185,7 @@ The score function is the log-likelihood function differentiated with respect to
     \begin{bmatrix}
         \dfrac{1}{\sigma^2} \sum_{i=1}^n (y_i - \textbf{x}_i \betabold) \textbf{x}_i \\
         - \dfrac{n}{2 \sigma^2} + \dfrac{\sum_{i=1}^n (y_i - \textbf{x}_i \betabold)^2}{2 \sigma^4}
-    \end{bmatrix}
+    \end{bmatrix}.
 \end{align*}
 \end{example}
 Following the proof of the Cramer-Rao Inequality, theorem \ref{th:cramerrao_inequality}, the next corollary is introduced.
@@ -276,14 +277,14 @@ Under regularity conditions the expected information matrix is equal to the cova
 From the regularity conditions interchanging of the derivative and the integral is allowed. By differentiating \eqref{eq:corollary}
 \begin{align*}
 \textbf{0}_{k} &= \frac{\partial^2}{\partial \boldsymbol{\beta} \partial \boldsymbol{\beta}^\top} \int f_Y(\boldsymbol{\beta};\textbf{y})d\textbf{y} \\
-&=\int \frac{\partial^2}{\partial \boldsymbol{\beta} \partial \boldsymbol{\beta}^\top}f_Y(\textbf{y};\boldsymbol{\beta}) d\textbf{y}
+&=\int \frac{\partial^2}{\partial \boldsymbol{\beta} \partial \boldsymbol{\beta}^\top}f_Y(\textbf{y};\boldsymbol{\beta}) d\textbf{y}.
 \end{align*}
-Now we use the same chain rule as in \eqref{eq:cramerraoe3stjerner}.
+Now we use the same chain rule as in \eqref{eq:cramerraoe3stjerner}
 \begin{align*}
 \int \frac{\partial^2}{\partial \boldsymbol{\beta} \partial \boldsymbol{\beta}^\top}f_Y(\textbf{y};\boldsymbol{\beta}) d\textbf{y} &= \int \frac{\partial}{\partial \boldsymbol{\beta}} \bigg( \frac{\partial log f_Y(\textbf{y};\boldsymbol{\beta})}{\partial \boldsymbol{\beta}^\top} f_Y(\textbf{y};\boldsymbol{\beta}) \bigg)d\textbf{y} \\
 &= \int \bigg( \frac{\partial^2}{\partial \boldsymbol{\beta} \partial \boldsymbol{\beta}^\top } log f_Y(\textbf{y};\boldsymbol{\beta})  \bigg) f_Y(\textbf{y};\boldsymbol{\beta}) d\textbf{y} \\
 & \ \ \ + \int \frac{\partial log f_Y(\textbf{y};\boldsymbol{\beta})}{\partial \boldsymbol{\beta}^\top} \frac{\partial log f_Y(\textbf{y};\boldsymbol{\beta})}{\partial \boldsymbol{\beta}} f_Y(\textbf{y};\boldsymbol{\beta}) d\textbf{y} \\
-& =  -E_{\beta}\bigg[-\frac{\partial^2}{\partial \boldsymbol{\beta} \partial \boldsymbol{\beta}^\top} \ell(\boldsymbol{\beta};\textbf{Y}) \bigg]+  E_{\beta}\bigg[\bigg( \frac{\partial}{\partial \boldsymbol{\beta}}\ell(\boldsymbol{\beta};\textbf{Y}) \bigg)^\top \frac{\partial}{\partial \boldsymbol{\beta}}\ell(\boldsymbol{\beta};\textbf{Y})  \bigg]
+& =  -E_{\beta}\bigg[-\frac{\partial^2}{\partial \boldsymbol{\beta} \partial \boldsymbol{\beta}^\top} \ell(\boldsymbol{\beta};\textbf{Y}) \bigg]+  E_{\beta}\bigg[\bigg( \frac{\partial}{\partial \boldsymbol{\beta}}\ell(\boldsymbol{\beta};\textbf{Y}) \bigg)^\top \frac{\partial}{\partial \boldsymbol{\beta}}\ell(\boldsymbol{\beta};\textbf{Y})  \bigg].
 \end{align*}
 
 Therefore $E_{\beta}\bigg[-\dfrac{\partial^2}{\partial \boldsymbol{\beta} \partial \boldsymbol{\beta}^\top} \ell(\boldsymbol{\beta};\textbf{Y}) \bigg] = E_{\beta}\bigg[\bigg( \dfrac{\partial}{\partial \boldsymbol{\beta}}\ell(\boldsymbol{\beta};\textbf{Y}) \bigg)^\top \dfrac{\partial}{\partial \boldsymbol{\beta}}\ell(\boldsymbol{\beta};\textbf{Y})  \bigg]$, which justifies the rewriting in the lemma. 
